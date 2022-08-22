@@ -26,7 +26,7 @@ type CursorObject = {
  * 
  * @returns A Cursor type
  */
-function Cursor(cursorOptions: object): CursorObject{
+function Cursor(cursorOptions): CursorObject{
     interface cursorOptionsInterface {
         pointers?: string[],
         hideMouse?: boolean,
@@ -53,7 +53,7 @@ function Cursor(cursorOptions: object): CursorObject{
             newCursorOptions[property] = cursorOptionsDefaults[property]
             
     });
-
+    
     this.hideMouse = newCursorOptions.hideMouse;
 
     this.getPointers = ():string[]=>{
@@ -123,8 +123,9 @@ function initializeCanvas(cursor: CursorObject){ //creates a canvas if one is no
             pointer-events:none;
             top: 0;
             left: 0;
-            cursor: ${cursor.hideMouse? "none": "default"};
         `
+        document.querySelector('html').style.cursor = `${(cursor.hideMouse)? "none": "default"}`
+
         document.body.appendChild(cursorCanvas)
     }
 

@@ -83,8 +83,8 @@ function initializeCanvas(cursor) {
             pointer-events:none;
             top: 0;
             left: 0;
-            cursor: ${cursor.hideMouse ? "none" : "default"};
         `;
+        document.querySelector('html').style.cursor = `${(cursor.hideMouse) ? "none" : "default"}`;
         document.body.appendChild(cursorCanvas);
     }
     const ctx = cursorCanvas.getContext('2d');
