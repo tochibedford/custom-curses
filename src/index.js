@@ -1,7 +1,5 @@
-/**
- * jumping right into typescript for the first time by writing a library
- */
-import { animate, init } from './pointers/circle-follower/index.js';
+import { animate, init } from "./pointers/characterFollower/index.js";
+// is this necessary?
 /**
  *
  * Returns a cursor object
@@ -56,19 +54,34 @@ function Cursor(cursorOptions) {
  */
 function Pointer(pointerOptions) {
     const pointerOptionsDefaults = {
+        pointerShape: ['string', '💧'],
         colors: ['default'],
+        size: 50,
         drag: 0,
         xOffset: 0,
         yOffset: 0
     };
-    const newPointerOptions = Object.assign({}, pointerOptions);
+    this.pointerOptions = Object.assign({}, pointerOptions);
     // assigns default values to keys not manually defined in the pointer Options
     Object.keys(pointerOptionsDefaults).forEach(property => {
         if (pointerOptions.hasOwnProperty(property))
-            newPointerOptions[property] = pointerOptions[property];
+            this.pointerOptions[property] = pointerOptions[property];
         else
-            newPointerOptions[property] = pointerOptionsDefaults[property];
+            this.pointerOptions[property] = pointerOptionsDefaults[property];
     });
+    if (this.pointerOptions.pointerShape[0] == 'string') {
+        this.startPointer = () => {
+            const canvas = document.querySelector('.curses-cursor-canvas');
+            const context = canvas.getContext('2d');
+            let objects = [];
+            init(canvas, context, objects, this);
+            animate(canvas, context, objects, objects.length - 1, this);
+        };
+    }
+    else {
+        // implement a secondary type of pointer here
+    }
+    return this;
 }
 function initializeCanvas(cursor) {
     let cursorCanvas = document.querySelector('.curses-cursor-canvas');
@@ -77,22 +90,21 @@ function initializeCanvas(cursor) {
         cursorCanvas.setAttribute('class', 'curses-cursor-canvas');
         cursorCanvas.width = window.innerWidth;
         cursorCanvas.height = window.innerHeight;
-        console.log(cursor.hideMouse);
         cursorCanvas.style.cssText = `
             position: absolute;
             pointer-events:none;
             top: 0;
             left: 0;
         `;
-        document.querySelector('html').style.cursor = `${(cursor.hideMouse) ? "none" : "default"}`;
-        document.querySelector('a').style.cursor = `${(cursor.hideMouse) ? "none" : "default"}`;
-        document.querySelector('button').style.cursor = `${(cursor.hideMouse) ? "none" : "default"}`;
+        document.querySelector('html').style.cursor = `${(cursor.hideMouse) ? "none" : "auto"}`;
+        document.querySelector('a').style.cursor = `${(cursor.hideMouse) ? "none" : "pointer"}`;
+        document.querySelector('button').style.cursor = `${(cursor.hideMouse) ? "none" : "auto"}`;
         document.body.appendChild(cursorCanvas);
     }
     const ctx = cursorCanvas.getContext('2d');
-    let objects = [];
-    init(cursorCanvas, ctx, objects, cursor);
-    animate(cursorCanvas, ctx, objects, cursor);
+    cursor.getPointers().forEach(pointer => {
+        pointer.startPointer();
+    });
     return cursorCanvas;
 }
 export { Cursor, Pointer, initializeCanvas };

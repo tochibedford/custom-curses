@@ -1,17 +1,11 @@
 /**
  * jumping right into typescript for the first time by writing a library
  */
-
-import {animate, init} from './pointers/circle-follower/index.js'
+import {CursorObject, PointerObject, pointerOptionsInterface, cursorOptionsInterface} from "./types/types"
+import {animate, init} from "./pointers/characterFollower/index.js"
 
 // is this necessary?
-type CursorObject = {
-    hideMouse: boolean,
-    getPointers: string[],
-    getDrag: number,
-    getXOffset: number,
-    getYOffset: number,
-}
+
 
 /**
  * 
@@ -27,13 +21,6 @@ type CursorObject = {
  * @returns A Cursor type
  */
 function Cursor(cursorOptions): CursorObject{
-    interface cursorOptionsInterface {
-        pointers?: string[],
-        hideMouse?: boolean,
-        drag?: number,
-        xOffset?: number,
-        yOffset?: number
-    }
     
     const cursorOptionsDefaults: cursorOptionsInterface = {
         pointers: ['default'],
@@ -83,31 +70,38 @@ function Cursor(cursorOptions): CursorObject{
  * @param {Number} pointerOptions.xOffset - Number showing the x offset of the pointer
  * @param {Number} pointerOptions.yOffset - Number showing the y offset of the pointer
  */
-function Pointer(pointerOptions: object){
-    interface pointerOptionsInterface {
-        colors?: string[],
-        drag?: number,
-        scale?: number,
-        xOffset?: number,
-        yOffset?: number,
-    }
-
+function Pointer(pointerOptions: pointerOptionsInterface): PointerObject{
     const pointerOptionsDefaults: pointerOptionsInterface = {
+        pointerShape: ['string','💧'],
         colors: ['default'],
+        size: 50,
         drag: 0,
         xOffset: 0,
         yOffset: 0
     }
 
-    const newPointerOptions: pointerOptionsInterface = Object.assign({}, pointerOptions)
-    
+    this.pointerOptions = Object.assign({}, pointerOptions)
     // assigns default values to keys not manually defined in the pointer Options
     Object.keys(pointerOptionsDefaults).forEach(property => {
         if(pointerOptions.hasOwnProperty(property))
-            newPointerOptions[property] = pointerOptions[property]
+            this.pointerOptions[property] = pointerOptions[property]
         else
-            newPointerOptions[property] = pointerOptionsDefaults[property]
+            this.pointerOptions[property] = pointerOptionsDefaults[property]
     });
+
+    if(this.pointerOptions.pointerShape[0]=='string'){
+        this.startPointer = ()=>{
+            const canvas:HTMLCanvasElement = document.querySelector('.curses-cursor-canvas')
+            const context = canvas.getContext('2d')
+            let objects = []
+            init(canvas, context, objects, this)
+            animate(canvas, context, objects, objects.length-1, this)
+        }
+    }else{
+        // implement a secondary type of pointer here
+    }
+
+    return this
 }
 
 function initializeCanvas(cursor: CursorObject){ //creates a canvas if one is not there
@@ -117,25 +111,23 @@ function initializeCanvas(cursor: CursorObject){ //creates a canvas if one is no
         cursorCanvas.setAttribute('class', 'curses-cursor-canvas')
         cursorCanvas.width = window.innerWidth
         cursorCanvas.height = window.innerHeight
-        console.log(cursor.hideMouse)
         cursorCanvas.style.cssText = `
             position: absolute;
             pointer-events:none;
             top: 0;
             left: 0;
         `
-        document.querySelector('html').style.cursor = `${(cursor.hideMouse)? "none": "default"}`
-        document.querySelector('a').style.cursor = `${(cursor.hideMouse)? "none": "default"}`
-        document.querySelector('button').style.cursor = `${(cursor.hideMouse)? "none": "default"}`
+        document.querySelector('html').style.cursor = `${(cursor.hideMouse)? "none": "auto"}`
+        document.querySelector('a').style.cursor = `${(cursor.hideMouse)? "none": "pointer"}`
+        document.querySelector('button').style.cursor = `${(cursor.hideMouse)? "none": "auto"}`
         document.body.appendChild(cursorCanvas)
     }
 
-    const ctx = cursorCanvas.getContext('2d') 
+    const ctx = cursorCanvas.getContext('2d')
+    cursor.getPointers().forEach(pointer=>{
+        pointer.startPointer()
+    })
     
-
-    let objects = []
-    init(cursorCanvas, ctx, objects, cursor)
-    animate(cursorCanvas, ctx, objects, cursor)
     
     return cursorCanvas
 }
@@ -144,5 +136,6 @@ function initializeCanvas(cursor: CursorObject){ //creates a canvas if one is no
 export {
     Cursor, 
     Pointer, 
-    initializeCanvas
+    initializeCanvas,
+    CursorObject
 }
