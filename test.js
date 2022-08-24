@@ -3,13 +3,13 @@ import {Cursor, Pointer, initializeCanvas} from './src/index.js'
 const pointer1 = new Pointer({
     pointerShape: ['string', '💧'],
     size: 100,
-    drag: 0, 
+    drag: 0.1, 
 })
 
 const pointer2 = new Pointer({
     pointerShape: ['string', '👆'],
     size: 100,
-    drag: 0.2, 
+    drag: 0.98, 
 })
 
 const cursor1 = new Cursor({
