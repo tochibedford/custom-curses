@@ -78,14 +78,12 @@ function animate(canvas:HTMLCanvasElement, context:CanvasRenderingContext2D, obj
     const cleanCanvas = animatedList.reduce((prev, curr)=>{
         return prev && curr
     })
-    console.log()
     if(cleanCanvas){
         context.clearRect(0, 0, canvas.width, canvas.height)
         objects.forEach(obj=>{
             obj.animated = false
         })
     }
-    console.log(objects)
     // objects[objectIndex].x = mouse.x
     // objects[objectIndex].y = mouse.y
     objects[objectIndex].dx = ((mouse.x-objects[objectIndex].x) + pointer.pointerOptions.xOffset + objects[objectIndex].focusPoint.x)*(1-pointer.pointerOptions.drag)
