@@ -60,7 +60,7 @@ function init(canvas:HTMLCanvasElement, context:CanvasRenderingContext2D, object
         x: 0,
         y: 85
     }
-    objects.push(new Character(canvas.width/2, canvas.height/2, 0, 0, pointer.pointerOptions.pointerShape[1], pointer.pointerOptions.drag, focusPoint, 100, `#4637a5`, canvas, context))
+    objects.push(new Character(canvas.width/2, canvas.height/2, 0, 0, pointer.pointerOptions.pointerShape[1], pointer.pointerOptions.drag, focusPoint, pointer.pointerOptions.size, `#4637a5`, canvas, context))
 }
 
 function animate(canvas:HTMLCanvasElement, context:CanvasRenderingContext2D, objects: Character[], objectIndex: number, pointer: PointerObject) {
