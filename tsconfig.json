@@ -4,5 +4,5 @@
         "watch": true,
         "lib": ["dom", "es2017"],
     },
-    "exclude": ["node_modules", "src/types"]
+    "exclude": ["node_modules", "./src/types"]
 }

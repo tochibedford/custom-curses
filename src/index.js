@@ -52,7 +52,7 @@ function Cursor(cursorOptions) {
  * @param {Number} pointerOptions.xOffset - Number showing the x offset of the pointer
  * @param {Number} pointerOptions.yOffset - Number showing the y offset of the pointer
  */
-function Pointer(pointerOptions) {
+function Pointer(pointerOptions, objects) {
     const pointerOptionsDefaults = {
         pointerShape: ['string', '💧'],
         colors: ['default'],
@@ -61,6 +61,7 @@ function Pointer(pointerOptions) {
         xOffset: 0,
         yOffset: 0
     };
+    this.animated = false;
     this.pointerOptions = Object.assign({}, pointerOptions);
     // assigns default values to keys not manually defined in the pointer Options
     Object.keys(pointerOptionsDefaults).forEach(property => {
@@ -73,13 +74,12 @@ function Pointer(pointerOptions) {
         this.startPointer = () => {
             const canvas = document.querySelector('.curses-cursor-canvas');
             const context = canvas.getContext('2d');
-            let objects = [];
             init(canvas, context, objects, this);
             animate(canvas, context, objects, objects.length - 1, this);
         };
     }
     else {
-        // implement a secondary type of pointer here
+        // TODO: implement a secondary type of pointer here
     }
     return this;
 }

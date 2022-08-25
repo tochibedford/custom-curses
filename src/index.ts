@@ -70,7 +70,7 @@ function Cursor(cursorOptions): CursorObject{
  * @param {Number} pointerOptions.xOffset - Number showing the x offset of the pointer
  * @param {Number} pointerOptions.yOffset - Number showing the y offset of the pointer
  */
-function Pointer(pointerOptions: pointerOptionsInterface): PointerObject{
+function Pointer(pointerOptions: pointerOptionsInterface, objects): PointerObject{
     const pointerOptionsDefaults: pointerOptionsInterface = {
         pointerShape: ['string','💧'],
         colors: ['default'],
@@ -80,6 +80,7 @@ function Pointer(pointerOptions: pointerOptionsInterface): PointerObject{
         yOffset: 0
     }
 
+    this.animated = false
     this.pointerOptions = Object.assign({}, pointerOptions)
     // assigns default values to keys not manually defined in the pointer Options
     Object.keys(pointerOptionsDefaults).forEach(property => {
@@ -93,12 +94,11 @@ function Pointer(pointerOptions: pointerOptionsInterface): PointerObject{
         this.startPointer = ()=>{
             const canvas:HTMLCanvasElement = document.querySelector('.curses-cursor-canvas')
             const context = canvas.getContext('2d')
-            let objects = []
             init(canvas, context, objects, this)
             animate(canvas, context, objects, objects.length-1, this)
         }
     }else{
-        // implement a secondary type of pointer here
+        // TODO: implement a secondary type of pointer here
     }
 
     return this
@@ -131,6 +131,7 @@ function initializeCanvas(cursor: CursorObject){ //creates a canvas if one is no
     
     return cursorCanvas
 }
+
 
 
 export {

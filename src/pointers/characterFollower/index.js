@@ -12,6 +12,7 @@ function Character(x, y, dx, dy, character, drag, focusPoint, size, color, canva
     this.size = size;
     this.color = color;
     this.focusPoint = focusPoint;
+    this.animated = false;
     this.draw = () => {
         context.font = `${this.size}px serif`;
         context.textAlign = "center";
@@ -41,7 +42,23 @@ function animate(canvas, context, objects, objectIndex, pointer) {
         animate(canvas, context, objects, objectIndex, pointer);
     });
     // context.clearRect(0, 0, canvas.width, canvas.height)
-    // TODO: Implement canvas.clearRect for multiple pointers. Maybe using a counter in index.ts?
+    // TODO: Implement the cleanCanvas mechanism asychronously and independent of the animate functions?
+    // this is blocking and probably inefficient as it will itterate the list twice
+    objects[objectIndex].animated = true;
+    const animatedList = objects.map((obj) => {
+        return obj.animated;
+    });
+    const cleanCanvas = animatedList.reduce((prev, curr) => {
+        return prev && curr;
+    });
+    console.log();
+    if (cleanCanvas) {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        objects.forEach(obj => {
+            obj.animated = false;
+        });
+    }
+    console.log(objects);
     // objects[objectIndex].x = mouse.x
     // objects[objectIndex].y = mouse.y
     objects[objectIndex].dx = ((mouse.x - objects[objectIndex].x) + pointer.pointerOptions.xOffset + objects[objectIndex].focusPoint.x) * (1 - pointer.pointerOptions.drag);
