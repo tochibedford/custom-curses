@@ -61,7 +61,6 @@ function Pointer(pointerOptions, objects) {
         xOffset: 0,
         yOffset: 0
     };
-    this.animated = false;
     this.pointerOptions = Object.assign({}, pointerOptions);
     // assigns default values to keys not manually defined in the pointer Options
     Object.keys(pointerOptionsDefaults).forEach(property => {
@@ -75,7 +74,6 @@ function Pointer(pointerOptions, objects) {
             const canvas = document.querySelector('.curses-cursor-canvas');
             const context = canvas.getContext('2d');
             init(canvas, context, objects, this);
-            animate(canvas, context, objects, objects.length - 1, this);
         };
     }
     else {
@@ -83,7 +81,17 @@ function Pointer(pointerOptions, objects) {
     }
     return this;
 }
-function initializeCanvas(cursor) {
+function syncAnimate(objects, canvas, context) {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    requestAnimationFrame(() => {
+        syncAnimate(objects, canvas, context);
+    });
+    // this is blocking and probably inefficient as it will itterate the list twice
+    objects.forEach(objectChar => {
+        animate(objectChar, objectChar.pointer);
+    });
+}
+function initializeCanvas(cursor, objects) {
     let cursorCanvas = document.querySelector('.curses-cursor-canvas');
     if (!cursorCanvas) {
         cursorCanvas = document.createElement('canvas');
@@ -105,6 +113,7 @@ function initializeCanvas(cursor) {
     cursor.getPointers().forEach(pointer => {
         pointer.startPointer();
     });
+    syncAnimate(objects, cursorCanvas, ctx);
     return cursorCanvas;
 }
 export { Cursor, Pointer, initializeCanvas };
