@@ -1,7 +1,7 @@
 /**
  * jumping right into typescript for the first time by writing a library
  */
-import {CursorObject, PointerObject, pointerOptionsInterface, cursorOptionsInterface} from "./types/types"
+import {CursorObject, PointerObject, pointerOptionsInterface, cursorOptionsInterface, Character} from "./types/types"
 import {animate, init} from "./pointers/characterFollower/index.js"
 
 // is this necessary?
@@ -80,7 +80,6 @@ function Pointer(pointerOptions: pointerOptionsInterface, objects): PointerObjec
         yOffset: 0
     }
 
-    this.animated = false
     this.pointerOptions = Object.assign({}, pointerOptions)
     // assigns default values to keys not manually defined in the pointer Options
     Object.keys(pointerOptionsDefaults).forEach(property => {
@@ -95,7 +94,7 @@ function Pointer(pointerOptions: pointerOptionsInterface, objects): PointerObjec
             const canvas:HTMLCanvasElement = document.querySelector('.curses-cursor-canvas')
             const context = canvas.getContext('2d')
             init(canvas, context, objects, this)
-            animate(canvas, context, objects, objects.length-1, this)
+            
         }
     }else{
         // TODO: implement a secondary type of pointer here
@@ -104,7 +103,22 @@ function Pointer(pointerOptions: pointerOptionsInterface, objects): PointerObjec
     return this
 }
 
-function initializeCanvas(cursor: CursorObject){ //creates a canvas if one is not there
+function syncAnimate(objects: Character[], canvas:HTMLCanvasElement, context:CanvasRenderingContext2D){
+    context.clearRect(0, 0, canvas.width, canvas.height)
+    requestAnimationFrame(()=>{
+        syncAnimate(objects, canvas, context)
+    })
+
+    // this is blocking and probably inefficient as it will itterate the list twice
+    objects.forEach(objectChar=>{
+        animate(objectChar, objectChar.pointer)
+    })
+
+    
+
+}
+
+function initializeCanvas(cursor: CursorObject, objects: Character[]){ //creates a canvas if one is not there
     let cursorCanvas:HTMLCanvasElement = document.querySelector('.curses-cursor-canvas');
     if(!cursorCanvas){
         cursorCanvas = document.createElement('canvas')
@@ -127,7 +141,8 @@ function initializeCanvas(cursor: CursorObject){ //creates a canvas if one is no
     cursor.getPointers().forEach(pointer=>{
         pointer.startPointer()
     })
-    
+
+    syncAnimate(objects, cursorCanvas, ctx)
     
     return cursorCanvas
 }

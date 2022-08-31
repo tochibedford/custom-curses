@@ -31,4 +31,4 @@ const cursor1 = new Cursor({
     hideMouse: true,
 });
 
-let canvasLol = initializeCanvas(cursor1);
+let canvasLol = initializeCanvas(cursor1, objects);

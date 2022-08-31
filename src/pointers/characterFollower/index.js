@@ -2,7 +2,7 @@ let mouse = {
     x: window.innerWidth / 2,
     y: window.innerHeight / 2
 };
-function Character(x, y, dx, dy, character, drag, focusPoint, size, color, canvas, context) {
+function Character(x, y, dx, dy, character, drag, focusPoint, size, color, canvas, context, pointer) {
     this.x = x;
     this.y = y;
     this.dx = dx;
@@ -12,7 +12,7 @@ function Character(x, y, dx, dy, character, drag, focusPoint, size, color, canva
     this.size = size;
     this.color = color;
     this.focusPoint = focusPoint;
-    this.animated = false;
+    this.pointer = pointer;
     this.draw = () => {
         context.font = `${this.size}px serif`;
         context.textAlign = "center";
@@ -35,37 +35,18 @@ function init(canvas, context, objects, pointer) {
         x: 0,
         y: 85
     };
-    objects.push(new Character(canvas.width / 2, canvas.height / 2, 0, 0, pointer.pointerOptions.pointerShape[1], pointer.pointerOptions.drag, focusPoint, pointer.pointerOptions.size, `#4637a5`, canvas, context));
+    objects.push(new Character(canvas.width / 2, canvas.height / 2, 0, 0, pointer.pointerOptions.pointerShape[1], pointer.pointerOptions.drag, focusPoint, pointer.pointerOptions.size, `#4637a5`, canvas, context, pointer));
 }
-function animate(canvas, context, objects, objectIndex, pointer) {
-    requestAnimationFrame(() => {
-        animate(canvas, context, objects, objectIndex, pointer);
-    });
-    // context.clearRect(0, 0, canvas.width, canvas.height)
-    // TODO: Implement the cleanCanvas mechanism asychronously and independent of the animate functions?
-    // this is blocking and probably inefficient as it will itterate the list twice
-    objects[objectIndex].animated = true;
-    const animatedList = objects.map((obj) => {
-        return obj.animated;
-    });
-    const cleanCanvas = animatedList.reduce((prev, curr) => {
-        return prev && curr;
-    });
-    if (cleanCanvas) {
-        context.clearRect(0, 0, canvas.width, canvas.height);
-        objects.forEach(obj => {
-            obj.animated = false;
-        });
-    }
-    // objects[objectIndex].x = mouse.x
-    // objects[objectIndex].y = mouse.y
-    objects[objectIndex].dx = ((mouse.x - objects[objectIndex].x) + pointer.pointerOptions.xOffset + objects[objectIndex].focusPoint.x) * (1 - pointer.pointerOptions.drag);
-    objects[objectIndex].dy = ((mouse.y - objects[objectIndex].y) + pointer.pointerOptions.yOffset + objects[objectIndex].focusPoint.y) * (1 - pointer.pointerOptions.drag);
-    objects[objectIndex].update();
+function animate(objectChar, pointer) {
+    // TODO: Implement the pointer Template for future pointers
+    // objectChar.x = mouse.x
+    // objectChar.y = mouse.y
+    objectChar.dx = ((mouse.x - objectChar.x) + pointer.pointerOptions.xOffset + objectChar.focusPoint.x) * (1 - pointer.pointerOptions.drag);
+    objectChar.dy = ((mouse.y - objectChar.y) + pointer.pointerOptions.yOffset + objectChar.focusPoint.y) * (1 - pointer.pointerOptions.drag);
+    objectChar.update();
 }
 window.addEventListener('mousemove', (event) => {
     mouse.x = event.clientX;
     mouse.y = event.clientY;
 });
-let colors = [];
 export { animate, init };
