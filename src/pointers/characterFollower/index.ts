@@ -69,6 +69,7 @@ function animate(canvas:HTMLCanvasElement, context:CanvasRenderingContext2D, obj
     })
     // context.clearRect(0, 0, canvas.width, canvas.height)
     // TODO: Implement the cleanCanvas mechanism asychronously and independent of the animate functions?
+    // TODO: Implement the pointer Template for future pointers
     
     // this is blocking and probably inefficient as it will itterate the list twice
     objects[objectIndex].animated = true
