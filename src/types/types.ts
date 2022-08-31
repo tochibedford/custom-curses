@@ -29,7 +29,29 @@ interface CursorObject {
     getYOffset(): number,
 }
 
+type focusPoint = {
+    x: number,
+    y: number
+}
+
+type Character = {
+    x: number,
+    y: number,
+    dx: number,
+    dy: number,
+    character: string,
+    focusPoint: focusPoint,
+    size: number,
+    pointer: PointerObject,
+    color: string,
+    draw(): void
+    update(): void
+}
+
 export {CursorObject,
         PointerObject,
         pointerOptionsInterface,
-        cursorOptionsInterface}
+        cursorOptionsInterface,
+        focusPoint,
+        Character
+    }
