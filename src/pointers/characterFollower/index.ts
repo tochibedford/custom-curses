@@ -5,11 +5,12 @@ let mouse = {
     y: window.innerHeight/2
 }
 
-function Character(x: number, y:number, dx:number, dy:number, character:string, drag: number, focusPoint: focusPoint, size:number, color:string, canvas:HTMLCanvasElement, context:CanvasRenderingContext2D, pointer: PointerObject){
+function Character(x: number, y:number, dx:number, dy:number, rotation: number, character:string, drag: number, focusPoint: focusPoint, size:number, color:string, canvas:HTMLCanvasElement, context:CanvasRenderingContext2D, pointer: PointerObject){
     this.x = x
     this.y = y
     this.dx = dx
     this.dy = dy
+    this.rotation = rotation 
     this.character = character
     this.drag = drag
     this.size = size
@@ -18,9 +19,13 @@ function Character(x: number, y:number, dx:number, dy:number, character:string, 
     this.pointer = pointer
 
     this.draw = ()=>{
+        context.save()
+        context.translate(this.x-this.size, this.y)
+        context.rotate((this.rotation * (Math.PI/360)))
         context.font = `${this.size}px serif`
         context.textAlign = "center"
-        context.fillText(this.character, this.x, this.y)
+        context.fillText(this.character, 0, 0)
+        context.restore()
     }
 
     this.update = ()=>{
@@ -41,7 +46,7 @@ function init(canvas:HTMLCanvasElement, context:CanvasRenderingContext2D, object
         x: 0,
         y: 85
     }
-    objects.push(new Character(canvas.width/2, canvas.height/2, 0, 0, pointer.pointerOptions.pointerShape[1], pointer.pointerOptions.drag, focusPoint, pointer.pointerOptions.size, `#4637a5`, canvas, context, pointer))
+    objects.push(new Character(canvas.width/2, canvas.height/2, 0, 0, pointer.pointerOptions.rotation, pointer.pointerOptions.pointerShape[1], pointer.pointerOptions.drag, focusPoint, pointer.pointerOptions.size, `#4637a5`, canvas, context, pointer))
 }
 
 function animate(objectChar: Character, pointer: PointerObject) {

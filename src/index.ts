@@ -67,6 +67,8 @@ function Cursor(cursorOptions): CursorObject{
  * @param {Object} pointerOptions - options for the pointer
  * @param {Array[string]} pointerOptions.colors - List of all colors you want to use for the pointer
  * @param {Number} pointerOptions.drag - Number from 0-1 indicating how damped you want the pointer when following the cursor position
+ * @param {Number} pointerOptions.size - Number representing size, in pixels, of the pointer
+ * @param {Number} pointerOptions.rotation - Number, in degrees, indicating rotation angle of the pointer
  * @param {Number} pointerOptions.xOffset - Number showing the x offset of the pointer
  * @param {Number} pointerOptions.yOffset - Number showing the y offset of the pointer
  */
@@ -74,8 +76,9 @@ function Pointer(pointerOptions: pointerOptionsInterface, objects): PointerObjec
     const pointerOptionsDefaults: pointerOptionsInterface = {
         pointerShape: ['string','💧'],
         colors: ['default'],
-        size: 50,
         drag: 0,
+        size: 50,
+        rotation: 0,
         xOffset: 0,
         yOffset: 0
     }
@@ -103,20 +106,6 @@ function Pointer(pointerOptions: pointerOptionsInterface, objects): PointerObjec
     return this
 }
 
-function syncAnimate(objects: Character[], canvas:HTMLCanvasElement, context:CanvasRenderingContext2D){
-    context.clearRect(0, 0, canvas.width, canvas.height)
-    requestAnimationFrame(()=>{
-        syncAnimate(objects, canvas, context)
-    })
-
-    // this is blocking and probably inefficient as it will itterate the list twice
-    objects.forEach(objectChar=>{
-        animate(objectChar, objectChar.pointer)
-    })
-
-    
-
-}
 
 function initializeCanvas(cursor: CursorObject, objects: Character[]){ //creates a canvas if one is not there
     let cursorCanvas:HTMLCanvasElement = document.querySelector('.curses-cursor-canvas');
@@ -126,28 +115,39 @@ function initializeCanvas(cursor: CursorObject, objects: Character[]){ //creates
         cursorCanvas.width = window.innerWidth
         cursorCanvas.height = window.innerHeight
         cursorCanvas.style.cssText = `
-            position: absolute;
-            pointer-events:none;
-            top: 0;
-            left: 0;
+        position: absolute;
+        pointer-events:none;
+        top: 0;
+        left: 0;
         `
         document.querySelector('html').style.cursor = `${(cursor.hideMouse)? "none": "auto"}`
         document.querySelector('a').style.cursor = `${(cursor.hideMouse)? "none": "pointer"}`
         document.querySelector('button').style.cursor = `${(cursor.hideMouse)? "none": "auto"}`
         document.body.appendChild(cursorCanvas)
     }
-
+    
     const ctx = cursorCanvas.getContext('2d')
     cursor.getPointers().forEach(pointer=>{
         pointer.startPointer()
     })
-
+    
     syncAnimate(objects, cursorCanvas, ctx)
     
     return cursorCanvas
 }
 
+function syncAnimate(objects: Character[], canvas:HTMLCanvasElement, context:CanvasRenderingContext2D){
+    context.clearRect(0, 0, canvas.width, canvas.height)
+    requestAnimationFrame(()=>{
+        syncAnimate(objects, canvas, context)
+    })
 
+    // this is blocking and probably inefficient as it will itterate the list twice
+    objects.forEach(objectChar=>{
+        animate(objectChar, objectChar.pointer)
+    }) 
+
+}
 
 export {
     Cursor, 

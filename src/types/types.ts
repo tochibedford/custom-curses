@@ -10,6 +10,7 @@ interface cursorOptionsInterface {
 interface pointerOptionsInterface {
     pointerShape?: string[],
     colors?: string[],
+    rotation?: number,
     drag?: number,
     size?: number,
     xOffset?: number,
@@ -39,6 +40,7 @@ type Character = {
     y: number,
     dx: number,
     dy: number,
+    rotation: number,
     character: string,
     focusPoint: focusPoint,
     size: number,
