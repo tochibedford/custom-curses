@@ -5,7 +5,8 @@ let objects = []
 const pointer1 = new Pointer({
     pointerShape: ['string', '👆'],
     size: 100,
-    drag: 0.1, 
+    drag: 0.1,
+    rotation: -40,
     xOffset: 15
 }, objects)
 

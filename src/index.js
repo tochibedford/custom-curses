@@ -49,6 +49,8 @@ function Cursor(cursorOptions) {
  * @param {Object} pointerOptions - options for the pointer
  * @param {Array[string]} pointerOptions.colors - List of all colors you want to use for the pointer
  * @param {Number} pointerOptions.drag - Number from 0-1 indicating how damped you want the pointer when following the cursor position
+ * @param {Number} pointerOptions.size - Number representing size, in pixels, of the pointer
+ * @param {Number} pointerOptions.rotation - Number, in degrees, indicating rotation angle of the pointer
  * @param {Number} pointerOptions.xOffset - Number showing the x offset of the pointer
  * @param {Number} pointerOptions.yOffset - Number showing the y offset of the pointer
  */
@@ -56,8 +58,9 @@ function Pointer(pointerOptions, objects) {
     const pointerOptionsDefaults = {
         pointerShape: ['string', '💧'],
         colors: ['default'],
-        size: 50,
         drag: 0,
+        size: 50,
+        rotation: 0,
         xOffset: 0,
         yOffset: 0
     };
@@ -81,16 +84,6 @@ function Pointer(pointerOptions, objects) {
     }
     return this;
 }
-function syncAnimate(objects, canvas, context) {
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    requestAnimationFrame(() => {
-        syncAnimate(objects, canvas, context);
-    });
-    // this is blocking and probably inefficient as it will itterate the list twice
-    objects.forEach(objectChar => {
-        animate(objectChar, objectChar.pointer);
-    });
-}
 function initializeCanvas(cursor, objects) {
     let cursorCanvas = document.querySelector('.curses-cursor-canvas');
     if (!cursorCanvas) {
@@ -99,10 +92,10 @@ function initializeCanvas(cursor, objects) {
         cursorCanvas.width = window.innerWidth;
         cursorCanvas.height = window.innerHeight;
         cursorCanvas.style.cssText = `
-            position: absolute;
-            pointer-events:none;
-            top: 0;
-            left: 0;
+        position: absolute;
+        pointer-events:none;
+        top: 0;
+        left: 0;
         `;
         document.querySelector('html').style.cursor = `${(cursor.hideMouse) ? "none" : "auto"}`;
         document.querySelector('a').style.cursor = `${(cursor.hideMouse) ? "none" : "pointer"}`;
@@ -115,5 +108,15 @@ function initializeCanvas(cursor, objects) {
     });
     syncAnimate(objects, cursorCanvas, ctx);
     return cursorCanvas;
+}
+function syncAnimate(objects, canvas, context) {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    requestAnimationFrame(() => {
+        syncAnimate(objects, canvas, context);
+    });
+    // this is blocking and probably inefficient as it will itterate the list twice
+    objects.forEach(objectChar => {
+        animate(objectChar, objectChar.pointer);
+    });
 }
 export { Cursor, Pointer, initializeCanvas };

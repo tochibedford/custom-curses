@@ -2,11 +2,12 @@ let mouse = {
     x: window.innerWidth / 2,
     y: window.innerHeight / 2
 };
-function Character(x, y, dx, dy, character, drag, focusPoint, size, color, canvas, context, pointer) {
+function Character(x, y, dx, dy, rotation, character, drag, focusPoint, size, color, canvas, context, pointer) {
     this.x = x;
     this.y = y;
     this.dx = dx;
     this.dy = dy;
+    this.rotation = rotation;
     this.character = character;
     this.drag = drag;
     this.size = size;
@@ -14,9 +15,13 @@ function Character(x, y, dx, dy, character, drag, focusPoint, size, color, canva
     this.focusPoint = focusPoint;
     this.pointer = pointer;
     this.draw = () => {
+        context.save();
+        context.translate(this.x - this.size, this.y);
+        context.rotate((this.rotation * (Math.PI / 360)));
         context.font = `${this.size}px serif`;
         context.textAlign = "center";
-        context.fillText(this.character, this.x, this.y);
+        context.fillText(this.character, 0, 0);
+        context.restore();
     };
     this.update = () => {
         if (this.x >= (canvas.width - this.size / 2) || this.x - this.size / 2 <= 0) {
@@ -35,7 +40,7 @@ function init(canvas, context, objects, pointer) {
         x: 0,
         y: 85
     };
-    objects.push(new Character(canvas.width / 2, canvas.height / 2, 0, 0, pointer.pointerOptions.pointerShape[1], pointer.pointerOptions.drag, focusPoint, pointer.pointerOptions.size, `#4637a5`, canvas, context, pointer));
+    objects.push(new Character(canvas.width / 2, canvas.height / 2, 0, 0, pointer.pointerOptions.rotation, pointer.pointerOptions.pointerShape[1], pointer.pointerOptions.drag, focusPoint, pointer.pointerOptions.size, `#4637a5`, canvas, context, pointer));
 }
 function animate(objectChar, pointer) {
     // TODO: Implement the pointer Template for future pointers
