@@ -20,11 +20,13 @@ function Character(x: number, y:number, dx:number, dy:number, rotation: number, 
 
     this.draw = ()=>{
         context.save()
-        context.translate(this.x-this.size, this.y)
+        context.translate(this.x, this.y)
         context.rotate((this.rotation * (Math.PI/360)))
         context.font = `${this.size}px serif`
         context.textAlign = "center"
-        context.fillText(this.character, 0, 0)
+        // context.fillStyle = 'red' /* use this to check context */
+        // context.fillRect(0,0,100, 100)
+        context.fillText(this.character, 0+pointer.pointerOptions.xCharOffset, 0+pointer.pointerOptions.yCharOffset)
         context.restore()
     }
 
@@ -44,7 +46,7 @@ function Character(x: number, y:number, dx:number, dy:number, rotation: number, 
 function init(canvas:HTMLCanvasElement, context:CanvasRenderingContext2D, objects, pointer:PointerObject){
     let focusPoint = {
         x: 0,
-        y: 85
+        y: 0
     }
     objects.push(new Character(canvas.width/2, canvas.height/2, 0, 0, pointer.pointerOptions.rotation, pointer.pointerOptions.pointerShape[1], pointer.pointerOptions.drag, focusPoint, pointer.pointerOptions.size, `#4637a5`, canvas, context, pointer))
 }

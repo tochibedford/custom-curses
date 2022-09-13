@@ -10,3 +10,4 @@ function getDistance(x1, y1, x2, y2) {
     //using the pythagorean theorem
     return Math.sqrt(Math.pow(xDistance, 2) + Math.pow(yDistance, 2));
 }
+//# sourceMappingURL=helpers.js.map

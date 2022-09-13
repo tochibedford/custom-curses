@@ -61,6 +61,8 @@ function Pointer(pointerOptions, objects) {
         drag: 0,
         size: 50,
         rotation: 0,
+        xCharOffset: 0,
+        yCharOffset: 0,
         xOffset: 0,
         yOffset: 0
     };
@@ -96,10 +98,12 @@ function initializeCanvas(cursor, objects) {
         pointer-events:none;
         top: 0;
         left: 0;
+        z-index: 10000;
         `;
         document.querySelector('html').style.cursor = `${(cursor.hideMouse) ? "none" : "auto"}`;
         document.querySelector('a').style.cursor = `${(cursor.hideMouse) ? "none" : "pointer"}`;
         document.querySelector('button').style.cursor = `${(cursor.hideMouse) ? "none" : "auto"}`;
+        document.querySelector('svg').style.cursor = `${(cursor.hideMouse) ? "none" : "auto"}`;
         document.body.appendChild(cursorCanvas);
     }
     const ctx = cursorCanvas.getContext('2d');
@@ -120,3 +124,4 @@ function syncAnimate(objects, canvas, context) {
     });
 }
 export { Cursor, Pointer, initializeCanvas };
+//# sourceMappingURL=index.js.map

@@ -1,0 +1,33 @@
+*, *::after, *::before{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body{
+    font-family: 'Courier New', Courier, monospace;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #8EC5FC;
+    background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
+    text-align: center;
+}
+button{
+    margin: 3em 0em;
+    width: 100%;
+    height: 50px;
+    background: none;
+    transition: background-color 1s, box-shadow 1s, transform 1s;
+
+}
+button:hover{
+    background-color: #8EC5FC;
+    transform: translate(-20px, 20px);
+    box-shadow: 
+    5px -5px 2px  0px #8EC5FC,
+    10px -10px 1px 0px black,
+    15px -15px 3px  0px #E0C3FC,
+    20px -20px 5px 0px black;
+}

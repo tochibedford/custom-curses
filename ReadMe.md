@@ -10,7 +10,7 @@ It utilizes the HTMLCanvasElement .
 
 Preview:
 ```
-import {Cursor, Pointer, initializeCanvas} from './src/index.js'
+import {Cursor, Pointer, initializeCanvas} from 'custom-curses'
 let objects = []
 const pointer1 = new Pointer({pointerShape: ['string', '👆'],size: 100,drag: 0.1, xOffset: 15}, objects)
 const pointer2 = new Pointer({pointerShape: ['string', '😲'],size: 20,drag: 0.9, xOffset:100, yOffset: 50}, objects)
@@ -19,6 +19,8 @@ const cursor1 = new Cursor({pointers: [pointer1, pointer2, pointer3],drag: 0, //
 let canvasObject = initializeCanvas(cursor1, objects);
 ```
 ![Preview GIF](https://user-images.githubusercontent.com/34871260/186636536-4dff68f9-8b2d-45f2-aeee-0040b52530e1.gif)
+
+More example usages in `./examples/`
 
 
 ## Features
@@ -34,8 +36,12 @@ let canvasObject = initializeCanvas(cursor1, objects);
  - The cursor object is then drawn to the canvas. For each animation loop It waits for all canvas objects to draw and update before cloearing the canvas.
  - The canvas element is only allowed to have 1 Cursor Object, not sure why anyone would want other wise.
 
+
 ## Installation
-This isn't a fully fledged package yet, but for now you can always clone this repo
+Using npm:
+`npm install custom-curses`
+
+Provision will be made for a cdn link
 
 
 ## Development

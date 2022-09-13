@@ -1,0 +1,27 @@
+{
+  "name": "custom-curses",
+  "version": "0.1.0",
+  "description": "A simple Library to add beautiful custom cursors to your webpage.",
+  "main": "./dist/index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tochibedford/custom-curses.git"
+  },
+  "keywords": [
+    "cursor",
+    "curses",
+    "custom"
+  ],
+  "author": "Tochi Bedford",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tochibedford/custom-curses/issues"
+  },
+  "homepage": "https://github.com/tochibedford/custom-curses#readme"
+}

@@ -79,6 +79,8 @@ function Pointer(pointerOptions: pointerOptionsInterface, objects): PointerObjec
         drag: 0,
         size: 50,
         rotation: 0,
+        xCharOffset: 0,
+        yCharOffset: 0,
         xOffset: 0,
         yOffset: 0
     }
@@ -119,10 +121,12 @@ function initializeCanvas(cursor: CursorObject, objects: Character[]){ //creates
         pointer-events:none;
         top: 0;
         left: 0;
+        z-index: 10000;
         `
         document.querySelector('html').style.cursor = `${(cursor.hideMouse)? "none": "auto"}`
         document.querySelector('a').style.cursor = `${(cursor.hideMouse)? "none": "pointer"}`
         document.querySelector('button').style.cursor = `${(cursor.hideMouse)? "none": "auto"}`
+        document.querySelector('svg').style.cursor = `${(cursor.hideMouse) ? "none" : "auto"}`
         document.body.appendChild(cursorCanvas)
     }
     
@@ -152,6 +156,5 @@ function syncAnimate(objects: Character[], canvas:HTMLCanvasElement, context:Can
 export {
     Cursor, 
     Pointer, 
-    initializeCanvas,
-    CursorObject
+    initializeCanvas
 }
