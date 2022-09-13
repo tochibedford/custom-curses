@@ -20,6 +20,8 @@ let canvasObject = initializeCanvas(cursor1, objects);
 ```
 ![Preview GIF](https://user-images.githubusercontent.com/34871260/186636536-4dff68f9-8b2d-45f2-aeee-0040b52530e1.gif)
 
+More example usages in `./examples/`
+
 
 ## Features
 
