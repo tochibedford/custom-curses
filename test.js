@@ -1,4 +1,4 @@
-import {Cursor, Pointer, initializeCanvas} from './src/index.js'
+import {Cursor, Pointer, initializeCanvas} from './dist/index.js'
 
 let objects = []
 

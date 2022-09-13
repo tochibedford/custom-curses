@@ -152,6 +152,5 @@ function syncAnimate(objects: Character[], canvas:HTMLCanvasElement, context:Can
 export {
     Cursor, 
     Pointer, 
-    initializeCanvas,
-    CursorObject
+    initializeCanvas
 }

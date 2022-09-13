@@ -55,3 +55,4 @@ window.addEventListener('mousemove', (event) => {
     mouse.y = event.clientY;
 });
 export { animate, init };
+//# sourceMappingURL=index.js.map

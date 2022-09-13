@@ -120,3 +120,4 @@ function syncAnimate(objects, canvas, context) {
     });
 }
 export { Cursor, Pointer, initializeCanvas };
+//# sourceMappingURL=index.js.map

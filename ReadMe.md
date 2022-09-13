@@ -34,8 +34,12 @@ let canvasObject = initializeCanvas(cursor1, objects);
  - The cursor object is then drawn to the canvas. For each animation loop It waits for all canvas objects to draw and update before cloearing the canvas.
  - The canvas element is only allowed to have 1 Cursor Object, not sure why anyone would want other wise.
 
+
 ## Installation
-This isn't a fully fledged package yet, but for now you can always clone this repo
+Using npm:
+`npm install custom-curses`
+
+Provision will be made for a cdn link
 
 
 ## Development
