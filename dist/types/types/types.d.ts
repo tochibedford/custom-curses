@@ -11,6 +11,8 @@ interface pointerOptionsInterface {
     rotation?: number;
     drag?: number;
     size?: number;
+    xCharOffset?: number;
+    yCharOffset?: number;
     xOffset?: number;
     yOffset?: number;
 }

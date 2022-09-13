@@ -61,6 +61,8 @@ function Pointer(pointerOptions, objects) {
         drag: 0,
         size: 50,
         rotation: 0,
+        xCharOffset: 0,
+        yCharOffset: 0,
         xOffset: 0,
         yOffset: 0
     };
