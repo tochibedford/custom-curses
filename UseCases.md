@@ -30,17 +30,17 @@ When creating canvas drawings, you will need to use make these options the drive
 
 The implementation of how these options control your drawing is left up to you, and all you would need to provide/export out of you canvas drawing file are the; animate & init functions.
 
-### init function
+### -<b>init function</b>
 ```
 init(canvas:HTMLCanvasElement, context:CanvasRenderingContext2D, objects, pointer:PointerObject)
 ```
 This function in your drawing should accept canvas, context and objects, & pointer arguments.
 In this function you should:
-> define a focus point for your pointer - a point on the x, y coordinate system that does the "pointing"
-> instantiate and push to the objects array an instance of your canvas drawing object.
+ - define a focus point for your pointer - a point on the x, y coordinate system that does the "pointing" <br/>
+ - instantiate and push to the objects array an instance of your canvas drawing object.
 
 
-### animate function
+### - <b>animate function</b>
 
 ```
 animate(objectChar: Character, pointer: PointerObject)

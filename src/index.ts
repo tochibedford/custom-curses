@@ -115,7 +115,7 @@ function initializeCanvas(cursor: CursorObject, objects: Character[]){ //creates
         cursorCanvas.width = window.innerWidth
         cursorCanvas.height = window.innerHeight
         cursorCanvas.style.cssText = `
-        position: absolute;
+        position: fixed;
         pointer-events:none;
         top: 0;
         left: 0;
