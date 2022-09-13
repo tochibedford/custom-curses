@@ -16,11 +16,13 @@ function Character(x, y, dx, dy, rotation, character, drag, focusPoint, size, co
     this.pointer = pointer;
     this.draw = () => {
         context.save();
-        context.translate(this.x - this.size, this.y);
+        context.translate(this.x, this.y);
         context.rotate((this.rotation * (Math.PI / 360)));
         context.font = `${this.size}px serif`;
         context.textAlign = "center";
-        context.fillText(this.character, 0, 0);
+        // context.fillStyle = 'red' /* use this to check context */
+        // context.fillRect(0,0,100, 100)
+        context.fillText(this.character, 0 + pointer.pointerOptions.xCharOffset, 0 + pointer.pointerOptions.yCharOffset);
         context.restore();
     };
     this.update = () => {
@@ -38,7 +40,7 @@ function Character(x, y, dx, dy, rotation, character, drag, focusPoint, size, co
 function init(canvas, context, objects, pointer) {
     let focusPoint = {
         x: 0,
-        y: 85
+        y: 0
     };
     objects.push(new Character(canvas.width / 2, canvas.height / 2, 0, 0, pointer.pointerOptions.rotation, pointer.pointerOptions.pointerShape[1], pointer.pointerOptions.drag, focusPoint, pointer.pointerOptions.size, `#4637a5`, canvas, context, pointer));
 }
@@ -55,3 +57,4 @@ window.addEventListener('mousemove', (event) => {
     mouse.y = event.clientY;
 });
 export { animate, init };
+//# sourceMappingURL=index.js.map
