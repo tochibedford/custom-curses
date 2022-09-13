@@ -121,10 +121,12 @@ function initializeCanvas(cursor: CursorObject, objects: Character[]){ //creates
         pointer-events:none;
         top: 0;
         left: 0;
+        z-index: 10000;
         `
         document.querySelector('html').style.cursor = `${(cursor.hideMouse)? "none": "auto"}`
         document.querySelector('a').style.cursor = `${(cursor.hideMouse)? "none": "pointer"}`
         document.querySelector('button').style.cursor = `${(cursor.hideMouse)? "none": "auto"}`
+        document.querySelector('svg').style.cursor = `${(cursor.hideMouse) ? "none" : "auto"}`
         document.body.appendChild(cursorCanvas)
     }
     
