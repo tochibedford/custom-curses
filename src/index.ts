@@ -1,25 +1,6 @@
-/**
- * jumping right into typescript for the first time by writing a library
- */
 import {CursorObject, PointerObject, pointerOptionsInterface, cursorOptionsInterface, Character} from "./types/types"
 import {animate, init} from "./pointers/characterFollower/index.js"
 
-// is this necessary?
-
-
-/**
- * 
- * Returns a cursor object
- * 
- * @param {Object} cursorOptions - options for the cursor 
- * @param {Array[string]} cursorOptions.pointers - List of all pointers you want to use for the cursor
- * @param {Boolean} cursorOptions.hideCursor - Hides the user default mouse if set to `true`
- * @param {Number} cursorOptions.drag - Number from 0-1 indicating how damped you want the cursor when following the mouse position
- * @param {Number} cursorOptions.xOffset - Number showing the x offset of the cursor
- * @param {Number} cursorOptions.yOffset - Number showing the y offset of the cursor
- * 
- * @returns A Cursor type
- */
 function Cursor(cursorOptions): CursorObject{
     
     const cursorOptionsDefaults: cursorOptionsInterface = {
@@ -62,16 +43,6 @@ function Cursor(cursorOptions): CursorObject{
     return this
 }
 
-/**
- * 
- * @param {Object} pointerOptions - options for the pointer
- * @param {Array[string]} pointerOptions.colors - List of all colors you want to use for the pointer
- * @param {Number} pointerOptions.drag - Number from 0-1 indicating how damped you want the pointer when following the cursor position
- * @param {Number} pointerOptions.size - Number representing size, in pixels, of the pointer
- * @param {Number} pointerOptions.rotation - Number, in degrees, indicating rotation angle of the pointer
- * @param {Number} pointerOptions.xOffset - Number showing the x offset of the pointer
- * @param {Number} pointerOptions.yOffset - Number showing the y offset of the pointer
- */
 function Pointer(pointerOptions: pointerOptionsInterface, objects): PointerObject{
     const pointerOptionsDefaults: pointerOptionsInterface = {
         pointerShape: ['string','💧'],
@@ -123,10 +94,16 @@ function initializeCanvas(cursor: CursorObject, objects: Character[]){ //creates
         left: 0;
         z-index: 10000;
         `
-        document.querySelector('html').style.cursor = `${(cursor.hideMouse)? "none": "auto"}`
-        document.querySelector('a').style.cursor = `${(cursor.hideMouse)? "none": "pointer"}`
-        document.querySelector('button').style.cursor = `${(cursor.hideMouse)? "none": "auto"}`
-        document.querySelector('svg').style.cursor = `${(cursor.hideMouse) ? "none" : "auto"}`
+        if(cursor.hideMouse){
+            document.body.style.cursor = "none"
+        }
+        const allElements = document.body.querySelectorAll("*")
+        allElements.forEach((element: HTMLElement)=>{
+            if (element.tagName !== "SCRIPT" && element.tagName !== "CANVAS" && cursor.hideMouse) {
+                element.style.cursor = "none"
+            }
+        })
+
         document.body.appendChild(cursorCanvas)
     }
     
@@ -146,7 +123,6 @@ function syncAnimate(objects: Character[], canvas:HTMLCanvasElement, context:Can
         syncAnimate(objects, canvas, context)
     })
 
-    // this is blocking and probably inefficient as it will itterate the list twice
     objects.forEach(objectChar=>{
         animate(objectChar, objectChar.pointer)
     }) 
