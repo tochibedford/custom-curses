@@ -21,7 +21,7 @@ function Character(x: number, y:number, dx:number, dy:number, rotation: number, 
     this.draw = ()=>{
         context.save()
         context.translate(this.x, this.y)
-        context.rotate((this.rotation * (Math.PI/360)))
+        context.rotate((this.rotation * (Math.PI/180)))
         context.font = `${this.size}px serif`
         context.textAlign = "center"
         // context.fillStyle = 'red' /* use this to check context */
