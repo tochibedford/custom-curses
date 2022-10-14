@@ -93,7 +93,8 @@ function initializeCanvas(cursor, objects) {
         z-index: 10000;
         `;
         if (cursor.hideMouse) {
-            document.body.style.cursor = "none";
+            const htmlElement = document.children[0];
+            htmlElement.style.cursor = "none";
         }
         const allElements = document.body.querySelectorAll("*");
         allElements.forEach((element) => {
