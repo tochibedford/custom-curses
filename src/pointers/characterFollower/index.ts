@@ -1,4 +1,4 @@
-import {PointerObject, Character, focusPoint} from '../../types/types'
+import {PointerObject, Character, focusPoint} from '../../typesManual/types'
 
 let mouse = {
     x: window.innerWidth/2,

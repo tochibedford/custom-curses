@@ -1,4 +1,4 @@
-import {CursorObject, PointerObject, pointerOptionsInterface, cursorOptionsInterface, Character} from "./types/types"
+import {CursorObject, PointerObject, pointerOptionsInterface, cursorOptionsInterface, Character} from "./typesManual/types"
 import {animate, init} from "./pointers/characterFollower/index.js"
 import { isDeviceMobileOrTablet } from "./detectMobileTablet.js"
 
