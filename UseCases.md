@@ -47,3 +47,5 @@ animate(objectChar: Character, pointer: PointerObject)
 ```
 In this function you can call your canvas drawin object's update function, or it's equivalent. you can also manually perform the position update tasks in ths function but it is neater to put it all in one update function.
 `DO NOT USE THE requestAnimationFrame method here` - Although this is the norm in canvas drawings, you do not need to do this, this is to ensure that all animate functions are called only once during each animation frame. So all you need to do, is perform your update tasks and export this animation function.
+
+// TODO Implement color scheming?

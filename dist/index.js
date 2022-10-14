@@ -1,4 +1,5 @@
 import { animate, init } from "./pointers/characterFollower/index.js";
+import { isDeviceMobileOrTablet } from "./detectMobileTablet.js";
 function Cursor(cursorOptions) {
     const cursorOptionsDefaults = {
         pointers: ['default'],
@@ -63,6 +64,10 @@ function Pointer(pointerOptions, objects) {
     return this;
 }
 function initializeCanvas(cursor, objects) {
+    if (isDeviceMobileOrTablet()) {
+        console.log(isDeviceMobileOrTablet());
+        return undefined;
+    }
     let cursorCanvas = document.querySelector('.curses-cursor-canvas');
     if (!cursorCanvas) {
         cursorCanvas = document.createElement('canvas');
