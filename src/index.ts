@@ -2,82 +2,93 @@ import {CursorObject, PointerObject, pointerOptionsInterface, cursorOptionsInter
 import {animate, init} from "./pointers/characterFollower/index.js"
 import { isDeviceMobileOrTablet } from "./detectMobileTablet.js"
 
-function Cursor(cursorOptions): CursorObject{
+class Cursor implements CursorObject {
+    hideMouse;
+    getPointers;
+    getDrag;
+    getXOffset;
+    getYOffset;
+    constructor (cursorOptions){
+        const cursorOptionsDefaults: cursorOptionsInterface = {
+            pointers: ['default'],
+            hideMouse: true,
+            drag: 0,
+            xOffset: 0,
+            yOffset: 0
+        }
+        
+        const newCursorOptions: cursorOptionsInterface = Object.assign({}, cursorOptions)
+        
+        // assigns default values to keys not manually defined in the cursor Options
+        Object.keys(cursorOptionsDefaults).forEach(property => {
+            if(cursorOptions.hasOwnProperty(property))
+                newCursorOptions[property] = cursorOptions[property]
+            else
+                newCursorOptions[property] = cursorOptionsDefaults[property]
+                
+        });
+        
+        this.hideMouse = newCursorOptions.hideMouse;
     
-    const cursorOptionsDefaults: cursorOptionsInterface = {
-        pointers: ['default'],
-        hideMouse: true,
-        drag: 0,
-        xOffset: 0,
-        yOffset: 0
-    }
+        this.getPointers = ():string[]=>{
+            return newCursorOptions.pointers
+        }
     
-    const newCursorOptions: cursorOptionsInterface = Object.assign({}, cursorOptions)
+        this.getDrag = ():number =>{
+            return newCursorOptions.drag
+        }
     
-    // assigns default values to keys not manually defined in the cursor Options
-    Object.keys(cursorOptionsDefaults).forEach(property => {
-        if(cursorOptions.hasOwnProperty(property))
-            newCursorOptions[property] = cursorOptions[property]
-        else
-            newCursorOptions[property] = cursorOptionsDefaults[property]
-            
-    });
+        this.getXOffset = ():number=>{
+            return newCursorOptions.xOffset
+        }
     
-    this.hideMouse = newCursorOptions.hideMouse;
-
-    this.getPointers = ():string[]=>{
-        return newCursorOptions.pointers
+        this.getYOffset = ():number=>{
+            return newCursorOptions.yOffset
+        }
+    
+        return this
     }
-
-    this.getDrag = ():number =>{
-        return newCursorOptions.drag
-    }
-
-    this.getXOffset = ():number=>{
-        return newCursorOptions.xOffset
-    }
-
-    this.getYOffset = ():number=>{
-        return newCursorOptions.yOffset
-    }
-
-    return this
 }
 
-function Pointer(pointerOptions: pointerOptionsInterface, objects): PointerObject{
-    const pointerOptionsDefaults: pointerOptionsInterface = {
-        pointerShape: ['string','💧'],
-        colors: ['default'],
-        drag: 0,
-        size: 50,
-        rotation: 0,
-        xCharOffset: 0,
-        yCharOffset: 0,
-        xOffset: 0,
-        yOffset: 0
-    }
+class Pointer implements PointerObject{
+    pointerOptions;
+    startPointer;
+    constructor(pointerOptions: pointerOptionsInterface, objects) {
 
-    this.pointerOptions = Object.assign({}, pointerOptions)
-    // assigns default values to keys not manually defined in the pointer Options
-    Object.keys(pointerOptionsDefaults).forEach(property => {
-        if(pointerOptions.hasOwnProperty(property))
-            this.pointerOptions[property] = pointerOptions[property]
-        else
-            this.pointerOptions[property] = pointerOptionsDefaults[property]
-    });
-
-    if(this.pointerOptions.pointerShape[0]=='string'){
-        this.startPointer = ()=>{
-            const canvas:HTMLCanvasElement = document.querySelector('.curses-cursor-canvas')
-            const context = canvas.getContext('2d')
-            init(canvas, context, objects, this)
-            
+        const pointerOptionsDefaults: pointerOptionsInterface = {
+            pointerShape: ['string','💧'],
+            colors: ['default'],
+            drag: 0,
+            size: 50,
+            rotation: 0,
+            xCharOffset: 0,
+            yCharOffset: 0,
+            xOffset: 0,
+            yOffset: 0
         }
-    }else{
-        // TODO: implement a secondary type of pointer here
+    
+        this.pointerOptions = Object.assign({}, pointerOptions)
+        // assigns default values to keys not manually defined in the pointer Options
+        Object.keys(pointerOptionsDefaults).forEach(property => {
+            if(pointerOptions.hasOwnProperty(property))
+                this.pointerOptions[property] = pointerOptions[property]
+            else
+                this.pointerOptions[property] = pointerOptionsDefaults[property]
+        });
+    
+        if(this.pointerOptions.pointerShape[0]=='string'){
+            this.startPointer = ()=>{
+                const canvas:HTMLCanvasElement = document.querySelector('.curses-cursor-canvas')
+                const context = canvas.getContext('2d')
+                init(canvas, context, objects, this)
+                
+            }
+        }else{
+            // TODO: implement a secondary type of pointer here
+        }
+    
+        return this
     }
-
-    return this
 }
 
 
