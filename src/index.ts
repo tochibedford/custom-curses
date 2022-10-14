@@ -111,7 +111,8 @@ function initializeCanvas(cursor: CursorObject, objects: Character[]){ //creates
         z-index: 10000;
         `
         if(cursor.hideMouse){
-            document.body.style.cursor = "none"
+            const htmlElement = document.children[0] as HTMLElement
+            htmlElement.style.cursor = "none"
         }
         const allElements = document.body.querySelectorAll("*")
         allElements.forEach((element: HTMLElement)=>{
