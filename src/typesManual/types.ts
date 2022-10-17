@@ -72,10 +72,12 @@ type CanvasObject = {
     color: string
 } & CanvasObject
 
-export {CursorObject,
-        PointerObject,
-        pointerOptionsInterface,
-        cursorOptionsInterface,
-        focusPoint,
-        TCharacter
-    }
+export {
+    CursorObject,
+    PointerObject,
+    pointerOptionsInterface,
+    cursorOptionsInterface,
+    focusPoint,
+    TCharacter,
+    CanvasObject
+}

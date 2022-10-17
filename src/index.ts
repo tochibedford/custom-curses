@@ -1,5 +1,5 @@
-import {CursorObject, PointerObject, pointerOptionsInterface, cursorOptionsInterface, TCharacter, focusPoint} from "./typesManual/types"
-import {animate, init} from "./pointers/characterFollower/index.js"
+import {CursorObject, PointerObject, pointerOptionsInterface, cursorOptionsInterface, TCharacter, focusPoint, CanvasObject} from "./typesManual/types"
+import {animate, init, Character} from "./pointers/characterFollower/index.js"
 import { isDeviceMobileOrTablet } from "./detectMobileTablet.js"
 
 /**
@@ -21,12 +21,35 @@ class Cursor implements CursorObject {
      */
     hideMouse;
     /**
-     * A boolean value that determins whether not the default system cursor is hidden
+     * A function that returns an array of all pointers being used by the cursor 
      */
-    getPointers;
-    getDrag;
-    getXOffset;
-    getYOffset;
+    getPointers: ()=>PointerObject[];
+    /**
+     * A functuion that returns a number representing the drag force acting on thee whole cursor
+     */
+    getDrag: ()=>number;
+    /**
+     * A functuion that returns a number representing the offset of the cursor along the x-axis, this can be used to set where the point that does the "pointing" on the cursor is.
+     */
+    getXOffset: ()=>number;
+    /**
+     * A functuion that returns a number representing the offset of the cursor along the y-axis, this can be used to set where the point that does the "pointing" on the cursor is.
+     */
+    getYOffset: ()=>number;
+
+    /**
+     * 
+     * @param cursorOptions These are options that control the behavior of a pointer object and the defaults are:
+     * ```
+     * {
+            pointers: null,
+            hideMouse: true,
+            drag: 0,
+            xOffset: 0,
+            yOffset: 0
+        }
+        ```
+     */
     constructor (cursorOptions: cursorOptionsInterface){
         if (cursorOptions.pointers){
             throw ("You need to provide at least 1 pointer to the cursor")
@@ -93,7 +116,7 @@ class Pointer implements PointerObject{
     pointerOptions: pointerOptionsInterface;
     /**
      * Internal function used by the pointer to initialize itself on the canvas
-     * @remarks This function calls the init function from the canvas drawing, a user should rarely have to call the init function manually
+     * @remarks This function calls the init function from the canvas drawing, a user should rarely have to call this function or the init function manually
      */
     startPointer: ()=>void;
 
@@ -223,10 +246,5 @@ function syncAnimate(objects: TCharacter[], canvas:HTMLCanvasElement, context:Ca
 export {
     Cursor, 
     Pointer, 
-    initializeCanvas,
-    CursorObject,
-    PointerObject,
-    TCharacter,
-    pointerOptionsInterface,
-    focusPoint
+    initializeCanvas
 }

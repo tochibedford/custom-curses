@@ -25,8 +25,8 @@ More example usages in `./examples/`
 
 ## Features
 
-- It accepts Emojis, and any string you can use in the canvas normally but doesn not support the rotation of said characters. I do not know how to implement this ... yet.
-- It also supports normal animated canvas objects but I haven't fully implemented it.
+- It accepts Emojis, and any string you can use in the canvas normally and the rotation of said characters.
+- It also supports normal animated canvas objects but it isn't fully implemented yet.
 - You can adjust the drag on each individual pointer and for the cursor as a whole.
 - You can adjust the X and Y offset for each pointer individually and for the cursor as a whole.
 
@@ -34,9 +34,9 @@ More example usages in `./examples/`
 
 ## The way it works
 
-- A canvas object is instantiated and bound to a Pointer Object (a pointer can ony have 1 canvas object)
-- Several Pointer objects can then be bound to a cursor Object. You can theoretically pass in an infinite number of Pointers to the cursor
-- The cursor object is then drawn to the canvas. For each animation loop It waits for all canvas objects to draw and update before cloearing the canvas.
+- Several Pointer objects can be bound to a cursor Object. You can theoretically pass in an infinite number of Pointers to the cursor.
+- The cursor object is then drawn to the canvas. For each animation loop it waits for all canvas objects to draw and update before clearing the canvas.
+- A canvas object is instantiated and bound to the Cursor Object.
 - The canvas element is only allowed to have 1 Cursor Object, not sure why anyone would want other wise.
 
 ## Installation

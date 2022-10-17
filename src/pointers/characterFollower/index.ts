@@ -5,22 +5,25 @@ let mouse = {
     y: window.innerHeight/2
 }
 
+/**
+ * Character Object
+ */
 class Character implements TCharacter{
-    x
-    y
-    dx
-    dy
-    rotation
-    character
-    drag
-    size
-    color
-    focusPoint
-    pointer
-    draw
-    update
+    x: number
+    y: number
+    dx: number
+    dy: number
+    rotation: number
+    character: string
+    drag: number
+    size: number
+    color: string
+    focusPoint: focusPoint
+    pointer:PointerObject
+    draw: ()=>void
+    update: ()=>void
 
-    constructor(x: number, y:number, dx:number, dy:number, rotation: number, character:string, drag: number, focusPoint: focusPoint, size:number, color:string, canvas:HTMLCanvasElement, context:CanvasRenderingContext2D, pointer: PointerObject){
+    constructor(x: number, y:number, dx:number, dy:number, rotation: number, character: string, drag: number, focusPoint: focusPoint, size:number, color:string, canvas:HTMLCanvasElement, context:CanvasRenderingContext2D, pointer: PointerObject){
         this.x = x
         this.y = y
         this.dx = dx
@@ -67,6 +70,12 @@ function init(canvas:HTMLCanvasElement, context:CanvasRenderingContext2D, object
     objects.push(new Character(canvas.width/2, canvas.height/2, 0, 0, pointer.pointerOptions.rotation, pointer.pointerOptions.pointerShape[1], pointer.pointerOptions.drag, focusPoint, pointer.pointerOptions.size, `#4637a5`, canvas, context, pointer))
 }
 
+/**
+ * This function calls the update function of the Character objects so actions that need to be performed between every frame can be placed here
+ * 
+ * @param objectChar an object that implements at least draw & update methods
+ * @param pointer this is the pointer object that the Character is bound to
+ */
 function animate(objectChar: TCharacter, pointer: PointerObject) {
     // TODO: Implement the pointer Template for future pointers
     
@@ -84,4 +93,4 @@ window.addEventListener('mousemove', (event)=>{
 })
 
 
-export {animate, init, focusPoint}
+export {animate, init, Character}
