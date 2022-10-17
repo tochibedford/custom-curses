@@ -24,5 +24,8 @@
   "bugs": {
     "url": "https://github.com/tochibedford/custom-curses/issues"
   },
-  "homepage": "https://github.com/tochibedford/custom-curses#readme"
+  "homepage": "https://github.com/tochibedford/custom-curses#readme",
+  "devDependencies": {
+    "typedoc": "^0.23.16"
+  }
 }

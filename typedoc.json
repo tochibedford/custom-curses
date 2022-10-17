@@ -1,0 +1,14 @@
+{
+    "$schema": "https://typedoc.org/schema.json",
+    "entryPoints": [
+        "./src/index.ts",
+        "./src/typesManual/types.ts",
+        "./src/pointers/characterFollower/index.ts"
+    ],
+    "entryPointStrategy": "resolve",
+    "out": "docs",
+    "theme": "default",
+    "name": "Custom Curses",
+    "includeVersion": true
+
+}
