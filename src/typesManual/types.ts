@@ -13,7 +13,7 @@ type cursorOptionsInterface = {
  * Defines shape of options for pointer objects
  */
 type pointerOptionsInterface = {
-    pointerShape?: ["string" | "drawing", string],
+    pointerShape?: ["string" | "image" | "drawing", string],
     colors?: string[],
     rotation?: number,
     drag?: number,
