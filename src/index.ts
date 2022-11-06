@@ -163,14 +163,17 @@ class Pointer implements PointerObject{
                 this.pointerOptions[property] = pointerOptionsDefaults[property as keyof pointerOptionsInterface]
         });
     
-        if(this.pointerOptions.pointerShape[0]=='string'){
+        if(this.pointerOptions.pointerShape[0]==='string'){
             this.startPointer = ()=>{
                 const canvas:HTMLCanvasElement = document.querySelector('.curses-cursor-canvas')
                 const context = canvas.getContext('2d')
                 init(canvas, context, objects, this)
             }
-        }else{
-            // TODO: implement a secondary type of pointer here
+        }else if(this.pointerOptions.pointerShape[0]==='image'){
+            
+        } else { // canvas drawing pointer 
+            // TODO: implement the drawing pointer here
+
         }
     }
 }
