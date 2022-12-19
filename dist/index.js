@@ -48,7 +48,7 @@ class Cursor {
         ```
      */
     constructor(cursorOptions) {
-        if (cursorOptions.pointers) {
+        if (!cursorOptions.pointers) {
             throw ("You need to provide at least 1 pointer to the cursor");
         }
         const cursorOptionsDefaults = {

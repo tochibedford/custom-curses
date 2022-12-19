@@ -1,5 +1,5 @@
-import {CursorObject, PointerObject, pointerOptionsInterface, cursorOptionsInterface, TCharacter, focusPoint, CanvasObject} from "./typesManual/types"
-import {animate, init, Character} from "./pointers/characterFollower/index.js"
+import { CursorObject, PointerObject, pointerOptionsInterface, cursorOptionsInterface, TCharacter, focusPoint, CanvasObject } from "./typesManual/types"
+import { animate, init, Character } from "./pointers/characterFollower/index.js"
 import { isDeviceMobileOrTablet } from "./detectMobileTablet.js"
 
 /**
@@ -23,19 +23,19 @@ class Cursor implements CursorObject {
     /**
      * A function that returns an array of all pointers being used by the cursor 
      */
-    getPointers: ()=>PointerObject[];
+    getPointers: () => PointerObject[];
     /**
      * A functuion that returns a number representing the drag force acting on thee whole cursor
      */
-    getDrag: ()=>number;
+    getDrag: () => number;
     /**
      * A functuion that returns a number representing the offset of the cursor along the x-axis, this can be used to set where the point that does the "pointing" on the cursor is.
      */
-    getXOffset: ()=>number;
+    getXOffset: () => number;
     /**
      * A functuion that returns a number representing the offset of the cursor along the y-axis, this can be used to set where the point that does the "pointing" on the cursor is.
      */
-    getYOffset: ()=>number;
+    getYOffset: () => number;
 
     /**
      * 
@@ -50,8 +50,8 @@ class Cursor implements CursorObject {
         }
         ```
      */
-    constructor (cursorOptions: cursorOptionsInterface){
-        if (cursorOptions.pointers){
+    constructor(cursorOptions: cursorOptionsInterface) {
+        if (!cursorOptions.pointers) {
             throw ("You need to provide at least 1 pointer to the cursor")
         }
 
@@ -62,33 +62,33 @@ class Cursor implements CursorObject {
             xOffset: 0,
             yOffset: 0
         }
-        
+
         const newCursorOptions: cursorOptionsInterface = Object.assign({}, cursorOptions)
-        
+
         // assigns default values to keys not manually defined in the cursor Options
         Object.keys(cursorOptionsDefaults).forEach(property => {
-            if(cursorOptions.hasOwnProperty(property))
+            if (cursorOptions.hasOwnProperty(property))
                 newCursorOptions[property] = cursorOptions[property]
             else
                 newCursorOptions[property] = cursorOptionsDefaults[property]
-                
+
         });
-        
+
         this.hideMouse = newCursorOptions.hideMouse;
-    
-        this.getPointers = (): PointerObject[] =>{
+
+        this.getPointers = (): PointerObject[] => {
             return newCursorOptions.pointers
         }
-    
-        this.getDrag = ():number =>{
+
+        this.getDrag = (): number => {
             return newCursorOptions.drag
         }
-    
-        this.getXOffset = ():number=>{
+
+        this.getXOffset = (): number => {
             return newCursorOptions.xOffset
         }
-    
-        this.getYOffset = ():number=>{
+
+        this.getYOffset = (): number => {
             return newCursorOptions.yOffset
         }
     }
@@ -112,13 +112,13 @@ const pointer1 = new Pointer({
 }, objects)
  * 
  */
-class Pointer implements PointerObject{
+class Pointer implements PointerObject {
     pointerOptions: pointerOptionsInterface;
     /**
      * Internal function used by the pointer to initialize itself on the canvas
      * @remarks This function calls the init function from the canvas drawing, a user should rarely have to call this function or the init function manually
      */
-    startPointer: ()=>void;
+    startPointer: () => void;
 
     /**
      * Creates a pointer object
@@ -143,7 +143,7 @@ class Pointer implements PointerObject{
     constructor(pointerOptions: pointerOptionsInterface, objects: TCharacter[]) {
 
         const pointerOptionsDefaults: pointerOptionsInterface = {
-            pointerShape: ['string','💧'],
+            pointerShape: ['string', '💧'],
             colors: ['default'],
             drag: 0,
             size: 50,
@@ -153,24 +153,24 @@ class Pointer implements PointerObject{
             xOffset: 0,
             yOffset: 0
         }
-    
+
         this.pointerOptions = Object.assign({}, pointerOptions)
         // assigns default values to keys not manually defined in the pointer Options
-        Object.keys(pointerOptionsDefaults).forEach(property=> {
-            if(pointerOptions.hasOwnProperty(property))
+        Object.keys(pointerOptionsDefaults).forEach(property => {
+            if (pointerOptions.hasOwnProperty(property))
                 this.pointerOptions[property] = pointerOptions[property as keyof pointerOptionsInterface]
             else
                 this.pointerOptions[property] = pointerOptionsDefaults[property as keyof pointerOptionsInterface]
         });
-    
-        if(this.pointerOptions.pointerShape[0]==='string'){
-            this.startPointer = ()=>{
-                const canvas:HTMLCanvasElement = document.querySelector('.curses-cursor-canvas')
+
+        if (this.pointerOptions.pointerShape[0] === 'string') {
+            this.startPointer = () => {
+                const canvas: HTMLCanvasElement = document.querySelector('.curses-cursor-canvas')
                 const context = canvas.getContext('2d')
                 init(canvas, context, objects, this)
             }
-        }else if(this.pointerOptions.pointerShape[0]==='image'){
-            
+        } else if (this.pointerOptions.pointerShape[0] === 'image') {
+
         } else { // canvas drawing pointer 
             // TODO: implement the drawing pointer here
 
@@ -192,13 +192,13 @@ class Pointer implements PointerObject{
  * @returns A HTMLCanvasElement object that the cursor is drawn on
  */
 
-function initializeCanvas(cursor: CursorObject, objects: TCharacter[]){ //creates a canvas if one is not there
-    if(isDeviceMobileOrTablet()){
+function initializeCanvas(cursor: CursorObject, objects: TCharacter[]) { //creates a canvas if one is not there
+    if (isDeviceMobileOrTablet()) {
         console.log(isDeviceMobileOrTablet())
         return undefined
     }
-    let cursorCanvas:HTMLCanvasElement = document.querySelector('.curses-cursor-canvas');
-    if(!cursorCanvas){
+    let cursorCanvas: HTMLCanvasElement = document.querySelector('.curses-cursor-canvas');
+    if (!cursorCanvas) {
         cursorCanvas = document.createElement('canvas')
         cursorCanvas.setAttribute('class', 'curses-cursor-canvas')
         cursorCanvas.width = window.innerWidth
@@ -210,12 +210,12 @@ function initializeCanvas(cursor: CursorObject, objects: TCharacter[]){ //create
         left: 0;
         z-index: 10000;
         `
-        if(cursor.hideMouse){
+        if (cursor.hideMouse) {
             const htmlElement = document.children[0] as HTMLElement
             htmlElement.style.cursor = "none"
         }
         const allElements = document.body.querySelectorAll("*")
-        allElements.forEach((element: HTMLElement)=>{
+        allElements.forEach((element: HTMLElement) => {
             if (element.tagName !== "SCRIPT" && element.tagName !== "CANVAS" && cursor.hideMouse) {
                 element.style.cursor = "none"
             }
@@ -223,31 +223,31 @@ function initializeCanvas(cursor: CursorObject, objects: TCharacter[]){ //create
 
         document.body.appendChild(cursorCanvas)
     }
-    
+
     const ctx = cursorCanvas.getContext('2d')
-    cursor.getPointers().forEach(pointer=>{
+    cursor.getPointers().forEach(pointer => {
         pointer.startPointer()
     })
-    
+
     syncAnimate(objects, cursorCanvas, ctx)
-    
+
     return cursorCanvas
 }
 
-function syncAnimate(objects: TCharacter[], canvas:HTMLCanvasElement, context:CanvasRenderingContext2D){
+function syncAnimate(objects: TCharacter[], canvas: HTMLCanvasElement, context: CanvasRenderingContext2D) {
     context.clearRect(0, 0, canvas.width, canvas.height)
-    requestAnimationFrame(()=>{
+    requestAnimationFrame(() => {
         syncAnimate(objects, canvas, context)
     })
 
-    objects.forEach(objectChar=>{
+    objects.forEach(objectChar => {
         animate(objectChar, objectChar.pointer)
-    }) 
+    })
 
 }
 
 export {
-    Cursor, 
-    Pointer, 
+    Cursor,
+    Pointer,
     initializeCanvas
 }
