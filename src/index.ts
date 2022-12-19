@@ -231,7 +231,7 @@ function initializeCanvas(cursor: CursorObject, objects: TCharacter[]) { //creat
 
     syncAnimate(objects, cursorCanvas, ctx)
 
-    return cursorCanvas.remove
+    return () => { cursorCanvas.remove() }
 }
 
 function syncAnimate(objects: TCharacter[], canvas: HTMLCanvasElement, context: CanvasRenderingContext2D) {
