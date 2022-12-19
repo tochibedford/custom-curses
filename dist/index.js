@@ -208,7 +208,7 @@ function initializeCanvas(cursor, objects) {
         pointer.startPointer();
     });
     syncAnimate(objects, cursorCanvas, ctx);
-    return cursorCanvas;
+    return cursorCanvas.remove;
 }
 function syncAnimate(objects, canvas, context) {
     context.clearRect(0, 0, canvas.width, canvas.height);

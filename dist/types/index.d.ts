@@ -108,6 +108,6 @@ declare class Pointer implements PointerObject {
  * @param objects - An array of Objects that implement both a draw and an update function e.g. the standard Character type built into the library
  * @returns A HTMLCanvasElement object that the cursor is drawn on
  */
-declare function initializeCanvas(cursor: CursorObject, objects: TCharacter[]): HTMLCanvasElement;
+declare function initializeCanvas(cursor: CursorObject, objects: TCharacter[]): () => void;
 export { Cursor, Pointer, initializeCanvas };
 //# sourceMappingURL=index.d.ts.map
