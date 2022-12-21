@@ -175,7 +175,6 @@ class Pointer {
  */
 function initializeCanvas(cursor, objects) {
     if (isDeviceMobileOrTablet()) {
-        console.log(isDeviceMobileOrTablet());
         return undefined;
     }
     let cursorCanvas = document.querySelector('.curses-cursor-canvas');
@@ -207,17 +206,27 @@ function initializeCanvas(cursor, objects) {
     cursor.getPointers().forEach(pointer => {
         pointer.startPointer();
     });
-    syncAnimate(objects, cursorCanvas, ctx);
-    return () => { cursorCanvas.remove(); };
+    const animId = syncAnimate(objects, cursorCanvas, ctx);
+    return () => {
+        cursorCanvas.remove();
+    };
 }
 function syncAnimate(objects, canvas, context) {
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    requestAnimationFrame(() => {
-        syncAnimate(objects, canvas, context);
-    });
-    objects.forEach(objectChar => {
-        animate(objectChar, objectChar.pointer);
-    });
+    /**
+     * This if statement checks if a particular canvas exists on the page before updating that canvas.
+     * Without it, even though a canvas has been removed from the DOM it keeps updating in the background
+     *
+    */
+    if (document.contains(canvas)) {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        const animId = requestAnimationFrame(() => {
+            syncAnimate(objects, canvas, context);
+        });
+        objects.forEach(objectChar => {
+            animate(objectChar, objectChar.pointer);
+        });
+        return animId;
+    }
 }
 export { Cursor, Pointer, initializeCanvas };
 //# sourceMappingURL=index.js.map
