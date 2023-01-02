@@ -1,6 +1,6 @@
 {
   "name": "custom-curses",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "description": "A simple Library to add beautiful custom cursors to your webpage.",
   "type": "module",
   "main": "./dist/index",
