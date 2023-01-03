@@ -58,14 +58,7 @@ class Cursor {
             xOffset: 0,
             yOffset: 0
         };
-        const newCursorOptions = Object.assign({}, cursorOptions);
-        // assigns default values to keys not manually defined in the cursor Options
-        Object.keys(cursorOptionsDefaults).forEach(property => {
-            if (cursorOptions.hasOwnProperty(property))
-                newCursorOptions[property] = cursorOptions[property];
-            else
-                newCursorOptions[property] = cursorOptionsDefaults[property];
-        });
+        const newCursorOptions = Object.assign(cursorOptionsDefaults, cursorOptions);
         this.hideMouse = newCursorOptions.hideMouse;
         this.getPointers = () => {
             return newCursorOptions.pointers;
@@ -138,14 +131,8 @@ class Pointer {
             xOffset: 0,
             yOffset: 0
         };
-        this.pointerOptions = Object.assign({}, pointerOptions);
         // assigns default values to keys not manually defined in the pointer Options
-        Object.keys(pointerOptionsDefaults).forEach(property => {
-            if (pointerOptions.hasOwnProperty(property))
-                this.pointerOptions[property] = pointerOptions[property];
-            else
-                this.pointerOptions[property] = pointerOptionsDefaults[property];
-        });
+        this.pointerOptions = Object.assign(pointerOptionsDefaults, pointerOptions);
         if (this.pointerOptions.pointerShape[0] === 'string') {
             this.startPointer = () => {
                 const canvas = document.querySelector('.curses-cursor-canvas');

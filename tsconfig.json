@@ -1,13 +1,12 @@
 {
-    "compilerOptions": {
-        "target": "esnext",
-        "watch": true,
-        "lib": ["dom", "es2017"],
-        "outDir": "dist",
-        "sourceMap": true,
-        "declaration": true,
-        "declarationDir": "dist/types",
-        "declarationMap": true
-    },
-    "exclude": ["node_modules", "**/*.d.ts"]
+  "compilerOptions": {
+    "target": "esnext",
+    "lib": ["dom", "es2017"],
+    "outDir": "dist",
+    "sourceMap": true,
+    "declaration": true,
+    "declarationDir": "dist",
+    "declarationMap": true,
+    "noImplicitAny": true
+  }
 }

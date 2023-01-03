@@ -16,7 +16,7 @@ declare class Cursor implements CursorObject {
     /**
      * A boolean value that determines whether the System cursor is hidden or not
      */
-    hideMouse: any;
+    hideMouse: boolean;
     /**
      * A function that returns an array of all pointers being used by the cursor
      */
@@ -46,7 +46,7 @@ declare class Cursor implements CursorObject {
         }
         ```
      */
-    constructor(cursorOptions: cursorOptionsInterface);
+    constructor(cursorOptions: Partial<cursorOptionsInterface>);
 }
 /**
  * Class representing a pointer object.
@@ -93,7 +93,7 @@ declare class Pointer implements PointerObject {
      * @param objects - An array of Objects that implement both a draw and an update function e.g. the standard Character type built into the library
      * @returns a Pointer object
      */
-    constructor(pointerOptions: pointerOptionsInterface, objects: TCharacter[]);
+    constructor(pointerOptions: Partial<pointerOptionsInterface>, objects: TCharacter[]);
 }
 /**
  * Performs a bunch of initialization tasks for cursor drawing like:

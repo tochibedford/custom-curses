@@ -50,7 +50,7 @@ class Cursor implements CursorObject {
         }
         ```
      */
-    constructor(cursorOptions: cursorOptionsInterface) {
+    constructor(cursorOptions: Partial<cursorOptionsInterface>) {
         if (!cursorOptions.pointers) {
             throw ("You need to provide at least 1 pointer to the cursor")
         }
@@ -63,16 +63,7 @@ class Cursor implements CursorObject {
             yOffset: 0
         }
 
-        const newCursorOptions: cursorOptionsInterface = Object.assign({}, cursorOptions)
-
-        // assigns default values to keys not manually defined in the cursor Options
-        Object.keys(cursorOptionsDefaults).forEach(property => {
-            if (cursorOptions.hasOwnProperty(property))
-                newCursorOptions[property] = cursorOptions[property]
-            else
-                newCursorOptions[property] = cursorOptionsDefaults[property]
-
-        });
+        const newCursorOptions = Object.assign(cursorOptionsDefaults, cursorOptions)
 
         this.hideMouse = newCursorOptions.hideMouse;
 
@@ -140,7 +131,7 @@ class Pointer implements PointerObject {
      * @param objects - An array of Objects that implement both a draw and an update function e.g. the standard Character type built into the library 
      * @returns a Pointer object
      */
-    constructor(pointerOptions: pointerOptionsInterface, objects: TCharacter[]) {
+    constructor(pointerOptions: Partial<pointerOptionsInterface>, objects: TCharacter[]) {
 
         const pointerOptionsDefaults: pointerOptionsInterface = {
             pointerShape: ['string', '💧'],
@@ -154,14 +145,8 @@ class Pointer implements PointerObject {
             yOffset: 0
         }
 
-        this.pointerOptions = Object.assign({}, pointerOptions)
         // assigns default values to keys not manually defined in the pointer Options
-        Object.keys(pointerOptionsDefaults).forEach(property => {
-            if (pointerOptions.hasOwnProperty(property))
-                this.pointerOptions[property] = pointerOptions[property as keyof pointerOptionsInterface]
-            else
-                this.pointerOptions[property] = pointerOptionsDefaults[property as keyof pointerOptionsInterface]
-        });
+        this.pointerOptions = Object.assign(pointerOptionsDefaults, pointerOptions)
 
         if (this.pointerOptions.pointerShape[0] === 'string') {
             this.startPointer = () => {
