@@ -1,0 +1,1 @@
+{"version":3,"file":"detectMobileTablet.d.ts","sourceRoot":"","sources":["../src/detectMobileTablet.ts"],"names":[],"mappings":"AAAA,OAAO,CAAC,MAAM,CAAC;IACX,UAAU,MAAM;QACZ,KAAK,EAAC,GAAG,CAAC;KACb;CACJ;AAED,eAAO,MAAM,sBAAsB,eAIlC,CAAC"}

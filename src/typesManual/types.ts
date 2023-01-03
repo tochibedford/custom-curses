@@ -29,7 +29,7 @@ type pointerOptionsInterface = {
  */
 interface PointerObject {
     pointerOptions: pointerOptionsInterface,
-    startPointer: ()=>void
+    startPointer: () => void
 }
 
 /**
@@ -37,10 +37,10 @@ interface PointerObject {
  */
 type CursorObject = {
     hideMouse: boolean,
-    getPointers: ()=>PointerObject[],
-    getDrag: ()=>number,
-    getXOffset: ()=>number,
-    getYOffset: ()=>number,
+    getPointers: () => PointerObject[],
+    getDrag: () => number,
+    getXOffset: () => number,
+    getYOffset: () => number,
 }
 
 /**
@@ -52,14 +52,14 @@ type focusPoint = {
 }
 
 type CanvasObject = {
-    draw: ()=>void,
-    update: ()=>void
+    draw: () => void,
+    update: () => void
 }
 
 /**
  * Defines a type for the standard canvas "Character" object that accepts strings and emojis
  */
- type TCharacter = {
+type TCharacter = {
     x: number,
     y: number,
     dx: number,

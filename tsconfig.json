@@ -5,8 +5,8 @@
     "outDir": "dist",
     "sourceMap": true,
     "declaration": true,
-    "declarationDir": "dist/types",
-    "declarationMap": true
-  },
-  "exclude": ["node_modules", "**/*.d.ts"]
+    "declarationDir": "dist",
+    "declarationMap": true,
+    "noImplicitAny": true
+  }
 }
