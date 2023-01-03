@@ -60,7 +60,13 @@ function init(canvas, context, objects, pointer) {
         x: 0,
         y: 0
     };
-    objects.push(new Character(canvas.width / 2, canvas.height / 2, 0, 0, pointer.pointerOptions.rotation, pointer.pointerOptions.pointerShape[1], pointer.pointerOptions.drag, focusPoint, pointer.pointerOptions.size, `#4637a5`, canvas, context, pointer));
+    // if there is an object already on the screen it initializes the new pointer to that last objects position. this removes the "jumping" when switching pointers, while a pointer is still in motion
+    if (objects.length === 0) {
+        objects.push(new Character(mouse.x, mouse.y, 0, 0, pointer.pointerOptions.rotation, pointer.pointerOptions.pointerShape[1], pointer.pointerOptions.drag, focusPoint, pointer.pointerOptions.size, `#4637a5`, canvas, context, pointer));
+    }
+    else {
+        objects.push(new Character(objects[objects.length - 1].x, objects[objects.length - 1].y, 0, 0, pointer.pointerOptions.rotation, pointer.pointerOptions.pointerShape[1], pointer.pointerOptions.drag, focusPoint, pointer.pointerOptions.size, `#4637a5`, canvas, context, pointer));
+    }
 }
 /**
  * This function calls the update function of the Character objects so actions that need to be performed between every frame can be placed here

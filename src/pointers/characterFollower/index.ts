@@ -1,14 +1,14 @@
-import {PointerObject, TCharacter, focusPoint} from '../../typesManual/types'
+import { PointerObject, TCharacter, focusPoint } from '../../typesManual/types'
 
 let mouse = {
-    x: window.innerWidth/2,
-    y: window.innerHeight/2
+    x: window.innerWidth / 2,
+    y: window.innerHeight / 2
 }
 
 /**
  * Character Object
  */
-class Character implements TCharacter{
+class Character implements TCharacter {
     x: number
     y: number
     dx: number
@@ -19,16 +19,16 @@ class Character implements TCharacter{
     size: number
     color: string
     focusPoint: focusPoint
-    pointer:PointerObject
-    draw: ()=>void
-    update: ()=>void
+    pointer: PointerObject
+    draw: () => void
+    update: () => void
 
-    constructor(x: number, y:number, dx:number, dy:number, rotation: number, character: string, drag: number, focusPoint: focusPoint, size:number, color:string, canvas:HTMLCanvasElement, context:CanvasRenderingContext2D, pointer: PointerObject){
+    constructor(x: number, y: number, dx: number, dy: number, rotation: number, character: string, drag: number, focusPoint: focusPoint, size: number, color: string, canvas: HTMLCanvasElement, context: CanvasRenderingContext2D, pointer: PointerObject) {
         this.x = x
         this.y = y
         this.dx = dx
         this.dy = dy
-        this.rotation = rotation 
+        this.rotation = rotation
         this.character = character
         this.drag = drag
         this.size = size
@@ -36,38 +36,45 @@ class Character implements TCharacter{
         this.focusPoint = focusPoint
         this.pointer = pointer
 
-        this.draw = ()=>{
+        this.draw = () => {
             context.save()
             context.translate(this.x, this.y)
-            context.rotate((this.rotation * (Math.PI/180)))
+            context.rotate((this.rotation * (Math.PI / 180)))
             context.font = `${this.size}px serif`
             context.textAlign = "center"
             // context.fillStyle = 'red' /* use this to check context */
             // context.fillRect(0,0,100, 100)
-            context.fillText(this.character, 0+pointer.pointerOptions.xCharOffset, 0+pointer.pointerOptions.yCharOffset)
+            context.fillText(this.character, 0 + pointer.pointerOptions.xCharOffset, 0 + pointer.pointerOptions.yCharOffset)
             context.restore()
         }
 
-        this.update = ()=>{
-            if(this.x >= (canvas.width - this.size/2) || this.x - this.size/2 <= 0){
-                this.dx = (this.dx)*(1-this.drag)
-            }if(this.y + this.size/2 >= (canvas.height) || this.y - this.size/2<= 0){
-                this.dy = (this.dy)-(1-this.drag)
+        this.update = () => {
+            if (this.x >= (canvas.width - this.size / 2) || this.x - this.size / 2 <= 0) {
+                this.dx = (this.dx) * (1 - this.drag)
+            } if (this.y + this.size / 2 >= (canvas.height) || this.y - this.size / 2 <= 0) {
+                this.dy = (this.dy) - (1 - this.drag)
             }
-            this.x += this.dx 
-            this.y += this.dy 
+            this.x += this.dx
+            this.y += this.dy
             this.draw();
         }
     }
 }
 
 
-function init(canvas:HTMLCanvasElement, context:CanvasRenderingContext2D, objects: TCharacter[], pointer:PointerObject){
+function init(canvas: HTMLCanvasElement, context: CanvasRenderingContext2D, objects: TCharacter[], pointer: PointerObject) {
     let focusPoint = {
         x: 0,
         y: 0
     }
-    objects.push(new Character(canvas.width/2, canvas.height/2, 0, 0, pointer.pointerOptions.rotation, pointer.pointerOptions.pointerShape[1], pointer.pointerOptions.drag, focusPoint, pointer.pointerOptions.size, `#4637a5`, canvas, context, pointer))
+
+    // if there is an object already on the screen it initializes the new pointer to that last objects position. this removes the "jumping" when switching pointers, while a pointer is still in motion
+    if (objects.length === 0) {
+        objects.push(new Character(mouse.x, mouse.y, 0, 0, pointer.pointerOptions.rotation, pointer.pointerOptions.pointerShape[1], pointer.pointerOptions.drag, focusPoint, pointer.pointerOptions.size, `#4637a5`, canvas, context, pointer))
+    } else {
+        objects.push(new Character(objects[objects.length - 1].x, objects[objects.length - 1].y, 0, 0, pointer.pointerOptions.rotation, pointer.pointerOptions.pointerShape[1], pointer.pointerOptions.drag, focusPoint, pointer.pointerOptions.size, `#4637a5`, canvas, context, pointer))
+    }
+
 }
 
 /**
@@ -78,19 +85,19 @@ function init(canvas:HTMLCanvasElement, context:CanvasRenderingContext2D, object
  */
 function animate(objectChar: TCharacter, pointer: PointerObject) {
     // TODO: Implement the pointer Template for future pointers
-    
+
     // objectChar.x = mouse.x
     // objectChar.y = mouse.y
-    objectChar.dx = ((mouse.x-objectChar.x) + pointer.pointerOptions.xOffset + objectChar.focusPoint.x)*(1-pointer.pointerOptions.drag)
-    objectChar.dy = ((mouse.y-objectChar.y) + pointer.pointerOptions.yOffset + objectChar.focusPoint.y)*(1-pointer.pointerOptions.drag)
+    objectChar.dx = ((mouse.x - objectChar.x) + pointer.pointerOptions.xOffset + objectChar.focusPoint.x) * (1 - pointer.pointerOptions.drag)
+    objectChar.dy = ((mouse.y - objectChar.y) + pointer.pointerOptions.yOffset + objectChar.focusPoint.y) * (1 - pointer.pointerOptions.drag)
     objectChar.update()
 
 }
 
-window.addEventListener('mousemove', (event)=>{
+window.addEventListener('mousemove', (event) => {
     mouse.x = event.clientX
     mouse.y = event.clientY
 })
 
 
-export {animate, init, Character}
+export { animate, init, Character }

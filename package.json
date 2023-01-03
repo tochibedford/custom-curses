@@ -1,6 +1,6 @@
 {
   "name": "custom-curses",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "description": "A simple Library to add beautiful custom cursors to your webpage.",
   "type": "module",
   "main": "./dist/index",
@@ -9,7 +9,7 @@
     "example": "examples"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc && typedoc ./src"
   },
   "repository": {
     "type": "git",
@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/tochibedford/custom-curses#readme",
   "devDependencies": {
-    "typedoc": "^0.23.16"
+    "typedoc": "^0.23.23",
+    "typedoc-theme-hierarchy": "^3.0.2"
   }
 }
