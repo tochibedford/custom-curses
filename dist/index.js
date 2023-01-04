@@ -129,7 +129,7 @@ class Pointer {
             xCharOffset: 0,
             yCharOffset: 0,
             xOffset: 0,
-            yOffset: 0
+            yOffset: 0,
         };
         // assigns default values to keys not manually defined in the pointer Options
         this.pointerOptions = Object.assign(pointerOptionsDefaults, pointerOptions);
@@ -141,6 +141,12 @@ class Pointer {
             };
         }
         else if (this.pointerOptions.pointerShape[0] === 'image') {
+            const src = this.pointerOptions.pointerShape[1];
+            this.startPointer = () => {
+                const canvas = document.querySelector('.curses-cursor-canvas');
+                const context = canvas.getContext('2d');
+                init(canvas, context, objects, this);
+            };
         }
         else { // canvas drawing pointer 
             // TODO: implement the drawing pointer here

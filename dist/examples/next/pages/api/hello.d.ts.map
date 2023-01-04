@@ -1,0 +1,1 @@
+{"version":3,"file":"hello.d.ts","sourceRoot":"","sources":["../../../../../examples/next/pages/api/hello.ts"],"names":[],"mappings":"AACA,OAAO,KAAK,EAAE,cAAc,EAAE,eAAe,EAAE,MAAM,MAAM,CAAA;AAE3D,aAAK,IAAI,GAAG;IACV,IAAI,EAAE,MAAM,CAAA;CACb,CAAA;AAED,MAAM,CAAC,OAAO,UAAU,OAAO,CAC7B,GAAG,EAAE,cAAc,EACnB,GAAG,EAAE,eAAe,CAAC,IAAI,CAAC,QAG3B"}
