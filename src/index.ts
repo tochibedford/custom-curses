@@ -142,7 +142,7 @@ class Pointer implements PointerObject {
             xCharOffset: 0,
             yCharOffset: 0,
             xOffset: 0,
-            yOffset: 0
+            yOffset: 0,
         }
 
         // assigns default values to keys not manually defined in the pointer Options
@@ -155,7 +155,7 @@ class Pointer implements PointerObject {
                 init(canvas, context, objects, this)
             }
         } else if (this.pointerOptions.pointerShape[0] === 'image') {
-
+            const src = this.pointerOptions.pointerShape[1]
         } else { // canvas drawing pointer 
             // TODO: implement the drawing pointer here
 
