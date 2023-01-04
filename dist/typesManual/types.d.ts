@@ -13,7 +13,7 @@ declare type cursorOptionsInterface = {
  * Defines shape of options for pointer objects
  */
 declare type pointerOptionsInterface = {
-    pointerShape?: ["string" | "image" | "drawing", string | pathUrl];
+    pointerShape?: ["string" | "image" | "drawing", string | HTMLImageElement];
     colors?: string[];
     rotation?: number;
     drag?: number;
@@ -75,8 +75,7 @@ declare type TImageCharacter = {
     dx: number;
     dy: number;
     rotation: number;
-    src: pathUrl;
-    image: HTMLImageElement;
+    src: HTMLImageElement;
     focusPoint: focusPoint;
     size: number;
     pointer: PointerObject;

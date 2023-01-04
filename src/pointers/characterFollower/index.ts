@@ -1,4 +1,4 @@
-import { PointerObject, TCharacter, focusPoint, pathUrl, TImageCharacter } from '../../typesManual/types'
+import { PointerObject, TCharacter, focusPoint, TImageCharacter } from '../../typesManual/types'
 
 let mouse = {
     x: window.innerWidth / 2,
@@ -67,8 +67,7 @@ class ImageCharacter implements TImageCharacter {
     dx: number
     dy: number
     rotation: number
-    src: pathUrl
-    image: HTMLImageElement
+    src: HTMLImageElement
     drag: number
     size: number
     focusPoint: focusPoint
@@ -76,15 +75,13 @@ class ImageCharacter implements TImageCharacter {
     draw: () => void
     update: () => void
 
-    constructor(x: number, y: number, dx: number, dy: number, rotation: number, src: pathUrl, drag: number, focusPoint: focusPoint, size: number, canvas: HTMLCanvasElement, context: CanvasRenderingContext2D, pointer: PointerObject) {
+    constructor(x: number, y: number, dx: number, dy: number, rotation: number, src: HTMLImageElement, drag: number, focusPoint: focusPoint, size: number, canvas: HTMLCanvasElement, context: CanvasRenderingContext2D, pointer: PointerObject) {
         this.x = x
         this.y = y
         this.dx = dx
         this.dy = dy
         this.rotation = rotation
         this.src = src
-        this.image = new Image()
-        this.image.src = this.src
         this.drag = drag
         this.size = size
         this.focusPoint = focusPoint
@@ -93,10 +90,10 @@ class ImageCharacter implements TImageCharacter {
             context.save()
             context.translate(this.x, this.y)
             context.rotate((this.rotation * (Math.PI / 180)))
-            context.drawImage(this.image, 0 + pointer.pointerOptions.xCharOffset, 0 + pointer.pointerOptions.yCharOffset, this.size, this.size)
+            context.drawImage(this.src, 0 + pointer.pointerOptions.xCharOffset, 0 + pointer.pointerOptions.yCharOffset, this.size, this.size)
             // context.fillStyle = 'red' /* use this to check context */
             // context.fillRect(0,0,100, 100)
-            context.fillText(this.src, 0 + pointer.pointerOptions.xCharOffset, 0 + pointer.pointerOptions.yCharOffset)
+            // context.fillText(this.src, 0 + pointer.pointerOptions.xCharOffset, 0 + pointer.pointerOptions.yCharOffset)
             context.restore()
         }
 
@@ -126,13 +123,14 @@ function init(canvas: HTMLCanvasElement, context: CanvasRenderingContext2D, obje
         const x = mouse.x
         const y = mouse.y
         const rotation = pointer.pointerOptions.rotation
-        const str = pointer.pointerOptions.pointerShape[1]
         const drag = pointer.pointerOptions.drag
         const size = pointer.pointerOptions.size
 
         if (pointer.pointerOptions.pointerShape[0] === "string") {
+            const str = pointer.pointerOptions.pointerShape[1] as string
             objects.push(new Character(x, y, 0, 0, rotation, str, drag, focusPoint, size, `#4637a5`, canvas, context, pointer))
         } else if (pointer.pointerOptions.pointerShape[0] === "image") {
+            const str = pointer.pointerOptions.pointerShape[1] as HTMLImageElement
             objects.push(new ImageCharacter(x, y, 0, 0, rotation, str, drag, focusPoint, size, canvas, context, pointer))
         } else {
             // handle drawing type here
@@ -141,12 +139,13 @@ function init(canvas: HTMLCanvasElement, context: CanvasRenderingContext2D, obje
         const x = objects[objects.length - 1].x
         const y = objects[objects.length - 1].y
         const rotation = pointer.pointerOptions.rotation
-        const src = pointer.pointerOptions.pointerShape[1]
         const drag = pointer.pointerOptions.drag
         const size = pointer.pointerOptions.size
         if (pointer.pointerOptions.pointerShape[0] === "string") {
+            const src = pointer.pointerOptions.pointerShape[1] as string
             objects.push(new Character(x, y, 0, 0, rotation, src, drag, focusPoint, size, `#4637a5`, canvas, context, pointer))
         } else if (pointer.pointerOptions.pointerShape[0] === "image") {
+            const src = pointer.pointerOptions.pointerShape[1] as HTMLImageElement
             objects.push(new ImageCharacter(x, y, 0, 0, rotation, src, drag, focusPoint, size, canvas, context, pointer))
         } else {
             // handle drawing type here

@@ -147,7 +147,6 @@ class Pointer implements PointerObject {
 
         // assigns default values to keys not manually defined in the pointer Options
         this.pointerOptions = Object.assign(pointerOptionsDefaults, pointerOptions)
-
         if (this.pointerOptions.pointerShape[0] === 'string') {
             this.startPointer = () => {
                 const canvas: HTMLCanvasElement = document.querySelector('.curses-cursor-canvas')
@@ -156,7 +155,13 @@ class Pointer implements PointerObject {
             }
         } else if (this.pointerOptions.pointerShape[0] === 'image') {
             const src = this.pointerOptions.pointerShape[1]
+            this.startPointer = () => {
+                const canvas: HTMLCanvasElement = document.querySelector('.curses-cursor-canvas')
+                const context = canvas.getContext('2d')
+                init(canvas, context, objects, this)
+            }
         } else { // canvas drawing pointer 
+
             // TODO: implement the drawing pointer here
 
         }
