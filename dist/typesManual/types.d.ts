@@ -1,3 +1,4 @@
+declare type pathUrl = string;
 /**
  * Defines shape of options for cursor objects
  */
@@ -12,7 +13,7 @@ declare type cursorOptionsInterface = {
  * Defines shape of options for pointer objects
  */
 declare type pointerOptionsInterface = {
-    pointerShape?: ["string" | "image" | "drawing", string];
+    pointerShape?: ["string" | "image" | "drawing", string | HTMLImageElement];
     colors?: string[];
     rotation?: number;
     drag?: number;
@@ -65,5 +66,19 @@ declare type TCharacter = {
     pointer: PointerObject;
     color: string;
 } & CanvasObject;
-export { CursorObject, PointerObject, pointerOptionsInterface, cursorOptionsInterface, focusPoint, TCharacter, CanvasObject };
+/**
+ * Defines a type for the standard canvas "ImageCharacter" object that is used in an image pointer
+ */
+declare type TImageCharacter = {
+    x: number;
+    y: number;
+    dx: number;
+    dy: number;
+    rotation: number;
+    src: HTMLImageElement;
+    focusPoint: focusPoint;
+    size: number;
+    pointer: PointerObject;
+} & CanvasObject;
+export { CursorObject, PointerObject, pointerOptionsInterface, cursorOptionsInterface, focusPoint, TCharacter, TImageCharacter, CanvasObject, pathUrl };
 //# sourceMappingURL=types.d.ts.map
