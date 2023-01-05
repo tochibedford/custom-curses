@@ -2,7 +2,7 @@ import { Cursor, Pointer, initializeCanvas } from "../../dist/index.js";
 
 let objects = [];
 const img1 = new Image();
-img1.src = "../../src/assets/mouse_icon.png";
+img1.src = "./assets/mouse_icon.png";
 const pointer1 = new Pointer(
   {
     pointerShape: ["image", img1],
