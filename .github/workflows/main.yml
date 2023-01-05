@@ -1,0 +1,24 @@
+name: Generate documentation
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  generate-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: npm install
+      - name: Generate documentation
+        run: npx typedoc ./src
+      - name: Checkout documentation branch
+        run: git checkout -b documentation
+      - name: Add documentation files
+        run: git add docs
+      - name: Commit documentation
+        run: git commit -m "Generate documentation"
+      - name: Push documentation to branch
+        run: git push origin documentation
