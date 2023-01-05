@@ -1,5 +1,3 @@
-type pathUrl = string
-
 /**
  * Defines shape of options for cursor objects
  */
@@ -97,6 +95,5 @@ export {
     focusPoint,
     TCharacter,
     TImageCharacter,
-    CanvasObject,
-    pathUrl
+    CanvasObject
 }

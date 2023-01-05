@@ -1,4 +1,3 @@
-declare type pathUrl = string;
 /**
  * Defines shape of options for cursor objects
  */
@@ -80,5 +79,5 @@ declare type TImageCharacter = {
     size: number;
     pointer: PointerObject;
 } & CanvasObject;
-export { CursorObject, PointerObject, pointerOptionsInterface, cursorOptionsInterface, focusPoint, TCharacter, TImageCharacter, CanvasObject, pathUrl };
+export { CursorObject, PointerObject, pointerOptionsInterface, cursorOptionsInterface, focusPoint, TCharacter, TImageCharacter, CanvasObject };
 //# sourceMappingURL=types.d.ts.map

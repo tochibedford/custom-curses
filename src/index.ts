@@ -1,5 +1,5 @@
-import { CursorObject, PointerObject, pointerOptionsInterface, cursorOptionsInterface, TCharacter, focusPoint, CanvasObject } from "./typesManual/types"
-import { animate, init, Character } from "./pointers/characterFollower/index.js"
+import { CursorObject, PointerObject, pointerOptionsInterface, cursorOptionsInterface, TCharacter, TImageCharacter } from "./typesManual/types"
+import { animate, init } from "./pointers/characterFollower/index.js"
 import { isDeviceMobileOrTablet } from "./detectMobileTablet.js"
 
 /**
@@ -131,7 +131,7 @@ class Pointer implements PointerObject {
      * @param objects - An array of Objects that implement both a draw and an update function e.g. the standard Character type built into the library 
      * @returns a Pointer object
      */
-    constructor(pointerOptions: Partial<pointerOptionsInterface>, objects: TCharacter[]) {
+    constructor(pointerOptions: Partial<pointerOptionsInterface>, objects: (TCharacter | TImageCharacter)[]) {
 
         const pointerOptionsDefaults: pointerOptionsInterface = {
             pointerShape: ['string', '💧'],
@@ -182,7 +182,7 @@ class Pointer implements PointerObject {
  * @returns A HTMLCanvasElement object that the cursor is drawn on
  */
 
-function initializeCanvas(cursor: CursorObject, objects: TCharacter[]) { //creates a canvas if one is not there
+function initializeCanvas(cursor: CursorObject, objects: (TCharacter | TImageCharacter)[]) { //creates a canvas if one is not there
     if (isDeviceMobileOrTablet()) {
         return undefined
     }
@@ -225,7 +225,7 @@ function initializeCanvas(cursor: CursorObject, objects: TCharacter[]) { //creat
     }
 }
 
-function syncAnimate(objects: TCharacter[], canvas: HTMLCanvasElement, context: CanvasRenderingContext2D) {
+function syncAnimate(objects: (TCharacter | TImageCharacter)[], canvas: HTMLCanvasElement, context: CanvasRenderingContext2D) {
     /**
      * This if statement checks if a particular canvas exists on the page before updating that canvas.
      * Without it, even though a canvas has been removed from the DOM it keeps updating in the background
