@@ -216,7 +216,7 @@ function syncAnimate(objects, canvas, context) {
             syncAnimate(objects, canvas, context);
         });
         objects.forEach(objectChar => {
-            animate(objectChar, objectChar.pointer);
+            animate(objectChar);
         });
         return animId;
     }

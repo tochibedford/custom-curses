@@ -238,7 +238,7 @@ function syncAnimate(objects: TCharacter[], canvas: HTMLCanvasElement, context: 
         })
 
         objects.forEach(objectChar => {
-            animate(objectChar, objectChar.pointer)
+            animate(objectChar)
         })
 
         return animId
