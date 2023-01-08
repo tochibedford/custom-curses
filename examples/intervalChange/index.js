@@ -2,8 +2,7 @@ import { Cursor, Pointer, initializeCanvas } from "../../dist/index.js";
 
 // or
 
-// import { Cursor, Pointer, initializeCanvas } from "custom-curses"; // if using a bundler
-const objects = [];
+// import { Cursor, Pointer, initializeCanvas } from "custom-curses"; // if using a bundle
 
 const pointerOptions = {
   pointerShape: ["string", "💧"],
@@ -17,7 +16,7 @@ const pointerOptions = {
   yOffset: 45,
 };
 
-const pointer1 = new Pointer(pointerOptions, objects);
+const pointer1 = new Pointer(pointerOptions);
 
 const cursorOptions = {
   pointers: [pointer1],
@@ -27,9 +26,9 @@ const cursorOptions = {
   yOffset: 0,
 };
 
-const cursor = new Cursor(cursorOptions, objects);
+const cursor = new Cursor(cursorOptions);
 
-let cleanup = initializeCanvas(cursor, objects);
+let cleanup = initializeCanvas(cursor);
 
 const myListOfEmojis = ["😥", "😎", "🦄", "🐱‍🏍"];
 let currIndex = 0;
@@ -40,6 +39,6 @@ const intervalId = setInterval(() => {
   }
   cleanup();
   pointerOptions.pointerShape[1] = myListOfEmojis[currIndex];
-  cleanup = initializeCanvas(cursor, objects);
+  cleanup = initializeCanvas(cursor);
   currIndex++;
 }, 3000);

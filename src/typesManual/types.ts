@@ -37,7 +37,7 @@ interface PointerObject {
  */
 type CursorObject = {
     hideMouse: boolean,
-    getPointers: () => PointerObject[],
+    pointers: PointerObject[],
     getDrag: () => number,
     getXOffset: () => number,
     getYOffset: () => number,

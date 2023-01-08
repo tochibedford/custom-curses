@@ -2,7 +2,7 @@ import { CursorObject, PointerObject, pointerOptionsInterface, cursorOptionsInte
 /**
  * Class representing a Cursor object.
  * @remarks You can have only one Cursor object in a project.
- * The Cursor object houses the various pointer objects you have created, and each of the pointers follow the curor as a kind of parent
+ * The Cursor object houses the various pointer objects you have created, and each of the pointers follow the cursor as a kind of parent
  *
  * @example
  * const cursor1 = new Cursor({
@@ -18,9 +18,9 @@ declare class Cursor implements CursorObject {
      */
     hideMouse: boolean;
     /**
-     * A function that returns an array of all pointers being used by the cursor
+     * An array of all pointers being used by the cursor
      */
-    getPointers: () => PointerObject[];
+    pointers: PointerObject[];
     /**
      * A functuion that returns a number representing the drag force acting on thee whole cursor
      */
@@ -63,7 +63,7 @@ const pointer1 = new Pointer({
     rotation: -40,
     xOffset: 0,
     yOffset: 0
-}, objects)
+})
  *
  */
 declare class Pointer implements PointerObject {
@@ -90,10 +90,9 @@ declare class Pointer implements PointerObject {
             yOffset: 0
         }
         ```
-     * @param objects - An array of Objects that implement both a draw and an update function e.g. the standard Character type built into the library
      * @returns a Pointer object
      */
-    constructor(pointerOptions: Partial<pointerOptionsInterface>, objects: (TCharacter | TImageCharacter)[]);
+    constructor(pointerOptions: Partial<pointerOptionsInterface>);
 }
 /**
  * Performs a bunch of initialization tasks for cursor drawing like:

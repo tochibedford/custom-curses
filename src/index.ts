@@ -2,10 +2,12 @@ import { CursorObject, PointerObject, pointerOptionsInterface, cursorOptionsInte
 import { animate, init } from "./pointers/characterFollower/index.js"
 import { isDeviceMobileOrTablet } from "./detectMobileTablet.js"
 
+const objects: (TCharacter | TImageCharacter)[] = []
+
 /**
  * Class representing a Cursor object.
  * @remarks You can have only one Cursor object in a project. 
- * The Cursor object houses the various pointer objects you have created, and each of the pointers follow the curor as a kind of parent
+ * The Cursor object houses the various pointer objects you have created, and each of the pointers follow the cursor as a kind of parent
  * 
  * @example
  * const cursor1 = new Cursor({
@@ -19,11 +21,11 @@ class Cursor implements CursorObject {
     /**
      * A boolean value that determines whether the System cursor is hidden or not
      */
-    hideMouse;
+    hideMouse: boolean;
     /**
-     * A function that returns an array of all pointers being used by the cursor 
+     * An array of all pointers being used by the cursor 
      */
-    getPointers: () => PointerObject[];
+    pointers: PointerObject[];
     /**
      * A functuion that returns a number representing the drag force acting on thee whole cursor
      */
@@ -67,9 +69,7 @@ class Cursor implements CursorObject {
 
         this.hideMouse = newCursorOptions.hideMouse;
 
-        this.getPointers = (): PointerObject[] => {
-            return newCursorOptions.pointers
-        }
+        this.pointers = newCursorOptions.pointers
 
         this.getDrag = (): number => {
             return newCursorOptions.drag
@@ -100,7 +100,7 @@ const pointer1 = new Pointer({
     rotation: -40,
     xOffset: 0,
     yOffset: 0
-}, objects)
+})
  * 
  */
 class Pointer implements PointerObject {
@@ -127,11 +127,10 @@ class Pointer implements PointerObject {
             xOffset: 0,
             yOffset: 0
         }
-        ```
-     * @param objects - An array of Objects that implement both a draw and an update function e.g. the standard Character type built into the library 
+        ``` 
      * @returns a Pointer object
      */
-    constructor(pointerOptions: Partial<pointerOptionsInterface>, objects: (TCharacter | TImageCharacter)[]) {
+    constructor(pointerOptions: Partial<pointerOptionsInterface>) {
 
         const pointerOptionsDefaults: pointerOptionsInterface = {
             pointerShape: ['string', '💧'],
@@ -214,18 +213,18 @@ function initializeCanvas(cursor: CursorObject, objects: (TCharacter | TImageCha
     }
 
     const ctx = cursorCanvas.getContext('2d')
-    cursor.getPointers().forEach(pointer => {
+    cursor.pointers.forEach(pointer => {
         pointer.startPointer()
     })
 
-    const animId = syncAnimate(objects, cursorCanvas, ctx)
+    const animId = syncAnimate(cursorCanvas, ctx)
 
     return () => { // cleanup stuff 
         cursorCanvas.remove()
     }
 }
 
-function syncAnimate(objects: (TCharacter | TImageCharacter)[], canvas: HTMLCanvasElement, context: CanvasRenderingContext2D) {
+function syncAnimate(canvas: HTMLCanvasElement, context: CanvasRenderingContext2D) {
     /**
      * This if statement checks if a particular canvas exists on the page before updating that canvas.
      * Without it, even though a canvas has been removed from the DOM it keeps updating in the background
@@ -234,7 +233,7 @@ function syncAnimate(objects: (TCharacter | TImageCharacter)[], canvas: HTMLCanv
     if (document.contains(canvas)) {
         context.clearRect(0, 0, canvas.width, canvas.height)
         const animId = requestAnimationFrame(() => {
-            syncAnimate(objects, canvas, context)
+            syncAnimate(canvas, context)
         })
 
         objects.forEach(objectChar => {
