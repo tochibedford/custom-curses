@@ -27,6 +27,10 @@ class Cursor implements CursorObject {
      */
     pointers: PointerObject[];
     /**
+     * An array of all secondary pointers being used by the cursor 
+     */
+    secondaryPointers: PointerObject[];
+    /**
      * A functuion that returns a number representing the drag force acting on thee whole cursor
      */
     getDrag: () => number;
@@ -59,6 +63,7 @@ class Cursor implements CursorObject {
 
         const cursorOptionsDefaults: cursorOptionsInterface = {
             pointers: null,
+            secondaryPointers: cursorOptions.pointers,
             hideMouse: true,
             drag: 0,
             xOffset: 0,
@@ -70,6 +75,8 @@ class Cursor implements CursorObject {
         this.hideMouse = newCursorOptions.hideMouse;
 
         this.pointers = newCursorOptions.pointers
+
+        this.secondaryPointers = newCursorOptions.secondaryPointers
 
         this.getDrag = (): number => {
             return newCursorOptions.drag
@@ -109,7 +116,7 @@ class Pointer implements PointerObject {
      * Internal function used by the pointer to initialize itself on the canvas
      * @remarks This function calls the init function from the canvas drawing, a user should rarely have to call this function or the init function manually
      */
-    startPointer: () => void;
+    startPointer: (canvas: HTMLCanvasElement) => void;
 
     /**
      * Creates a pointer object
@@ -147,15 +154,13 @@ class Pointer implements PointerObject {
         // assigns default values to keys not manually defined in the pointer Options
         this.pointerOptions = Object.assign(pointerOptionsDefaults, pointerOptions)
         if (this.pointerOptions.pointerShape[0] === 'string') {
-            this.startPointer = () => {
-                const canvas: HTMLCanvasElement = document.querySelector('.curses-cursor-canvas')
+            this.startPointer = (canvas) => {
                 const context = canvas.getContext('2d')
                 init(canvas, context, objects, this)
             }
         } else if (this.pointerOptions.pointerShape[0] === 'image') {
             const src = this.pointerOptions.pointerShape[1]
-            this.startPointer = () => {
-                const canvas: HTMLCanvasElement = document.querySelector('.curses-cursor-canvas')
+            this.startPointer = (canvas) => {
                 const context = canvas.getContext('2d')
                 init(canvas, context, objects, this)
             }
@@ -186,6 +191,7 @@ function initializeCanvas(cursor: CursorObject, objects: (TCharacter | TImageCha
         return undefined
     }
     let cursorCanvas: HTMLCanvasElement = document.querySelector('.curses-cursor-canvas');
+    let cursorCanvasSecondary: HTMLCanvasElement = document.querySelector('.curses-cursor-canvas-secondary');
     if (!cursorCanvas) {
         cursorCanvas = document.createElement('canvas')
         cursorCanvas.setAttribute('class', 'curses-cursor-canvas')
@@ -197,6 +203,7 @@ function initializeCanvas(cursor: CursorObject, objects: (TCharacter | TImageCha
         top: 0;
         left: 0;
         z-index: 10000;
+        transition: opacity 0.4s, transform 0.2s;
         `
         if (cursor.hideMouse) {
             const htmlElement = document.children[0] as HTMLElement
@@ -211,13 +218,54 @@ function initializeCanvas(cursor: CursorObject, objects: (TCharacter | TImageCha
 
         document.body.appendChild(cursorCanvas)
     }
+    if (!cursorCanvasSecondary) {
+        cursorCanvasSecondary = document.createElement('canvas')
+        cursorCanvasSecondary.setAttribute('class', 'curses-cursor-canvas-secondary')
+        cursorCanvasSecondary.width = window.innerWidth
+        cursorCanvasSecondary.height = window.innerHeight
+        cursorCanvasSecondary.style.cssText = `
+        position: fixed;
+        pointer-events:none;
+        top: 0;
+        left: 0;
+        z-index: 10000;
+        transform: translate(30px, 30px);
+        transition: opacity 0.4s, transform 0.2s;
+        opacity: 0;
+        `
+        document.body.appendChild(cursorCanvasSecondary)
+    }
 
+    // normal canvas
     const ctx = cursorCanvas.getContext('2d')
     cursor.pointers.forEach(pointer => {
-        pointer.startPointer()
+        pointer.startPointer(cursorCanvas)
     })
 
     const animId = syncAnimate(cursorCanvas, ctx)
+
+    // secondary canvas
+    const secondaryCtx = cursorCanvasSecondary.getContext('2d')
+    cursor.secondaryPointers.forEach(secondaryPointer => {
+        secondaryPointer.startPointer(cursorCanvasSecondary)
+    })
+
+    const animIdSecondary = syncAnimate(cursorCanvasSecondary, secondaryCtx)
+
+    window.addEventListener("mouseover", (e) => {
+        if (e.target && (e.target as HTMLElement).getAttribute("data-cursor") === "secondary") {
+            cursorCanvas.style.opacity = "0"
+            cursorCanvas.style.transform = "translate(30px, 30px)"
+            cursorCanvasSecondary.style.opacity = "1"
+            cursorCanvasSecondary.style.transform = "translate(0px, 0px)"
+        }
+        else {
+            cursorCanvas.style.opacity = "1"
+            cursorCanvas.style.transform = "translate(0, 0)"
+            cursorCanvasSecondary.style.opacity = "0"
+            cursorCanvasSecondary.style.transform = "translate(30px, 30px)"
+        }
+    });
 
     return () => { // cleanup stuff 
         cursorCanvas.remove()

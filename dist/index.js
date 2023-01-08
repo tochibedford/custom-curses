@@ -24,6 +24,10 @@ class Cursor {
      */
     pointers;
     /**
+     * An array of all secondary pointers being used by the cursor
+     */
+    secondaryPointers;
+    /**
      * A functuion that returns a number representing the drag force acting on thee whole cursor
      */
     getDrag;
@@ -54,6 +58,7 @@ class Cursor {
         }
         const cursorOptionsDefaults = {
             pointers: null,
+            secondaryPointers: cursorOptions.pointers,
             hideMouse: true,
             drag: 0,
             xOffset: 0,
@@ -62,6 +67,7 @@ class Cursor {
         const newCursorOptions = Object.assign(cursorOptionsDefaults, cursorOptions);
         this.hideMouse = newCursorOptions.hideMouse;
         this.pointers = newCursorOptions.pointers;
+        this.secondaryPointers = newCursorOptions.secondaryPointers;
         this.getDrag = () => {
             return newCursorOptions.drag;
         };
@@ -132,16 +138,14 @@ class Pointer {
         // assigns default values to keys not manually defined in the pointer Options
         this.pointerOptions = Object.assign(pointerOptionsDefaults, pointerOptions);
         if (this.pointerOptions.pointerShape[0] === 'string') {
-            this.startPointer = () => {
-                const canvas = document.querySelector('.curses-cursor-canvas');
+            this.startPointer = (canvas) => {
                 const context = canvas.getContext('2d');
                 init(canvas, context, objects, this);
             };
         }
         else if (this.pointerOptions.pointerShape[0] === 'image') {
             const src = this.pointerOptions.pointerShape[1];
-            this.startPointer = () => {
-                const canvas = document.querySelector('.curses-cursor-canvas');
+            this.startPointer = (canvas) => {
                 const context = canvas.getContext('2d');
                 init(canvas, context, objects, this);
             };
@@ -169,6 +173,7 @@ function initializeCanvas(cursor, objects) {
         return undefined;
     }
     let cursorCanvas = document.querySelector('.curses-cursor-canvas');
+    let cursorCanvasSecondary = document.querySelector('.curses-cursor-canvas-secondary');
     if (!cursorCanvas) {
         cursorCanvas = document.createElement('canvas');
         cursorCanvas.setAttribute('class', 'curses-cursor-canvas');
@@ -180,6 +185,7 @@ function initializeCanvas(cursor, objects) {
         top: 0;
         left: 0;
         z-index: 10000;
+        transition: opacity 0.4s, transform 0.2s;
         `;
         if (cursor.hideMouse) {
             const htmlElement = document.children[0];
@@ -193,11 +199,49 @@ function initializeCanvas(cursor, objects) {
         });
         document.body.appendChild(cursorCanvas);
     }
+    if (!cursorCanvasSecondary) {
+        cursorCanvasSecondary = document.createElement('canvas');
+        cursorCanvasSecondary.setAttribute('class', 'curses-cursor-canvas-secondary');
+        cursorCanvasSecondary.width = window.innerWidth;
+        cursorCanvasSecondary.height = window.innerHeight;
+        cursorCanvasSecondary.style.cssText = `
+        position: fixed;
+        pointer-events:none;
+        top: 0;
+        left: 0;
+        z-index: 10000;
+        transform: translate(30px, 30px);
+        transition: opacity 0.4s, transform 0.2s;
+        opacity: 0;
+        `;
+        document.body.appendChild(cursorCanvasSecondary);
+    }
+    // normal canvas
     const ctx = cursorCanvas.getContext('2d');
     cursor.pointers.forEach(pointer => {
-        pointer.startPointer();
+        pointer.startPointer(cursorCanvas);
     });
     const animId = syncAnimate(cursorCanvas, ctx);
+    // secondary canvas
+    const secondaryCtx = cursorCanvasSecondary.getContext('2d');
+    cursor.secondaryPointers.forEach(secondaryPointer => {
+        secondaryPointer.startPointer(cursorCanvasSecondary);
+    });
+    const animIdSecondary = syncAnimate(cursorCanvasSecondary, secondaryCtx);
+    window.addEventListener("mouseover", (e) => {
+        if (e.target && e.target.getAttribute("data-cursor") === "secondary") {
+            cursorCanvas.style.opacity = "0";
+            cursorCanvas.style.transform = "translate(30px, 30px)";
+            cursorCanvasSecondary.style.opacity = "1";
+            cursorCanvasSecondary.style.transform = "translate(0px, 0px)";
+        }
+        else {
+            cursorCanvas.style.opacity = "1";
+            cursorCanvas.style.transform = "translate(0, 0)";
+            cursorCanvasSecondary.style.opacity = "0";
+            cursorCanvasSecondary.style.transform = "translate(30px, 30px)";
+        }
+    });
     return () => {
         cursorCanvas.remove();
     };

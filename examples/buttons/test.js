@@ -25,11 +25,3 @@ function handleClick(e) {
   pointer1.pointerOptions.pointerShape[1] = e.target.innerText;
   cleanup = initializeCanvas(cursor1);
 }
-
-// window.addEventListener("mouseover", (e) => {
-//   if (e.target && e.target.getAttribute("data-cursor") === "secondary") {
-//     cleanup();
-//     pointer1.pointerOptions.pointerShape[1] = e.target.innerText;
-//     cleanup = initializeCanvas(cursor1);
-//   }
-// });

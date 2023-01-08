@@ -22,6 +22,10 @@ declare class Cursor implements CursorObject {
      */
     pointers: PointerObject[];
     /**
+     * An array of all secondary pointers being used by the cursor
+     */
+    secondaryPointers: PointerObject[];
+    /**
      * A functuion that returns a number representing the drag force acting on thee whole cursor
      */
     getDrag: () => number;
@@ -72,7 +76,7 @@ declare class Pointer implements PointerObject {
      * Internal function used by the pointer to initialize itself on the canvas
      * @remarks This function calls the init function from the canvas drawing, a user should rarely have to call this function or the init function manually
      */
-    startPointer: () => void;
+    startPointer: (canvas: HTMLCanvasElement) => void;
     /**
      * Creates a pointer object
      *

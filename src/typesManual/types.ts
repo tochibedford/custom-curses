@@ -3,6 +3,7 @@
  */
 type cursorOptionsInterface = {
     pointers?: PointerObject[] | null,
+    secondaryPointers?: PointerObject[] | null,
     hideMouse?: boolean,
     drag?: number,
     xOffset?: number,
@@ -29,7 +30,7 @@ type pointerOptionsInterface = {
  */
 interface PointerObject {
     pointerOptions: pointerOptionsInterface,
-    startPointer: () => void
+    startPointer: (canvas: HTMLCanvasElement) => void
 }
 
 /**
@@ -38,6 +39,7 @@ interface PointerObject {
 type CursorObject = {
     hideMouse: boolean,
     pointers: PointerObject[],
+    secondaryPointers: PointerObject[],
     getDrag: () => number,
     getXOffset: () => number,
     getYOffset: () => number,
