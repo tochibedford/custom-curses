@@ -1,9 +1,10 @@
 import { animate, init } from "./pointers/characterFollower/index.js";
 import { isDeviceMobileOrTablet } from "./detectMobileTablet.js";
+const objects = [];
 /**
  * Class representing a Cursor object.
  * @remarks You can have only one Cursor object in a project.
- * The Cursor object houses the various pointer objects you have created, and each of the pointers follow the curor as a kind of parent
+ * The Cursor object houses the various pointer objects you have created, and each of the pointers follow the cursor as a kind of parent
  *
  * @example
  * const cursor1 = new Cursor({
@@ -19,9 +20,17 @@ class Cursor {
      */
     hideMouse;
     /**
-     * A function that returns an array of all pointers being used by the cursor
+     * An array of all pointers being used by the cursor
      */
-    getPointers;
+    pointers;
+    /**
+     * An array of all secondary pointers being used by the cursor
+     */
+    secondaryPointers;
+    /**
+     * A number in milliseconds representing how long it takes to switch from primary to secondary cursor
+     */
+    transition;
     /**
      * A functuion that returns a number representing the drag force acting on thee whole cursor
      */
@@ -53,6 +62,8 @@ class Cursor {
         }
         const cursorOptionsDefaults = {
             pointers: null,
+            secondaryPointers: cursorOptions.pointers,
+            transition: 0,
             hideMouse: true,
             drag: 0,
             xOffset: 0,
@@ -60,9 +71,9 @@ class Cursor {
         };
         const newCursorOptions = Object.assign(cursorOptionsDefaults, cursorOptions);
         this.hideMouse = newCursorOptions.hideMouse;
-        this.getPointers = () => {
-            return newCursorOptions.pointers;
-        };
+        this.pointers = newCursorOptions.pointers;
+        this.secondaryPointers = newCursorOptions.secondaryPointers;
+        this.transition = newCursorOptions.transition;
         this.getDrag = () => {
             return newCursorOptions.drag;
         };
@@ -89,7 +100,7 @@ const pointer1 = new Pointer({
     rotation: -40,
     xOffset: 0,
     yOffset: 0
-}, objects)
+})
  *
  */
 class Pointer {
@@ -116,10 +127,9 @@ class Pointer {
             yOffset: 0
         }
         ```
-     * @param objects - An array of Objects that implement both a draw and an update function e.g. the standard Character type built into the library
      * @returns a Pointer object
      */
-    constructor(pointerOptions, objects) {
+    constructor(pointerOptions) {
         const pointerOptionsDefaults = {
             pointerShape: ['string', '💧'],
             colors: ['default'],
@@ -134,16 +144,14 @@ class Pointer {
         // assigns default values to keys not manually defined in the pointer Options
         this.pointerOptions = Object.assign(pointerOptionsDefaults, pointerOptions);
         if (this.pointerOptions.pointerShape[0] === 'string') {
-            this.startPointer = () => {
-                const canvas = document.querySelector('.curses-cursor-canvas');
+            this.startPointer = (canvas) => {
                 const context = canvas.getContext('2d');
                 init(canvas, context, objects, this);
             };
         }
         else if (this.pointerOptions.pointerShape[0] === 'image') {
             const src = this.pointerOptions.pointerShape[1];
-            this.startPointer = () => {
-                const canvas = document.querySelector('.curses-cursor-canvas');
+            this.startPointer = (canvas) => {
                 const context = canvas.getContext('2d');
                 init(canvas, context, objects, this);
             };
@@ -163,14 +171,15 @@ class Pointer {
  * You will need to call this function at least once in a project.
  *
  * @param cursor - The main Cursor Object for the project, there should typically be 1 per project
- * @param objects - An array of Objects that implement both a draw and an update function e.g. the standard Character type built into the library
  * @returns A HTMLCanvasElement object that the cursor is drawn on
  */
-function initializeCanvas(cursor, objects) {
+function initializeCanvas(cursor) {
+    // TODO: ADD fade option for secondary cursor set
     if (isDeviceMobileOrTablet()) {
         return undefined;
     }
     let cursorCanvas = document.querySelector('.curses-cursor-canvas');
+    let cursorCanvasSecondary = document.querySelector('.curses-cursor-canvas-secondary');
     if (!cursorCanvas) {
         cursorCanvas = document.createElement('canvas');
         cursorCanvas.setAttribute('class', 'curses-cursor-canvas');
@@ -182,6 +191,7 @@ function initializeCanvas(cursor, objects) {
         top: 0;
         left: 0;
         z-index: 10000;
+        transition: opacity ${cursor.transition * 1000}ms, transform ${cursor.transition * 1000}ms;
         `;
         if (cursor.hideMouse) {
             const htmlElement = document.children[0];
@@ -195,16 +205,54 @@ function initializeCanvas(cursor, objects) {
         });
         document.body.appendChild(cursorCanvas);
     }
+    if (!cursorCanvasSecondary) {
+        cursorCanvasSecondary = document.createElement('canvas');
+        cursorCanvasSecondary.setAttribute('class', 'curses-cursor-canvas-secondary');
+        cursorCanvasSecondary.width = window.innerWidth;
+        cursorCanvasSecondary.height = window.innerHeight;
+        cursorCanvasSecondary.style.cssText = `
+        position: fixed;
+        pointer-events:none;
+        top: 0;
+        left: 0;
+        z-index: 10000;
+        transform: translate(30px, 30px);
+        transition: opacity ${cursor.transition * 1000}ms, transform ${cursor.transition * 1000}ms;
+        opacity: 0;
+        `;
+        document.body.appendChild(cursorCanvasSecondary);
+    }
+    // normal canvas
     const ctx = cursorCanvas.getContext('2d');
-    cursor.getPointers().forEach(pointer => {
-        pointer.startPointer();
+    cursor.pointers.forEach(pointer => {
+        pointer.startPointer(cursorCanvas);
     });
-    const animId = syncAnimate(objects, cursorCanvas, ctx);
+    const animId = syncAnimate(cursorCanvas, ctx);
+    // secondary canvas
+    const secondaryCtx = cursorCanvasSecondary.getContext('2d');
+    cursor.secondaryPointers.forEach(secondaryPointer => {
+        secondaryPointer.startPointer(cursorCanvasSecondary);
+    });
+    const animIdSecondary = syncAnimate(cursorCanvasSecondary, secondaryCtx);
+    window.addEventListener("mouseover", (e) => {
+        if (e.target && e.target.getAttribute("data-cursor") === "secondary") {
+            cursorCanvas.style.opacity = "0";
+            cursorCanvas.style.transform = "translate(30px, 30px)";
+            cursorCanvasSecondary.style.opacity = "1";
+            cursorCanvasSecondary.style.transform = "translate(0px, 0px)";
+        }
+        else {
+            cursorCanvas.style.opacity = "1";
+            cursorCanvas.style.transform = "translate(0, 0)";
+            cursorCanvasSecondary.style.opacity = "0";
+            cursorCanvasSecondary.style.transform = "translate(30px, 30px)";
+        }
+    });
     return () => {
         cursorCanvas.remove();
     };
 }
-function syncAnimate(objects, canvas, context) {
+function syncAnimate(canvas, context) {
     /**
      * This if statement checks if a particular canvas exists on the page before updating that canvas.
      * Without it, even though a canvas has been removed from the DOM it keeps updating in the background
@@ -213,10 +261,10 @@ function syncAnimate(objects, canvas, context) {
     if (document.contains(canvas)) {
         context.clearRect(0, 0, canvas.width, canvas.height);
         const animId = requestAnimationFrame(() => {
-            syncAnimate(objects, canvas, context);
+            syncAnimate(canvas, context);
         });
         objects.forEach(objectChar => {
-            animate(objectChar, objectChar.pointer);
+            animate(objectChar);
         });
         return animId;
     }

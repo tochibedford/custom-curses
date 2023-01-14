@@ -25,6 +25,6 @@ declare function init(canvas: HTMLCanvasElement, context: CanvasRenderingContext
  * @param objectChar an object that implements at least draw & update methods
  * @param pointer this is the pointer object that the Character is bound to
  */
-declare function animate(objectChar: TCharacter, pointer: PointerObject): void;
-export { animate, init, Character };
+declare function animate(objectChar: TCharacter | TImageCharacter): void;
+export { animate, init, Character, TImageCharacter };
 //# sourceMappingURL=index.d.ts.map
