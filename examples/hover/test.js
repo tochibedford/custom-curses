@@ -48,7 +48,7 @@ const pointer6 = new Pointer({
 
 const cursor1 = new Cursor({
   pointers: [pointer1, pointer2],
-  // secondaryPointers: [pointer3, pointer4, pointer5, pointer6],
+  secondaryPointers: [pointer3, pointer4, pointer5, pointer6],
   transition: 0.4,
   drag: 0, //where 1 is max
   hideMouse: true,
