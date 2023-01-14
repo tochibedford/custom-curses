@@ -1,8 +1,8 @@
-import { CursorObject, PointerObject, pointerOptionsInterface, cursorOptionsInterface, TCharacter, TImageCharacter } from "./typesManual/types";
+import { CursorObject, PointerObject, pointerOptionsInterface, cursorOptionsInterface } from "./typesManual/types";
 /**
  * Class representing a Cursor object.
  * @remarks You can have only one Cursor object in a project.
- * The Cursor object houses the various pointer objects you have created, and each of the pointers follow the curor as a kind of parent
+ * The Cursor object houses the various pointer objects you have created, and each of the pointers follow the cursor as a kind of parent
  *
  * @example
  * const cursor1 = new Cursor({
@@ -18,9 +18,17 @@ declare class Cursor implements CursorObject {
      */
     hideMouse: boolean;
     /**
-     * A function that returns an array of all pointers being used by the cursor
+     * An array of all pointers being used by the cursor
      */
-    getPointers: () => PointerObject[];
+    pointers: PointerObject[];
+    /**
+     * An array of all secondary pointers being used by the cursor
+     */
+    secondaryPointers: PointerObject[];
+    /**
+     * A number in milliseconds representing how long it takes to switch from primary to secondary cursor
+     */
+    transition: number;
     /**
      * A functuion that returns a number representing the drag force acting on thee whole cursor
      */
@@ -63,7 +71,7 @@ const pointer1 = new Pointer({
     rotation: -40,
     xOffset: 0,
     yOffset: 0
-}, objects)
+})
  *
  */
 declare class Pointer implements PointerObject {
@@ -72,7 +80,7 @@ declare class Pointer implements PointerObject {
      * Internal function used by the pointer to initialize itself on the canvas
      * @remarks This function calls the init function from the canvas drawing, a user should rarely have to call this function or the init function manually
      */
-    startPointer: () => void;
+    startPointer: (canvas: HTMLCanvasElement) => void;
     /**
      * Creates a pointer object
      *
@@ -90,10 +98,9 @@ declare class Pointer implements PointerObject {
             yOffset: 0
         }
         ```
-     * @param objects - An array of Objects that implement both a draw and an update function e.g. the standard Character type built into the library
      * @returns a Pointer object
      */
-    constructor(pointerOptions: Partial<pointerOptionsInterface>, objects: (TCharacter | TImageCharacter)[]);
+    constructor(pointerOptions: Partial<pointerOptionsInterface>);
 }
 /**
  * Performs a bunch of initialization tasks for cursor drawing like:
@@ -105,9 +112,8 @@ declare class Pointer implements PointerObject {
  * You will need to call this function at least once in a project.
  *
  * @param cursor - The main Cursor Object for the project, there should typically be 1 per project
- * @param objects - An array of Objects that implement both a draw and an update function e.g. the standard Character type built into the library
  * @returns A HTMLCanvasElement object that the cursor is drawn on
  */
-declare function initializeCanvas(cursor: CursorObject, objects: (TCharacter | TImageCharacter)[]): () => void;
+declare function initializeCanvas(cursor: CursorObject): () => void;
 export { Cursor, Pointer, initializeCanvas };
 //# sourceMappingURL=index.d.ts.map
