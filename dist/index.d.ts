@@ -1,4 +1,4 @@
-import { CursorObject, PointerObject, pointerOptionsInterface, cursorOptionsInterface, TCharacter, TImageCharacter } from "./typesManual/types";
+import { CursorObject, PointerObject, pointerOptionsInterface, cursorOptionsInterface } from "./typesManual/types";
 /**
  * Class representing a Cursor object.
  * @remarks You can have only one Cursor object in a project.
@@ -25,6 +25,10 @@ declare class Cursor implements CursorObject {
      * An array of all secondary pointers being used by the cursor
      */
     secondaryPointers: PointerObject[];
+    /**
+     * A number in milliseconds representing how long it takes to switch from primary to secondary cursor
+     */
+    transition: number;
     /**
      * A functuion that returns a number representing the drag force acting on thee whole cursor
      */
@@ -108,9 +112,8 @@ declare class Pointer implements PointerObject {
  * You will need to call this function at least once in a project.
  *
  * @param cursor - The main Cursor Object for the project, there should typically be 1 per project
- * @param objects - An array of Objects that implement both a draw and an update function e.g. the standard Character type built into the library
  * @returns A HTMLCanvasElement object that the cursor is drawn on
  */
-declare function initializeCanvas(cursor: CursorObject, objects: (TCharacter | TImageCharacter)[]): () => void;
+declare function initializeCanvas(cursor: CursorObject): () => void;
 export { Cursor, Pointer, initializeCanvas };
 //# sourceMappingURL=index.d.ts.map

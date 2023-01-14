@@ -2,8 +2,9 @@
  * Defines shape of options for cursor objects
  */
 type cursorOptionsInterface = {
-    pointers?: PointerObject[] | null,
+    pointers: PointerObject[] | null,
     secondaryPointers?: PointerObject[] | null,
+    transition?: number,
     hideMouse?: boolean,
     drag?: number,
     xOffset?: number,
@@ -40,6 +41,7 @@ type CursorObject = {
     hideMouse: boolean,
     pointers: PointerObject[],
     secondaryPointers: PointerObject[],
+    transition: number,
     getDrag: () => number,
     getXOffset: () => number,
     getYOffset: () => number,

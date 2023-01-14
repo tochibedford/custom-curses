@@ -28,6 +28,10 @@ class Cursor {
      */
     secondaryPointers;
     /**
+     * A number in milliseconds representing how long it takes to switch from primary to secondary cursor
+     */
+    transition;
+    /**
      * A functuion that returns a number representing the drag force acting on thee whole cursor
      */
     getDrag;
@@ -59,6 +63,7 @@ class Cursor {
         const cursorOptionsDefaults = {
             pointers: null,
             secondaryPointers: cursorOptions.pointers,
+            transition: 0,
             hideMouse: true,
             drag: 0,
             xOffset: 0,
@@ -68,6 +73,7 @@ class Cursor {
         this.hideMouse = newCursorOptions.hideMouse;
         this.pointers = newCursorOptions.pointers;
         this.secondaryPointers = newCursorOptions.secondaryPointers;
+        this.transition = newCursorOptions.transition;
         this.getDrag = () => {
             return newCursorOptions.drag;
         };
@@ -165,10 +171,10 @@ class Pointer {
  * You will need to call this function at least once in a project.
  *
  * @param cursor - The main Cursor Object for the project, there should typically be 1 per project
- * @param objects - An array of Objects that implement both a draw and an update function e.g. the standard Character type built into the library
  * @returns A HTMLCanvasElement object that the cursor is drawn on
  */
-function initializeCanvas(cursor, objects) {
+function initializeCanvas(cursor) {
+    // TODO: ADD fade option for secondary cursor set
     if (isDeviceMobileOrTablet()) {
         return undefined;
     }
@@ -185,7 +191,7 @@ function initializeCanvas(cursor, objects) {
         top: 0;
         left: 0;
         z-index: 10000;
-        transition: opacity 0.4s, transform 0.2s;
+        transition: opacity ${cursor.transition * 1000}ms, transform ${cursor.transition * 1000}ms;
         `;
         if (cursor.hideMouse) {
             const htmlElement = document.children[0];
@@ -211,7 +217,7 @@ function initializeCanvas(cursor, objects) {
         left: 0;
         z-index: 10000;
         transform: translate(30px, 30px);
-        transition: opacity 0.4s, transform 0.2s;
+        transition: opacity ${cursor.transition * 1000}ms, transform ${cursor.transition * 1000}ms;
         opacity: 0;
         `;
         document.body.appendChild(cursorCanvasSecondary);
