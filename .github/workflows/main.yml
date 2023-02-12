@@ -13,9 +13,7 @@ jobs:
       - name: Set git user
         run: git config --global user.email "musicofbyte@gmail.com"
       - name: set git name
-        run: | 
-          git config --global user.name "Tochi Bedford"
-          git config --global --add safe.directory /github/workspace
+        run: git config --global user.name "Tochi Bedford"
       - name: Checkout documentation branch
         run: git checkout -b documentation
       - name: Install dependencies
@@ -27,8 +25,4 @@ jobs:
       - name: Commit documentation
         run: git commit -m "Generate documentation"
       - name: Force push documentation to branch
-        uses: ad-m/github-push-action@v0.5.0
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: documentation
-          force: true
+        run: git push origin documentation -- force
