@@ -1,5 +1,5 @@
 import { CursorObject, PointerObject, pointerOptionsInterface, cursorOptionsInterface, TCharacter, TImageCharacter } from "./typesManual/types"
-import { animate, init } from "./pointers/characterFollower/index.js"
+import { animate, init } from "./pointer/index.js"
 import { isDeviceMobileOrTablet } from "./detectMobileTablet.js"
 
 const objects: (TCharacter | TImageCharacter)[] = []

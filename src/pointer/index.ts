@@ -1,4 +1,4 @@
-import { PointerObject, TCharacter, focusPoint, TImageCharacter } from '../../typesManual/types'
+import { PointerObject, TCharacter, focusPoint, TImageCharacter } from '../typesManual/types'
 
 let mouse = {
     x: window.innerWidth / 2,
