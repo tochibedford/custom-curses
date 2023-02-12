@@ -26,6 +26,7 @@ jobs:
         run: git commit -m "Generate documentation"
       - name: Force push documentation to branch
         uses: ad-m/github-push-action@v0.5.0
-        with: 
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: documentation
           force: true
