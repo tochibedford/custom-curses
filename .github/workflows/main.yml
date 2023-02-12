@@ -16,10 +16,10 @@ jobs:
         run: git config --global user.name "Tochi Bedford"
       - name: Checkout documentation branch
         run: git checkout -b documentation
-      - name: Pull from documentation branch
-        run: git pull --rebase origin documentation
       - name: Install dependencies
         run: npm install
+      - name: clear docs folder
+        run: rm -r docs
       - name: Generate documentation
         run: npx typedoc ./src
       - name: Add documentation files
