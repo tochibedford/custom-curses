@@ -18,8 +18,6 @@ jobs:
         run: git checkout -b documentation
       - name: Install dependencies
         run: npm install
-      - name: clear docs folder
-        run: rm -r docs
       - name: Generate documentation
         run: npx typedoc ./src
       - name: Add documentation files
