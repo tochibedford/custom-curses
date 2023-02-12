@@ -14,10 +14,12 @@ jobs:
         run: git config --global user.email "musicofbyte@gmail.com"
       - name: set git name
         run: git config --global user.name "Tochi Bedford"
-      - name: check current branch
-        run: git rev-parse --abbrev-ref HEAD
+      - name: check logs 1
+        run: git log
       - name: Checkout documentation branch
         run: git checkout -b documentation
+      - name: check logs 2
+        run: git log
       - name: Install dependencies
         run: npm install
       - name: Generate documentation
