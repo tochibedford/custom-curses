@@ -24,5 +24,5 @@ jobs:
         run: git add docs
       - name: Commit documentation
         run: git commit -m "Generate documentation"
-      - name: Force push documentation to branch
-        run: git push origin documentation -- force
+      - name: Push documentation to branch
+        run: git push origin documentation
