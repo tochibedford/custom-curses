@@ -20,8 +20,8 @@ jobs:
         run: npm install
       - name: Generate documentation
         run: npx typedoc ./src
-      - name: Pull from master branch
-        run: git pull --ff-only origin master
+      - name: Pull from documentation branch
+        run: git pull --ff-only origin documentation
       - name: Add documentation files
         run: git add docs
       - name: Commit documentation
