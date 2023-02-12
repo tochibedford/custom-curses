@@ -10,16 +10,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Install dependencies
-        run: npm install
-      - name: Generate documentation
-        run: npx typedoc ./src
       - name: Set git user
         run: git config --global user.email "musicofbyte@gmail.com"
       - name: set git name
         run: git config --global user.name "Tochi Bedford"
       - name: Checkout documentation branch
         run: git checkout -b documentation
+      - name: Pull from master branch
+        run: git pull master
+      - name: Install dependencies
+        run: npm install
+      - name: Generate documentation
+        run: npx typedoc ./src
       - name: Add documentation files
         run: git add docs
       - name: Commit documentation
