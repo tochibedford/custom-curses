@@ -7,7 +7,6 @@
   "typeRoots": [
     "./dist"
   ],
-  "types": "./dist/",
   "directories": {
     "example": "examples"
   },
