@@ -14,6 +14,8 @@ jobs:
         run: git config --global user.email "musicofbyte@gmail.com"
       - name: set git name
         run: git config --global user.name "Tochi Bedford"
+      - name: check current branch
+        run: git rev-parse --abbrev-ref HEAD
       - name: Checkout documentation branch
         run: git checkout -b documentation
       - name: Install dependencies
