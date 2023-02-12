@@ -16,6 +16,8 @@ jobs:
         run: git config --global user.name "Tochi Bedford"
       - name: Checkout documentation branch
         run: git checkout -b documentation
+      - name: pull from master
+        run: git pull --rebase master
       - name: Install dependencies
         run: npm install
       - name: Generate documentation
