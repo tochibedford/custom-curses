@@ -14,18 +14,14 @@ jobs:
         run: git config --global user.email "musicofbyte@gmail.com"
       - name: set git name
         run: git config --global user.name "Tochi Bedford"
-      - name: check logs 1
-        run: git log
       - name: Checkout documentation branch
         run: git checkout -b documentation
-      - name: check logs 2
-        run: git log
+      - name: Pull from documentation branch
+        run: git pull origin documentation
       - name: Install dependencies
         run: npm install
       - name: Generate documentation
         run: npx typedoc ./src
-      - name: Pull from documentation branch
-        run: git pull --ff-only origin documentation
       - name: Add documentation files
         run: git add docs
       - name: Commit documentation
