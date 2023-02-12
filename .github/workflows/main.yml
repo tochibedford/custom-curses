@@ -16,8 +16,6 @@ jobs:
         run: git config --global user.name "Tochi Bedford"
       - name: Checkout documentation branch
         run: git checkout -b documentation
-      - name: pull from master
-        run: git pull --rebase master
       - name: Install dependencies
         run: npm install
       - name: Generate documentation
@@ -26,5 +24,8 @@ jobs:
         run: git add docs
       - name: Commit documentation
         run: git commit -m "Generate documentation"
-      - name: Push documentation to branch
-        run: git push origin documentation
+      - name: Force push documentation to branch
+        uses: ad-m/github-push-action@v0.5.0
+        with: 
+          branch: documentation
+          force: true
