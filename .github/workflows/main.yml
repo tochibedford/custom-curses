@@ -17,7 +17,7 @@ jobs:
       - name: Checkout documentation branch
         run: git checkout -b documentation
       - name: Pull from master branch
-        run: git pull master
+        run: git pull origin master
       - name: Install dependencies
         run: npm install
       - name: Generate documentation
