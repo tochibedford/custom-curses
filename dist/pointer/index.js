@@ -212,7 +212,6 @@ function init(objects, pointer, arg1, arg2) {
  * @param pointer this is the pointer object that the Character is bound to
  */
 function animate(objectChar) {
-    // TODO: Implement the pointer Template for future pointers
     // objectChar.x = mouse.x
     // objectChar.y = mouse.y
     objectChar.dx = ((mouse.x - objectChar.x) + objectChar.focusPoint.x) * (1 - objectChar.pointer.pointerOptions.drag);
@@ -223,5 +222,5 @@ window.addEventListener('mousemove', (event) => {
     mouse.x = event.clientX;
     mouse.y = event.clientY;
 });
-export { animate, init, Character };
+export { animate, init, Character, ImageCharacter, ElementCharacter };
 //# sourceMappingURL=index.js.map

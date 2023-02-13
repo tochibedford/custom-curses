@@ -237,7 +237,7 @@ function initializeCanvas(cursor) {
         secondaryPointer.startPointer(cursorCanvasSecondary);
     });
     const animIdSecondary = syncAnimate(cursorCanvasSecondary, secondaryCtx);
-    window.addEventListener("mouseover", (e) => {
+    const handleMouseOver = (e) => {
         if (e.target && e.target.getAttribute("data-cursor") === "secondary") {
             cursorCanvas.style.opacity = "0";
             cursorCanvas.style.transform = "translate(30px, 30px)";
@@ -280,9 +280,21 @@ function initializeCanvas(cursor) {
                 }
             });
         }
-    });
+    };
+    // cause canvases to resize on window resize
+    const handleResize = () => {
+        cursorCanvas.width = window.innerWidth;
+        cursorCanvas.height = window.innerHeight;
+        cursorCanvasSecondary.width = window.innerWidth;
+        cursorCanvasSecondary.height = window.innerHeight;
+    };
+    window.addEventListener("mouseover", handleMouseOver);
+    window.addEventListener("resize", handleResize);
     return () => {
+        window.removeEventListener('mouseover', handleMouseOver);
+        window.removeEventListener('resize', handleResize);
         cursorCanvas.remove();
+        cursorCanvasSecondary.remove();
     };
 }
 function syncAnimate(canvas, context) {
