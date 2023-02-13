@@ -1,8 +1,8 @@
-import { CursorObject, PointerObject, pointerOptionsInterface, cursorOptionsInterface, TCharacter, TImageCharacter } from "./typesManual/types"
-import { animate, init } from "./pointers/characterFollower/index.js"
+import { CursorObject, PointerObject, pointerOptionsInterface, cursorOptionsInterface, TCharacter, TImageCharacter, TElementCharacter } from "./typesManual/types"
+import { animate, init } from "./pointer/index.js"
 import { isDeviceMobileOrTablet } from "./detectMobileTablet.js"
 
-const objects: (TCharacter | TImageCharacter)[] = []
+const objects: (TCharacter | TImageCharacter | TElementCharacter)[] = []
 
 /**
  * Class representing a Cursor object.
@@ -123,7 +123,7 @@ class Pointer implements PointerObject {
      * Internal function used by the pointer to initialize itself on the canvas
      * @remarks This function calls the init function from the canvas drawing, a user should rarely have to call this function or the init function manually
      */
-    startPointer: (canvas: HTMLCanvasElement) => void;
+    startPointer: (canvas?: HTMLCanvasElement) => void;
 
     /**
      * Creates a pointer object
@@ -163,17 +163,19 @@ class Pointer implements PointerObject {
         if (this.pointerOptions.pointerShape[0] === 'string') {
             this.startPointer = (canvas) => {
                 const context = canvas.getContext('2d')
-                init(canvas, context, objects, this)
+                init(objects, this, canvas, context)
             }
         } else if (this.pointerOptions.pointerShape[0] === 'image') {
             const src = this.pointerOptions.pointerShape[1]
             this.startPointer = (canvas) => {
                 const context = canvas.getContext('2d')
-                init(canvas, context, objects, this)
+                init(objects, this, canvas, context)
             }
-        } else { // canvas drawing pointer 
-
-            // TODO: implement the drawing pointer here
+        } else { // element pointer 
+            const element = this.pointerOptions.pointerShape[1]
+            this.startPointer = () => {
+                init(objects, this, element)
+            }
 
         }
     }
@@ -193,7 +195,7 @@ class Pointer implements PointerObject {
  */
 
 function initializeCanvas(cursor: CursorObject) { //creates a canvas if one is not there
-    // TODO: ADD fade option for secondary cursor set
+    // TODO: Implement secondary cursor swap for element pointers
     if (isDeviceMobileOrTablet()) {
         return undefined
     }
@@ -265,12 +267,44 @@ function initializeCanvas(cursor: CursorObject) { //creates a canvas if one is n
             cursorCanvas.style.transform = "translate(30px, 30px)"
             cursorCanvasSecondary.style.opacity = "1"
             cursorCanvasSecondary.style.transform = "translate(0px, 0px)"
+
+            cursor.pointers.forEach(pointer => {
+                if (pointer.pointerOptions.pointerShape[0] === "element") {
+                    const element = pointer.pointerOptions.pointerShape[1]
+                    element.style.opacity = "0"
+                    element.style.transform = `translate(30px, 30px) rotate(${pointer.pointerOptions.rotation}deg))`
+                    element.style.transition = `opacity ${cursor.transition * 1000}ms, transform ${cursor.transition * 1000}ms`
+                }
+            })
+            cursor.secondaryPointers.forEach(pointer => {
+                if (pointer.pointerOptions.pointerShape[0] === "element") {
+                    const element = pointer.pointerOptions.pointerShape[1]
+                    element.style.opacity = "1"
+                    element.style.transform = `translate(0px, 0px) rotate(${pointer.pointerOptions.rotation}deg))`
+                    element.style.transition = `opacity ${cursor.transition * 1000}ms, transform ${cursor.transition * 1000}ms`
+                }
+            })
         }
         else {
             cursorCanvas.style.opacity = "1"
             cursorCanvas.style.transform = "translate(0, 0)"
             cursorCanvasSecondary.style.opacity = "0"
             cursorCanvasSecondary.style.transform = "translate(30px, 30px)"
+
+            cursor.pointers.forEach(pointer => {
+                if (pointer.pointerOptions.pointerShape[0] === "element") {
+                    const element = pointer.pointerOptions.pointerShape[1]
+                    element.style.opacity = "1"
+                    element.style.transform = `translate(0px, 0px) rotate(${pointer.pointerOptions.rotation}deg))`
+                }
+            })
+            cursor.secondaryPointers.forEach(pointer => {
+                if (pointer.pointerOptions.pointerShape[0] === "element") {
+                    const element = pointer.pointerOptions.pointerShape[1]
+                    element.style.opacity = "0"
+                    element.style.transform = `translate(30px, 30px) rotate(${pointer.pointerOptions.rotation}deg))`
+                }
+            })
         }
     });
 

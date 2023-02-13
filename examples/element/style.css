@@ -1,0 +1,85 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: "Courier New", Courier, monospace;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #4158d0;
+  background-image: linear-gradient(
+    43deg,
+    #4158d0 0%,
+    #c850c0 46%,
+    #ffcc70 100%
+  );
+  text-align: center;
+}
+button {
+  margin: 3em 0em;
+  width: 100%;
+  height: 50px;
+  background: none;
+  transition: background-color 1s, box-shadow 1s, transform 1s;
+}
+button:hover {
+  background-color: rgb(70, 196, 255);
+  transform: translate(-20px, 20px);
+  box-shadow: 5px -5px 2px 0px #4158d0, 10px -10px 1px 0px black,
+    15px -15px 3px 0px #c850c0, 20px -20px 5px 0px black;
+}
+@keyframes spin {
+  from {
+    rotate: 0deg;
+  }
+  to {
+    rotate: 360deg;
+  }
+}
+@keyframes orbit {
+  from {
+    rotate: 0deg;
+  }
+  to {
+    rotate: 360deg;
+  }
+}
+.circle {
+  width: 50px;
+  height: 50px;
+  border: 4px dashed yellowgreen;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  animation: spin 2s infinite linear;
+}
+.circle2 {
+  width: 50px;
+  height: 50px;
+  border: 4px dashed red;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  animation: spin 2s infinite linear;
+}
+.circle3 {
+  width: 6px;
+  height: 6px;
+  border: 2px dashed red;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  animation: orbit 2s infinite linear;
+  transform-origin: -25px -25px;
+}
+#circle div {
+  width: 50%;
+  height: 50%;
+  background-color: black;
+}

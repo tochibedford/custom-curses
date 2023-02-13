@@ -39,7 +39,7 @@ class Character {
             context.textAlign = "center";
             // context.fillStyle = 'red' /* use this to check context */
             // context.fillRect(0,0,100, 100)
-            context.fillText(this.character, 0 + pointer.pointerOptions.xCharOffset, 0 + pointer.pointerOptions.yCharOffset);
+            context.fillText(this.character, 0 + pointer.pointerOptions.xCharOffset + pointer.pointerOptions.xOffset, 0 + pointer.pointerOptions.yCharOffset + pointer.pointerOptions.yOffset);
             context.restore();
         };
         this.update = () => {
@@ -55,9 +55,6 @@ class Character {
         };
     }
 }
-/**
- * Image Character Object
- */
 class ImageCharacter {
     x;
     y;
@@ -86,7 +83,7 @@ class ImageCharacter {
             context.save();
             context.translate(this.x, this.y);
             context.rotate((this.rotation * (Math.PI / 180)));
-            context.drawImage(this.src, 0 + pointer.pointerOptions.xCharOffset, 0 + pointer.pointerOptions.yCharOffset, this.size, this.size);
+            context.drawImage(this.src, 0 + pointer.pointerOptions.xCharOffset + pointer.pointerOptions.xOffset, 0 + pointer.pointerOptions.yCharOffset + pointer.pointerOptions.yOffset, this.size, this.size);
             context.restore();
         };
         this.update = () => {
@@ -102,19 +99,99 @@ class ImageCharacter {
         };
     }
 }
-function init(canvas, context, objects, pointer) {
+/**
+ * @param {number} x - x coordinate
+ * @param {number} y - y coordinate
+ * @param {number} dx - x velocity
+ * @param {number} dy - y velocity
+ * @param {number} rotation - rotation of element
+ * @param {HTMLElement} element - element to be displayed
+ * @param {number} drag - drag of element
+ * @param {focusPoint} focusPoint - focus point of element
+ * @param {PointerObject} pointer - pointer object
+ */
+class ElementCharacter {
+    x;
+    y;
+    dx;
+    dy;
+    rotation;
+    element;
+    drag;
+    focusPoint;
+    pointer;
+    draw;
+    update;
+    constructor(x, y, dx, dy, rotation, element, drag, focusPoint, pointer) {
+        this.x = x;
+        this.y = y;
+        this.dx = dx;
+        this.dy = dy;
+        this.rotation = rotation;
+        this.element = element;
+        this.drag = drag;
+        this.focusPoint = focusPoint;
+        this.pointer = pointer;
+        element.classList.add('element-pointer');
+        element.style.cssText =
+            `
+                position: fixed; 
+                left: ${this.x + pointer.pointerOptions.xOffset}px; 
+                top: ${this.y + pointer.pointerOptions.yOffset}px; 
+                transform: rotate(${this.rotation}deg);
+                transition: opactiy 0s ease-in-out;
+                pointer-events: none;
+            `;
+        this.draw = () => {
+            element.style.left = `${this.x + pointer.pointerOptions.xOffset}px`;
+            element.style.top = `${this.y + pointer.pointerOptions.yOffset}px`;
+            element.style.transform = `rotate(${this.rotation}deg)`;
+        };
+        this.update = () => {
+            if (this.x >= (window.innerWidth - element.getBoundingClientRect().width / 2) || this.x - element.getBoundingClientRect().width / 2 <= 0) {
+                this.dx = (this.dx) * (1 - this.drag);
+            }
+            if (this.y + element.getBoundingClientRect().height / 2 >= (window.innerHeight) || this.y - element.getBoundingClientRect().height / 2 <= 0) {
+                this.dy = (this.dy) - (1 - this.drag);
+            }
+            this.x += this.dx;
+            this.y += this.dy;
+            this.draw();
+        };
+    }
+}
+function init(objects, pointer, arg1, arg2) {
     let focusPoint = {
         x: 0,
         y: 0
     };
-    // if there is an object already on the screen it initializes the new pointer to that last objects position. this removes the "jumping" when switching pointers, while a pointer is still in motion
+    let x;
+    let y;
+    let rotation;
+    let drag;
+    let size;
     if (objects.length === 0) {
-        // common arguments/properties
-        const x = mouse.x;
-        const y = mouse.y;
-        const rotation = pointer.pointerOptions.rotation;
-        const drag = pointer.pointerOptions.drag;
-        const size = pointer.pointerOptions.size;
+        x = mouse.x;
+        y = mouse.y;
+        rotation = pointer.pointerOptions.rotation;
+        drag = pointer.pointerOptions.drag;
+        size = pointer.pointerOptions.size;
+    }
+    else {
+        // if there is an object already on the screen it initializes the new pointer to that last objects position. this removes the "jumping" when switching pointers, while a pointer is still in motion
+        x = objects[objects.length - 1].x;
+        y = objects[objects.length - 1].y;
+        rotation = pointer.pointerOptions.rotation;
+        drag = pointer.pointerOptions.drag;
+        size = pointer.pointerOptions.size;
+    }
+    if (arg1 instanceof HTMLElement && (arg1 instanceof HTMLCanvasElement === false)) {
+        let element = arg1;
+        objects.push(new ElementCharacter(x, y, 0, 0, rotation, element, drag, focusPoint, pointer));
+    }
+    else {
+        let canvas = arg1;
+        let context = arg2;
         if (pointer.pointerOptions.pointerShape[0] === "string") {
             const str = pointer.pointerOptions.pointerShape[1];
             objects.push(new Character(x, y, 0, 0, rotation, str, drag, focusPoint, size, `#4637a5`, canvas, context, pointer));
@@ -124,25 +201,7 @@ function init(canvas, context, objects, pointer) {
             objects.push(new ImageCharacter(x, y, 0, 0, rotation, str, drag, focusPoint, size, canvas, context, pointer));
         }
         else {
-            // handle drawing type here
-        }
-    }
-    else {
-        const x = objects[objects.length - 1].x;
-        const y = objects[objects.length - 1].y;
-        const rotation = pointer.pointerOptions.rotation;
-        const drag = pointer.pointerOptions.drag;
-        const size = pointer.pointerOptions.size;
-        if (pointer.pointerOptions.pointerShape[0] === "string") {
-            const src = pointer.pointerOptions.pointerShape[1];
-            objects.push(new Character(x, y, 0, 0, rotation, src, drag, focusPoint, size, `#4637a5`, canvas, context, pointer));
-        }
-        else if (pointer.pointerOptions.pointerShape[0] === "image") {
-            const src = pointer.pointerOptions.pointerShape[1];
-            objects.push(new ImageCharacter(x, y, 0, 0, rotation, src, drag, focusPoint, size, canvas, context, pointer));
-        }
-        else {
-            // handle drawing type here
+            throw new Error("pointerShape is not a string or image or an instance of HTMLElement");
         }
     }
 }
@@ -156,8 +215,8 @@ function animate(objectChar) {
     // TODO: Implement the pointer Template for future pointers
     // objectChar.x = mouse.x
     // objectChar.y = mouse.y
-    objectChar.dx = ((mouse.x - objectChar.x) + objectChar.pointer.pointerOptions.xOffset + objectChar.focusPoint.x) * (1 - objectChar.pointer.pointerOptions.drag);
-    objectChar.dy = ((mouse.y - objectChar.y) + objectChar.pointer.pointerOptions.yOffset + objectChar.focusPoint.y) * (1 - objectChar.pointer.pointerOptions.drag);
+    objectChar.dx = ((mouse.x - objectChar.x) + objectChar.focusPoint.x) * (1 - objectChar.pointer.pointerOptions.drag);
+    objectChar.dy = ((mouse.y - objectChar.y) + objectChar.focusPoint.y) * (1 - objectChar.pointer.pointerOptions.drag);
     objectChar.update();
 }
 window.addEventListener('mousemove', (event) => {

@@ -80,7 +80,7 @@ declare class Pointer implements PointerObject {
      * Internal function used by the pointer to initialize itself on the canvas
      * @remarks This function calls the init function from the canvas drawing, a user should rarely have to call this function or the init function manually
      */
-    startPointer: (canvas: HTMLCanvasElement) => void;
+    startPointer: (canvas?: HTMLCanvasElement) => void;
     /**
      * Creates a pointer object
      *

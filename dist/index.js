@@ -1,4 +1,4 @@
-import { animate, init } from "./pointers/characterFollower/index.js";
+import { animate, init } from "./pointer/index.js";
 import { isDeviceMobileOrTablet } from "./detectMobileTablet.js";
 const objects = [];
 /**
@@ -146,18 +146,21 @@ class Pointer {
         if (this.pointerOptions.pointerShape[0] === 'string') {
             this.startPointer = (canvas) => {
                 const context = canvas.getContext('2d');
-                init(canvas, context, objects, this);
+                init(objects, this, canvas, context);
             };
         }
         else if (this.pointerOptions.pointerShape[0] === 'image') {
             const src = this.pointerOptions.pointerShape[1];
             this.startPointer = (canvas) => {
                 const context = canvas.getContext('2d');
-                init(canvas, context, objects, this);
+                init(objects, this, canvas, context);
             };
         }
-        else { // canvas drawing pointer 
-            // TODO: implement the drawing pointer here
+        else { // element pointer 
+            const element = this.pointerOptions.pointerShape[1];
+            this.startPointer = () => {
+                init(objects, this, element);
+            };
         }
     }
 }
@@ -174,7 +177,7 @@ class Pointer {
  * @returns A HTMLCanvasElement object that the cursor is drawn on
  */
 function initializeCanvas(cursor) {
-    // TODO: ADD fade option for secondary cursor set
+    // TODO: Implement secondary cursor swap for element pointers
     if (isDeviceMobileOrTablet()) {
         return undefined;
     }
@@ -240,12 +243,42 @@ function initializeCanvas(cursor) {
             cursorCanvas.style.transform = "translate(30px, 30px)";
             cursorCanvasSecondary.style.opacity = "1";
             cursorCanvasSecondary.style.transform = "translate(0px, 0px)";
+            cursor.pointers.forEach(pointer => {
+                if (pointer.pointerOptions.pointerShape[0] === "element") {
+                    const element = pointer.pointerOptions.pointerShape[1];
+                    element.style.opacity = "0";
+                    element.style.transform = `translate(30px, 30px) rotate(${pointer.pointerOptions.rotation}deg))`;
+                    element.style.transition = `opacity ${cursor.transition * 1000}ms, transform ${cursor.transition * 1000}ms`;
+                }
+            });
+            cursor.secondaryPointers.forEach(pointer => {
+                if (pointer.pointerOptions.pointerShape[0] === "element") {
+                    const element = pointer.pointerOptions.pointerShape[1];
+                    element.style.opacity = "1";
+                    element.style.transform = `translate(0px, 0px) rotate(${pointer.pointerOptions.rotation}deg))`;
+                    element.style.transition = `opacity ${cursor.transition * 1000}ms, transform ${cursor.transition * 1000}ms`;
+                }
+            });
         }
         else {
             cursorCanvas.style.opacity = "1";
             cursorCanvas.style.transform = "translate(0, 0)";
             cursorCanvasSecondary.style.opacity = "0";
             cursorCanvasSecondary.style.transform = "translate(30px, 30px)";
+            cursor.pointers.forEach(pointer => {
+                if (pointer.pointerOptions.pointerShape[0] === "element") {
+                    const element = pointer.pointerOptions.pointerShape[1];
+                    element.style.opacity = "1";
+                    element.style.transform = `translate(0px, 0px) rotate(${pointer.pointerOptions.rotation}deg))`;
+                }
+            });
+            cursor.secondaryPointers.forEach(pointer => {
+                if (pointer.pointerOptions.pointerShape[0] === "element") {
+                    const element = pointer.pointerOptions.pointerShape[1];
+                    element.style.opacity = "0";
+                    element.style.transform = `translate(30px, 30px) rotate(${pointer.pointerOptions.rotation}deg))`;
+                }
+            });
         }
     });
     return () => {
