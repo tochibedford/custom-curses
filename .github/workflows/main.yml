@@ -22,7 +22,7 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Pull from documentation branch
-        run: git pull origin documentation
+        run: git pull --rebase origin documentation
       - name: Generate documentation
         run: npx typedoc ./src
       - name: Add documentation files
