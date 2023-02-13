@@ -14,7 +14,7 @@ declare type cursorOptionsInterface = {
  * Defines shape of options for pointer objects
  */
 declare type pointerOptionsInterface = {
-    pointerShape?: ["string", string];
+    pointerShape: ["string", string];
     colors?: string[];
     rotation?: number;
     drag?: number;
@@ -24,7 +24,7 @@ declare type pointerOptionsInterface = {
     xOffset?: number;
     yOffset?: number;
 } | {
-    pointerShape?: ["image", HTMLImageElement];
+    pointerShape: ["image", HTMLImageElement];
     colors?: string[];
     rotation?: number;
     drag?: number;
@@ -34,13 +34,13 @@ declare type pointerOptionsInterface = {
     xOffset?: number;
     yOffset?: number;
 } | {
-    pointerShape?: ["element", HTMLElement];
+    pointerShape: ["element", HTMLElement];
     colors?: string[];
     rotation?: number;
     drag?: number;
-    size?: number;
-    xCharOffset?: number;
-    yCharOffset?: number;
+    size?: never;
+    xCharOffset?: never;
+    yCharOffset?: never;
     xOffset?: number;
     yOffset?: number;
 };
@@ -108,9 +108,9 @@ declare type TElementCharacter = {
     y: number;
     dx: number;
     dy: number;
+    size?: never;
     rotation: number;
     focusPoint: focusPoint;
-    size: number;
     pointer: PointerObject;
 } & CanvasObject;
 export { CursorObject, PointerObject, pointerOptionsInterface, cursorOptionsInterface, focusPoint, TCharacter, TImageCharacter, TElementCharacter, CanvasObject };

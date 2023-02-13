@@ -195,7 +195,7 @@ class Pointer implements PointerObject {
  */
 
 function initializeCanvas(cursor: CursorObject) { //creates a canvas if one is not there
-    // TODO: ADD fade option for secondary cursor set
+    // TODO: Implement secondary cursor swap for element pointers
     if (isDeviceMobileOrTablet()) {
         return undefined
     }

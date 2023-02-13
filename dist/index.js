@@ -177,7 +177,7 @@ class Pointer {
  * @returns A HTMLCanvasElement object that the cursor is drawn on
  */
 function initializeCanvas(cursor) {
-    // TODO: ADD fade option for secondary cursor set
+    // TODO: Implement secondary cursor swap for element pointers
     if (isDeviceMobileOrTablet()) {
         return undefined;
     }

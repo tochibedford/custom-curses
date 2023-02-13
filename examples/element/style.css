@@ -39,4 +39,11 @@ button:hover {
   height: 50px;
   border: 1px solid black;
   border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
+#circle div {
+  width: 50%;
+  height: 50%;
+  background-color: black;
 }

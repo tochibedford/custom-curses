@@ -39,7 +39,7 @@ class Character {
             context.textAlign = "center";
             // context.fillStyle = 'red' /* use this to check context */
             // context.fillRect(0,0,100, 100)
-            context.fillText(this.character, 0 + pointer.pointerOptions.xCharOffset, 0 + pointer.pointerOptions.yCharOffset);
+            context.fillText(this.character, 0 + pointer.pointerOptions.xCharOffset + pointer.pointerOptions.xOffset, 0 + pointer.pointerOptions.yCharOffset + pointer.pointerOptions.yOffset);
             context.restore();
         };
         this.update = () => {
@@ -86,7 +86,7 @@ class ImageCharacter {
             context.save();
             context.translate(this.x, this.y);
             context.rotate((this.rotation * (Math.PI / 180)));
-            context.drawImage(this.src, 0 + pointer.pointerOptions.xCharOffset, 0 + pointer.pointerOptions.yCharOffset, this.size, this.size);
+            context.drawImage(this.src, 0 + pointer.pointerOptions.xCharOffset + pointer.pointerOptions.xOffset, 0 + pointer.pointerOptions.yCharOffset + pointer.pointerOptions.yOffset, this.size, this.size);
             context.restore();
         };
         this.update = () => {
@@ -110,12 +110,11 @@ class ElementCharacter {
     rotation;
     element;
     drag;
-    size;
     focusPoint;
     pointer;
     draw;
     update;
-    constructor(x, y, dx, dy, rotation, element, drag, focusPoint, size, pointer) {
+    constructor(x, y, dx, dy, rotation, element, drag, focusPoint, pointer) {
         this.x = x;
         this.y = y;
         this.dx = dx;
@@ -123,7 +122,6 @@ class ElementCharacter {
         this.rotation = rotation;
         this.element = element;
         this.drag = drag;
-        this.size = size;
         this.focusPoint = focusPoint;
         this.pointer = pointer;
         element.style.cssText =
@@ -136,16 +134,15 @@ class ElementCharacter {
                 pointer-events: none;
             `;
         this.draw = () => {
-            // implement rotation here?
             element.style.left = `${this.x + pointer.pointerOptions.xOffset}px`;
             element.style.top = `${this.y + pointer.pointerOptions.yOffset}px`;
             element.style.transform = `rotate(${this.rotation}deg)`;
         };
         this.update = () => {
-            if (this.x >= (window.innerWidth - this.size / 2) || this.x - this.size / 2 <= 0) {
+            if (this.x >= (window.innerWidth - element.getBoundingClientRect().width / 2) || this.x - element.getBoundingClientRect().width / 2 <= 0) {
                 this.dx = (this.dx) * (1 - this.drag);
             }
-            if (this.y + this.size / 2 >= (window.innerHeight) || this.y - this.size / 2 <= 0) {
+            if (this.y + element.getBoundingClientRect().height / 2 >= (window.innerHeight) || this.y - element.getBoundingClientRect().height / 2 <= 0) {
                 this.dy = (this.dy) - (1 - this.drag);
             }
             this.x += this.dx;
@@ -181,7 +178,7 @@ function init(objects, pointer, arg1, arg2) {
     }
     if (arg1 instanceof HTMLElement && (arg1 instanceof HTMLCanvasElement === false)) {
         let element = arg1;
-        objects.push(new ElementCharacter(x, y, 0, 0, rotation, element, drag, focusPoint, size, pointer));
+        objects.push(new ElementCharacter(x, y, 0, 0, rotation, element, drag, focusPoint, pointer));
     }
     else {
         let canvas = arg1;
@@ -209,8 +206,8 @@ function animate(objectChar) {
     // TODO: Implement the pointer Template for future pointers
     // objectChar.x = mouse.x
     // objectChar.y = mouse.y
-    objectChar.dx = ((mouse.x - objectChar.x) + objectChar.pointer.pointerOptions.xOffset + objectChar.focusPoint.x) * (1 - objectChar.pointer.pointerOptions.drag);
-    objectChar.dy = ((mouse.y - objectChar.y) + objectChar.pointer.pointerOptions.yOffset + objectChar.focusPoint.y) * (1 - objectChar.pointer.pointerOptions.drag);
+    objectChar.dx = ((mouse.x - objectChar.x) + objectChar.focusPoint.x) * (1 - objectChar.pointer.pointerOptions.drag);
+    objectChar.dy = ((mouse.y - objectChar.y) + objectChar.focusPoint.y) * (1 - objectChar.pointer.pointerOptions.drag);
     objectChar.update();
 }
 window.addEventListener('mousemove', (event) => {
