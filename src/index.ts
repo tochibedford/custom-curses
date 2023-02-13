@@ -197,6 +197,18 @@ class Pointer implements PointerObject {
 function initializeCanvas(cursor: CursorObject) { //creates a canvas if one is not there
     // TODO: Implement secondary cursor swap for element pointers
     if (isDeviceMobileOrTablet()) {
+        cursor.pointers.forEach(pointer => {
+            if (pointer.pointerOptions.pointerShape[0] === "element") {
+                const element = pointer.pointerOptions.pointerShape[1]
+                element.style.display = 'none'
+            }
+        })
+        cursor.secondaryPointers.forEach(pointer => {
+            if (pointer.pointerOptions.pointerShape[0] === "element") {
+                const element = pointer.pointerOptions.pointerShape[1]
+                element.style.display = 'none'
+            }
+        })
         return undefined
     }
     let cursorCanvas: HTMLCanvasElement = document.querySelector('.curses-cursor-canvas');
@@ -261,7 +273,7 @@ function initializeCanvas(cursor: CursorObject) { //creates a canvas if one is n
 
     const animIdSecondary = syncAnimate(cursorCanvasSecondary, secondaryCtx)
 
-    window.addEventListener("mouseover", (e) => {
+    const handleMouseOver = (e: MouseEvent) => {
         if (e.target && (e.target as HTMLElement).getAttribute("data-cursor") === "secondary") {
             cursorCanvas.style.opacity = "0"
             cursorCanvas.style.transform = "translate(30px, 30px)"
@@ -306,10 +318,24 @@ function initializeCanvas(cursor: CursorObject) { //creates a canvas if one is n
                 }
             })
         }
-    });
+    }
+
+    // cause canvases to resize on window resize
+    const handleResize = () => {
+        cursorCanvas.width = window.innerWidth
+        cursorCanvas.height = window.innerHeight
+        cursorCanvasSecondary.width = window.innerWidth
+        cursorCanvasSecondary.height = window.innerHeight
+    }
+
+    window.addEventListener("mouseover", handleMouseOver);
+    window.addEventListener("resize", handleResize)
 
     return () => { // cleanup stuff 
+        window.removeEventListener('mouseover', handleMouseOver)
+        window.removeEventListener('resize', handleResize)
         cursorCanvas.remove()
+        cursorCanvasSecondary.remove()
     }
 }
 
