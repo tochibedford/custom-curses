@@ -179,6 +179,18 @@ class Pointer {
 function initializeCanvas(cursor) {
     // TODO: Implement secondary cursor swap for element pointers
     if (isDeviceMobileOrTablet()) {
+        cursor.pointers.forEach(pointer => {
+            if (pointer.pointerOptions.pointerShape[0] === "element") {
+                const element = pointer.pointerOptions.pointerShape[1];
+                element.style.display = 'none';
+            }
+        });
+        cursor.secondaryPointers.forEach(pointer => {
+            if (pointer.pointerOptions.pointerShape[0] === "element") {
+                const element = pointer.pointerOptions.pointerShape[1];
+                element.style.display = 'none';
+            }
+        });
         return undefined;
     }
     let cursorCanvas = document.querySelector('.curses-cursor-canvas');
