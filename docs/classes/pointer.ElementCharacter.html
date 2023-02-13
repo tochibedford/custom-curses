@@ -1,4 +1,4 @@
-<!DOCTYPE html><html class="default" lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>Cursor | Custom Curses - v0.1.16</title><meta name="description" content="Documentation for Custom Curses - v0.1.16"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><script async src="../assets/search.js" id="search-script"></script><link rel="stylesheet" href="../assets/custom.css"/></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os"</script><header class="tsd-page-toolbar">
+<!DOCTYPE html><html class="default" lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>ElementCharacter | Custom Curses - v0.1.16</title><meta name="description" content="Documentation for Custom Curses - v0.1.16"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><script async src="../assets/search.js" id="search-script"></script><link rel="stylesheet" href="../assets/custom.css"/></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os"</script><header class="tsd-page-toolbar">
 <div class="tsd-toolbar-contents container">
 <div class="table-cell" id="tsd-search" data-base="..">
 <div class="field"><label for="tsd-search-field" class="tsd-widget tsd-toolbar-icon search no-caption"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M15.7824 13.833L12.6666 10.7177C12.5259 10.5771 12.3353 10.499 12.1353 10.499H11.6259C12.4884 9.39596 13.001 8.00859 13.001 6.49937C13.001 2.90909 10.0914 0 6.50048 0C2.90959 0 0 2.90909 0 6.49937C0 10.0896 2.90959 12.9987 6.50048 12.9987C8.00996 12.9987 9.39756 12.4863 10.5008 11.6239V12.1332C10.5008 12.3332 10.5789 12.5238 10.7195 12.6644L13.8354 15.7797C14.1292 16.0734 14.6042 16.0734 14.8948 15.7797L15.7793 14.8954C16.0731 14.6017 16.0731 14.1267 15.7824 13.833ZM6.50048 10.499C4.29094 10.499 2.50018 8.71165 2.50018 6.49937C2.50018 4.29021 4.28781 2.49976 6.50048 2.49976C8.71001 2.49976 10.5008 4.28708 10.5008 6.49937C10.5008 8.70852 8.71314 10.499 6.50048 10.499Z" fill="var(--color-text)"></path></svg></label><input type="text" id="tsd-search-field" aria-label="Search"/></div>
@@ -13,28 +13,39 @@
 <div class="tsd-page-title">
 <ul class="tsd-breadcrumb">
 <li><a href="../modules.html">Custom Curses - v0.1.16</a></li>
-<li><a href="../modules/index.html">index</a></li>
-<li><a href="index.Cursor.html">Cursor</a></li></ul>
-<h1>Class Cursor</h1></div>
+<li><a href="../modules/pointer.html">pointer</a></li>
+<li><a href="pointer.ElementCharacter.html">ElementCharacter</a></li></ul>
+<h1>Class ElementCharacter</h1></div>
 <section class="tsd-panel tsd-comment">
-<div class="tsd-comment tsd-typography"><p>Class representing a Cursor object.</p>
+<div class="tsd-comment tsd-typography">
+<h3>Param</h3><p>x coordinate</p>
 
-<h3>Remarks</h3><p>You can have only one Cursor object in a project. 
-The Cursor object houses the various pointer objects you have created, and each of the pointers follow the cursor as a kind of parent</p>
+<h3>Param</h3><p>y coordinate</p>
 
-<h3>Example</h3><pre><code class="language-ts"><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">cursor1</span><span class="hl-1"> = </span><span class="hl-4">new</span><span class="hl-1"> </span><span class="hl-6">Cursor</span><span class="hl-1">({</span><br/><span class="hl-1">   </span><span class="hl-2">pointers:</span><span class="hl-1"> [</span><span class="hl-2">pointer1</span><span class="hl-1">, </span><span class="hl-2">pointer2</span><span class="hl-1">, </span><span class="hl-2">pointer3</span><span class="hl-1">, </span><span class="hl-2">pointer4</span><span class="hl-1">, </span><span class="hl-2">pointer5</span><span class="hl-1">],</span><br/><span class="hl-1">   </span><span class="hl-2">drag:</span><span class="hl-1"> </span><span class="hl-7">0</span><span class="hl-1">, </span><span class="hl-8">//where 1 is max</span><br/><span class="hl-1">   </span><span class="hl-2">hideMouse:</span><span class="hl-1"> </span><span class="hl-4">true</span><span class="hl-1">,</span><br/><span class="hl-1">});</span>
-</code></pre>
+<h3>Param</h3><p>x velocity</p>
+
+<h3>Param</h3><p>y velocity</p>
+
+<h3>Param</h3><p>rotation of element</p>
+
+<h3>Param</h3><p>element to be displayed</p>
+
+<h3>Param</h3><p>drag of element</p>
+
+<h3>Param</h3><p>focus point of element</p>
+
+<h3>Param</h3><p>pointer object</p>
 </div></section>
 <section class="tsd-panel tsd-hierarchy">
 <h4>Hierarchy</h4>
 <ul class="tsd-hierarchy">
-<li><span class="target">Cursor</span></li></ul></section>
+<li><span class="target">ElementCharacter</span></li></ul></section>
 <section class="tsd-panel">
 <h4>Implements</h4>
 <ul class="tsd-hierarchy">
-<li><a href="../types/typesManual_types.CursorObject.html" class="tsd-signature-type" data-tsd-kind="Type alias">CursorObject</a></li></ul></section><aside class="tsd-sources">
+<li><a href="../types/typesManual_types.TElementCharacter.html" class="tsd-signature-type" data-tsd-kind="Type alias">TElementCharacter</a></li></ul></section><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/tochibedford/custom-curses/blob/c572e7b/src/index.ts#L20">index.ts:20</a></li></ul></aside>
+<li>Defined in <a href="https://github.com/tochibedford/custom-curses/blob/c572e7b/src/pointer/index.ts#L122">pointer/index.ts:122</a></li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-index-accordion" open><summary class="tsd-accordion-summary tsd-index-summary">
@@ -42,119 +53,135 @@ The Cursor object houses the various pointer objects you have created, and each 
 <div class="tsd-accordion-details">
 <section class="tsd-index-section">
 <h3 class="tsd-index-heading">Constructors</h3>
-<div class="tsd-index-list"><a href="index.Cursor.html#constructor" class="tsd-index-link tsd-kind-constructor tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="#4D7FFF" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="12" id="icon-512-path"></rect><path d="M11.898 16.1201C11.098 16.1201 10.466 15.8961 10.002 15.4481C9.53803 15.0001 9.30603 14.3841 9.30603 13.6001V9.64012C9.30603 8.85612 9.53803 8.24012 10.002 7.79212C10.466 7.34412 11.098 7.12012 11.898 7.12012C12.682 7.12012 13.306 7.34812 13.77 7.80412C14.234 8.25212 14.466 8.86412 14.466 9.64012H13.386C13.386 9.14412 13.254 8.76412 12.99 8.50012C12.734 8.22812 12.37 8.09212 11.898 8.09212C11.426 8.09212 11.054 8.22412 10.782 8.48812C10.518 8.75212 10.386 9.13212 10.386 9.62812V13.6001C10.386 14.0961 10.518 14.4801 10.782 14.7521C11.054 15.0161 11.426 15.1481 11.898 15.1481C12.37 15.1481 12.734 15.0161 12.99 14.7521C13.254 14.4801 13.386 14.0961 13.386 13.6001H14.466C14.466 14.3761 14.234 14.9921 13.77 15.4481C13.306 15.8961 12.682 16.1201 11.898 16.1201Z" fill="var(--color-text)" id="icon-512-text"></path></svg><span>constructor</span></a>
+<div class="tsd-index-list"><a href="pointer.ElementCharacter.html#constructor" class="tsd-index-link tsd-kind-constructor tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="#4D7FFF" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="12" id="icon-512-path"></rect><path d="M11.898 16.1201C11.098 16.1201 10.466 15.8961 10.002 15.4481C9.53803 15.0001 9.30603 14.3841 9.30603 13.6001V9.64012C9.30603 8.85612 9.53803 8.24012 10.002 7.79212C10.466 7.34412 11.098 7.12012 11.898 7.12012C12.682 7.12012 13.306 7.34812 13.77 7.80412C14.234 8.25212 14.466 8.86412 14.466 9.64012H13.386C13.386 9.14412 13.254 8.76412 12.99 8.50012C12.734 8.22812 12.37 8.09212 11.898 8.09212C11.426 8.09212 11.054 8.22412 10.782 8.48812C10.518 8.75212 10.386 9.13212 10.386 9.62812V13.6001C10.386 14.0961 10.518 14.4801 10.782 14.7521C11.054 15.0161 11.426 15.1481 11.898 15.1481C12.37 15.1481 12.734 15.0161 12.99 14.7521C13.254 14.4801 13.386 14.0961 13.386 13.6001H14.466C14.466 14.3761 14.234 14.9921 13.77 15.4481C13.306 15.8961 12.682 16.1201 11.898 16.1201Z" fill="var(--color-text)" id="icon-512-text"></path></svg><span>constructor</span></a>
 </div></section>
 <section class="tsd-index-section">
 <h3 class="tsd-index-heading">Properties</h3>
-<div class="tsd-index-list"><a href="index.Cursor.html#getDrag" class="tsd-index-link tsd-kind-property tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="#FF984D" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="12" id="icon-1024-path"></rect><path d="M9.354 16V7.24H12.174C12.99 7.24 13.638 7.476 14.118 7.948C14.606 8.412 14.85 9.036 14.85 9.82C14.85 10.604 14.606 11.232 14.118 11.704C13.638 12.168 12.99 12.4 12.174 12.4H10.434V16H9.354ZM10.434 11.428H12.174C12.646 11.428 13.022 11.284 13.302 10.996C13.59 10.7 13.734 10.308 13.734 9.82C13.734 9.324 13.59 8.932 13.302 8.644C13.022 8.356 12.646 8.212 12.174 8.212H10.434V11.428Z" fill="var(--color-text)" id="icon-1024-text"></path></svg><span>get<wbr/>Drag</span></a>
-<a href="index.Cursor.html#getXOffset" class="tsd-index-link tsd-kind-property tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>getXOffset</span></a>
-<a href="index.Cursor.html#getYOffset" class="tsd-index-link tsd-kind-property tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>getYOffset</span></a>
-<a href="index.Cursor.html#hideMouse" class="tsd-index-link tsd-kind-property tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>hide<wbr/>Mouse</span></a>
-<a href="index.Cursor.html#pointers" class="tsd-index-link tsd-kind-property tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>pointers</span></a>
-<a href="index.Cursor.html#secondaryPointers" class="tsd-index-link tsd-kind-property tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>secondary<wbr/>Pointers</span></a>
-<a href="index.Cursor.html#transition" class="tsd-index-link tsd-kind-property tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>transition</span></a>
+<div class="tsd-index-list"><a href="pointer.ElementCharacter.html#drag" class="tsd-index-link tsd-kind-property tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="#FF984D" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="12" id="icon-1024-path"></rect><path d="M9.354 16V7.24H12.174C12.99 7.24 13.638 7.476 14.118 7.948C14.606 8.412 14.85 9.036 14.85 9.82C14.85 10.604 14.606 11.232 14.118 11.704C13.638 12.168 12.99 12.4 12.174 12.4H10.434V16H9.354ZM10.434 11.428H12.174C12.646 11.428 13.022 11.284 13.302 10.996C13.59 10.7 13.734 10.308 13.734 9.82C13.734 9.324 13.59 8.932 13.302 8.644C13.022 8.356 12.646 8.212 12.174 8.212H10.434V11.428Z" fill="var(--color-text)" id="icon-1024-text"></path></svg><span>drag</span></a>
+<a href="pointer.ElementCharacter.html#draw" class="tsd-index-link tsd-kind-property tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>draw</span></a>
+<a href="pointer.ElementCharacter.html#dx" class="tsd-index-link tsd-kind-property tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>dx</span></a>
+<a href="pointer.ElementCharacter.html#dy" class="tsd-index-link tsd-kind-property tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>dy</span></a>
+<a href="pointer.ElementCharacter.html#element" class="tsd-index-link tsd-kind-property tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>element</span></a>
+<a href="pointer.ElementCharacter.html#focusPoint" class="tsd-index-link tsd-kind-property tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>focus<wbr/>Point</span></a>
+<a href="pointer.ElementCharacter.html#pointer" class="tsd-index-link tsd-kind-property tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>pointer</span></a>
+<a href="pointer.ElementCharacter.html#rotation" class="tsd-index-link tsd-kind-property tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>rotation</span></a>
+<a href="pointer.ElementCharacter.html#update" class="tsd-index-link tsd-kind-property tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>update</span></a>
+<a href="pointer.ElementCharacter.html#x" class="tsd-index-link tsd-kind-property tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>x</span></a>
+<a href="pointer.ElementCharacter.html#y" class="tsd-index-link tsd-kind-property tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>y</span></a>
 </div></section></div></details></section></section>
 <section class="tsd-panel-group tsd-member-group">
 <h2>Constructors</h2>
 <section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class"><a id="constructor" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>constructor</span><a href="#constructor" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" id="icon-anchor-a"></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" id="icon-anchor-b"></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" id="icon-anchor-c"></path></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-<li class="tsd-signature tsd-anchor-link" id="constructor.new_Cursor">new <wbr/>Cursor<span class="tsd-signature-symbol">(</span>cursorOptions<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Partial</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/typesManual_types.cursorOptionsInterface.html" class="tsd-signature-type" data-tsd-kind="Type alias">cursorOptionsInterface</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="index.Cursor.html" class="tsd-signature-type" data-tsd-kind="Class">Cursor</a><a href="#constructor.new_Cursor" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-signature tsd-anchor-link" id="constructor.new_ElementCharacter">new <wbr/>Element<wbr/>Character<span class="tsd-signature-symbol">(</span>x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, y<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, dx<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, dy<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, rotation<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, element<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HTMLElement</span>, drag<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, focusPoint<span class="tsd-signature-symbol">: </span><a href="../types/typesManual_types.focusPoint.html" class="tsd-signature-type" data-tsd-kind="Type alias">focusPoint</a>, pointer<span class="tsd-signature-symbol">: </span><a href="../interfaces/typesManual_types.PointerObject.html" class="tsd-signature-type" data-tsd-kind="Interface">PointerObject</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="pointer.ElementCharacter.html" class="tsd-signature-type" data-tsd-kind="Class">ElementCharacter</a><a href="#constructor.new_ElementCharacter" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
 <li class="tsd-description">
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li>
-<h5>cursorOptions: <span class="tsd-signature-type">Partial</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/typesManual_types.cursorOptionsInterface.html" class="tsd-signature-type" data-tsd-kind="Type alias">cursorOptionsInterface</a><span class="tsd-signature-symbol">&gt;</span></h5>
-<div class="tsd-comment tsd-typography"><p>These are options that control the behavior of a pointer object and the defaults are:</p>
-<pre><code><span class="hl-1">{</span><br/><span class="hl-1">       </span><span class="hl-9">pointers</span><span class="hl-1">: </span><span class="hl-4">null</span><span class="hl-1">,</span><br/><span class="hl-1">       </span><span class="hl-9">hideMouse</span><span class="hl-1">: </span><span class="hl-4">true</span><span class="hl-1">,</span><br/><span class="hl-1">       </span><span class="hl-9">drag</span><span class="hl-1">: </span><span class="hl-7">0</span><span class="hl-1">,</span><br/><span class="hl-1">       </span><span class="hl-9">xOffset</span><span class="hl-1">: </span><span class="hl-7">0</span><span class="hl-1">,</span><br/><span class="hl-1">       </span><span class="hl-9">yOffset</span><span class="hl-1">: </span><span class="hl-7">0</span><br/><span class="hl-1">   }</span>
-</code></pre>
-</div></li></ul></div>
-<h4 class="tsd-returns-title">Returns <a href="index.Cursor.html" class="tsd-signature-type" data-tsd-kind="Class">Cursor</a></h4><aside class="tsd-sources">
+<h5>x: <span class="tsd-signature-type">number</span></h5></li>
+<li>
+<h5>y: <span class="tsd-signature-type">number</span></h5></li>
+<li>
+<h5>dx: <span class="tsd-signature-type">number</span></h5></li>
+<li>
+<h5>dy: <span class="tsd-signature-type">number</span></h5></li>
+<li>
+<h5>rotation: <span class="tsd-signature-type">number</span></h5></li>
+<li>
+<h5>element: <span class="tsd-signature-type">HTMLElement</span></h5></li>
+<li>
+<h5>drag: <span class="tsd-signature-type">number</span></h5></li>
+<li>
+<h5>focusPoint: <a href="../types/typesManual_types.focusPoint.html" class="tsd-signature-type" data-tsd-kind="Type alias">focusPoint</a></h5></li>
+<li>
+<h5>pointer: <a href="../interfaces/typesManual_types.PointerObject.html" class="tsd-signature-type" data-tsd-kind="Interface">PointerObject</a></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <a href="pointer.ElementCharacter.html" class="tsd-signature-type" data-tsd-kind="Class">ElementCharacter</a></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/tochibedford/custom-curses/blob/c572e7b/src/index.ts#L63">index.ts:63</a></li></ul></aside></li></ul></section></section>
+<li>Defined in <a href="https://github.com/tochibedford/custom-curses/blob/c572e7b/src/pointer/index.ts#L135">pointer/index.ts:135</a></li></ul></aside></li></ul></section></section>
 <section class="tsd-panel-group tsd-member-group">
 <h2>Properties</h2>
-<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="getDrag" class="tsd-anchor"></a>
-<h3 class="tsd-anchor-link"><span>get<wbr/>Drag</span><a href="#getDrag" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
-<div class="tsd-signature">get<wbr/>Drag<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span></div>
+<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="drag" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>drag</span><a href="#drag" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<div class="tsd-signature">drag<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/tochibedford/custom-curses/blob/c572e7b/src/pointer/index.ts#L129">pointer/index.ts:129</a></li></ul></aside></section>
+<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="draw" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>draw</span><a href="#draw" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<div class="tsd-signature">draw<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span></div>
 <div class="tsd-type-declaration">
 <h4>Type declaration</h4>
 <ul class="tsd-parameters">
 <li class="tsd-parameter-signature">
 <ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-class">
-<li class="tsd-signature" id="__type.__type-1"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+<li class="tsd-signature" id="__type.__type-1"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 <li class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>A functuion that returns a number representing the drag force acting on thee whole cursor</p>
-</div>
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4></li></ul></li></ul></div><aside class="tsd-sources">
-<p>Implementation of CursorObject.getDrag</p>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4></li></ul></li></ul></div><aside class="tsd-sources">
+<p>Implementation of TElementCharacter.draw</p>
 <ul>
-<li>Defined in <a href="https://github.com/tochibedford/custom-curses/blob/c572e7b/src/index.ts#L40">index.ts:40</a></li></ul></aside></section>
-<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="getXOffset" class="tsd-anchor"></a>
-<h3 class="tsd-anchor-link"><span>getXOffset</span><a href="#getXOffset" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
-<div class="tsd-signature">getXOffset<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span></div>
+<li>Defined in <a href="https://github.com/tochibedford/custom-curses/blob/c572e7b/src/pointer/index.ts#L132">pointer/index.ts:132</a></li></ul></aside></section>
+<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="dx" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>dx</span><a href="#dx" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<div class="tsd-signature">dx<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div><aside class="tsd-sources">
+<p>Implementation of TElementCharacter.dx</p>
+<ul>
+<li>Defined in <a href="https://github.com/tochibedford/custom-curses/blob/c572e7b/src/pointer/index.ts#L125">pointer/index.ts:125</a></li></ul></aside></section>
+<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="dy" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>dy</span><a href="#dy" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<div class="tsd-signature">dy<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div><aside class="tsd-sources">
+<p>Implementation of TElementCharacter.dy</p>
+<ul>
+<li>Defined in <a href="https://github.com/tochibedford/custom-curses/blob/c572e7b/src/pointer/index.ts#L126">pointer/index.ts:126</a></li></ul></aside></section>
+<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="element" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>element</span><a href="#element" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<div class="tsd-signature">element<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">HTMLElement</span></div><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/tochibedford/custom-curses/blob/c572e7b/src/pointer/index.ts#L128">pointer/index.ts:128</a></li></ul></aside></section>
+<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="focusPoint" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>focus<wbr/>Point</span><a href="#focusPoint" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<div class="tsd-signature">focus<wbr/>Point<span class="tsd-signature-symbol">:</span> <a href="../types/typesManual_types.focusPoint.html" class="tsd-signature-type" data-tsd-kind="Type alias">focusPoint</a></div><aside class="tsd-sources">
+<p>Implementation of TElementCharacter.focusPoint</p>
+<ul>
+<li>Defined in <a href="https://github.com/tochibedford/custom-curses/blob/c572e7b/src/pointer/index.ts#L130">pointer/index.ts:130</a></li></ul></aside></section>
+<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="pointer" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>pointer</span><a href="#pointer" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<div class="tsd-signature">pointer<span class="tsd-signature-symbol">:</span> <a href="../interfaces/typesManual_types.PointerObject.html" class="tsd-signature-type" data-tsd-kind="Interface">PointerObject</a></div><aside class="tsd-sources">
+<p>Implementation of TElementCharacter.pointer</p>
+<ul>
+<li>Defined in <a href="https://github.com/tochibedford/custom-curses/blob/c572e7b/src/pointer/index.ts#L131">pointer/index.ts:131</a></li></ul></aside></section>
+<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="rotation" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>rotation</span><a href="#rotation" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<div class="tsd-signature">rotation<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div><aside class="tsd-sources">
+<p>Implementation of TElementCharacter.rotation</p>
+<ul>
+<li>Defined in <a href="https://github.com/tochibedford/custom-curses/blob/c572e7b/src/pointer/index.ts#L127">pointer/index.ts:127</a></li></ul></aside></section>
+<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="update" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>update</span><a href="#update" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<div class="tsd-signature">update<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span></div>
 <div class="tsd-type-declaration">
 <h4>Type declaration</h4>
 <ul class="tsd-parameters">
 <li class="tsd-parameter-signature">
 <ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-class">
-<li class="tsd-signature" id="__type-2.__type-3"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+<li class="tsd-signature" id="__type-2.__type-3"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 <li class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>A functuion that returns a number representing the offset of the cursor along the x-axis, this can be used to set where the point that does the &quot;pointing&quot; on the cursor is.</p>
-</div>
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4></li></ul></li></ul></div><aside class="tsd-sources">
-<p>Implementation of CursorObject.getXOffset</p>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4></li></ul></li></ul></div><aside class="tsd-sources">
+<p>Implementation of TElementCharacter.update</p>
 <ul>
-<li>Defined in <a href="https://github.com/tochibedford/custom-curses/blob/c572e7b/src/index.ts#L44">index.ts:44</a></li></ul></aside></section>
-<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="getYOffset" class="tsd-anchor"></a>
-<h3 class="tsd-anchor-link"><span>getYOffset</span><a href="#getYOffset" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
-<div class="tsd-signature">getYOffset<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span></div>
-<div class="tsd-type-declaration">
-<h4>Type declaration</h4>
-<ul class="tsd-parameters">
-<li class="tsd-parameter-signature">
-<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-class">
-<li class="tsd-signature" id="__type-4.__type-5"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
-<li class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>A functuion that returns a number representing the offset of the cursor along the y-axis, this can be used to set where the point that does the &quot;pointing&quot; on the cursor is.</p>
-</div>
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4></li></ul></li></ul></div><aside class="tsd-sources">
-<p>Implementation of CursorObject.getYOffset</p>
+<li>Defined in <a href="https://github.com/tochibedford/custom-curses/blob/c572e7b/src/pointer/index.ts#L133">pointer/index.ts:133</a></li></ul></aside></section>
+<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="x" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>x</span><a href="#x" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<div class="tsd-signature">x<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div><aside class="tsd-sources">
+<p>Implementation of TElementCharacter.x</p>
 <ul>
-<li>Defined in <a href="https://github.com/tochibedford/custom-curses/blob/c572e7b/src/index.ts#L48">index.ts:48</a></li></ul></aside></section>
-<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="hideMouse" class="tsd-anchor"></a>
-<h3 class="tsd-anchor-link"><span>hide<wbr/>Mouse</span><a href="#hideMouse" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
-<div class="tsd-signature">hide<wbr/>Mouse<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
-<div class="tsd-comment tsd-typography"><p>A boolean value that determines whether the System cursor is hidden or not</p>
-</div><aside class="tsd-sources">
-<p>Implementation of CursorObject.hideMouse</p>
+<li>Defined in <a href="https://github.com/tochibedford/custom-curses/blob/c572e7b/src/pointer/index.ts#L123">pointer/index.ts:123</a></li></ul></aside></section>
+<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="y" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>y</span><a href="#y" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<div class="tsd-signature">y<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div><aside class="tsd-sources">
+<p>Implementation of TElementCharacter.y</p>
 <ul>
-<li>Defined in <a href="https://github.com/tochibedford/custom-curses/blob/c572e7b/src/index.ts#L24">index.ts:24</a></li></ul></aside></section>
-<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="pointers" class="tsd-anchor"></a>
-<h3 class="tsd-anchor-link"><span>pointers</span><a href="#pointers" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
-<div class="tsd-signature">pointers<span class="tsd-signature-symbol">:</span> <a href="../interfaces/typesManual_types.PointerObject.html" class="tsd-signature-type" data-tsd-kind="Interface">PointerObject</a><span class="tsd-signature-symbol">[]</span></div>
-<div class="tsd-comment tsd-typography"><p>An array of all pointers being used by the cursor</p>
-</div><aside class="tsd-sources">
-<p>Implementation of CursorObject.pointers</p>
-<ul>
-<li>Defined in <a href="https://github.com/tochibedford/custom-curses/blob/c572e7b/src/index.ts#L28">index.ts:28</a></li></ul></aside></section>
-<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="secondaryPointers" class="tsd-anchor"></a>
-<h3 class="tsd-anchor-link"><span>secondary<wbr/>Pointers</span><a href="#secondaryPointers" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
-<div class="tsd-signature">secondary<wbr/>Pointers<span class="tsd-signature-symbol">:</span> <a href="../interfaces/typesManual_types.PointerObject.html" class="tsd-signature-type" data-tsd-kind="Interface">PointerObject</a><span class="tsd-signature-symbol">[]</span></div>
-<div class="tsd-comment tsd-typography"><p>An array of all secondary pointers being used by the cursor</p>
-</div><aside class="tsd-sources">
-<p>Implementation of CursorObject.secondaryPointers</p>
-<ul>
-<li>Defined in <a href="https://github.com/tochibedford/custom-curses/blob/c572e7b/src/index.ts#L32">index.ts:32</a></li></ul></aside></section>
-<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="transition" class="tsd-anchor"></a>
-<h3 class="tsd-anchor-link"><span>transition</span><a href="#transition" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
-<div class="tsd-signature">transition<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
-<div class="tsd-comment tsd-typography"><p>A number in milliseconds representing how long it takes to switch from primary to secondary cursor</p>
-</div><aside class="tsd-sources">
-<p>Implementation of CursorObject.transition</p>
-<ul>
-<li>Defined in <a href="https://github.com/tochibedford/custom-curses/blob/c572e7b/src/index.ts#L36">index.ts:36</a></li></ul></aside></section></section></div>
+<li>Defined in <a href="https://github.com/tochibedford/custom-curses/blob/c572e7b/src/pointer/index.ts#L124">pointer/index.ts:124</a></li></ul></aside></section></section></div>
 <div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 <div class="tree">
 <div class="tree-settings">
