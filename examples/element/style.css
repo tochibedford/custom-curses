@@ -34,13 +34,49 @@ button:hover {
   box-shadow: 5px -5px 2px 0px #4158d0, 10px -10px 1px 0px black,
     15px -15px 3px 0px #c850c0, 20px -20px 5px 0px black;
 }
-#circle {
+@keyframes spin {
+  from {
+    rotate: 0deg;
+  }
+  to {
+    rotate: 360deg;
+  }
+}
+@keyframes orbit {
+  from {
+    rotate: 0deg;
+  }
+  to {
+    rotate: 360deg;
+  }
+}
+.circle {
   width: 50px;
   height: 50px;
-  border: 1px solid black;
+  border: 4px dashed yellowgreen;
   border-radius: 50%;
   display: grid;
   place-items: center;
+  animation: spin 2s infinite linear;
+}
+.circle2 {
+  width: 50px;
+  height: 50px;
+  border: 4px dashed red;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  animation: spin 2s infinite linear;
+}
+.circle3 {
+  width: 6px;
+  height: 6px;
+  border: 2px dashed red;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  animation: orbit 2s infinite linear;
+  transform-origin: -25px -25px;
 }
 #circle div {
   width: 50%;
