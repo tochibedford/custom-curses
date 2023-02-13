@@ -229,7 +229,6 @@ function init(objects: (TCharacter | TImageCharacter | TElementCharacter)[], poi
  * @param pointer this is the pointer object that the Character is bound to
  */
 function animate(objectChar: TCharacter | TImageCharacter | TElementCharacter) {
-    // TODO: Implement the pointer Template for future pointers
 
     // objectChar.x = mouse.x
     // objectChar.y = mouse.y
@@ -244,4 +243,4 @@ window.addEventListener('mousemove', (event) => {
     mouse.y = event.clientY
 })
 
-export { animate, init, Character, TImageCharacter }
+export { animate, init, Character, ImageCharacter, ElementCharacter }
