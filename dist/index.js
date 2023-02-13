@@ -146,18 +146,21 @@ class Pointer {
         if (this.pointerOptions.pointerShape[0] === 'string') {
             this.startPointer = (canvas) => {
                 const context = canvas.getContext('2d');
-                init(canvas, context, objects, this);
+                init(objects, this, canvas, context);
             };
         }
         else if (this.pointerOptions.pointerShape[0] === 'image') {
             const src = this.pointerOptions.pointerShape[1];
             this.startPointer = (canvas) => {
                 const context = canvas.getContext('2d');
-                init(canvas, context, objects, this);
+                init(objects, this, canvas, context);
             };
         }
-        else { // canvas drawing pointer 
-            // TODO: implement the drawing pointer here
+        else { // element pointer 
+            const element = this.pointerOptions.pointerShape[1];
+            this.startPointer = () => {
+                init(objects, this, element);
+            };
         }
     }
 }
