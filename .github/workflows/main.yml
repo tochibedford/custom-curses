@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+  workflow_dispatch:
 
 jobs:
   generate-docs:
@@ -20,6 +21,8 @@ jobs:
         run: git checkout -b documentation
       - name: Install dependencies
         run: npm install
+      - name: Pull from documentation branch
+        run: git pull origin documentation
       - name: Generate documentation
         run: npx typedoc ./src
       - name: Add documentation files
