@@ -1,8 +1,8 @@
-import { CursorObject, PointerObject, pointerOptionsInterface, cursorOptionsInterface, TCharacter, TImageCharacter } from "./typesManual/types"
+import { CursorObject, PointerObject, pointerOptionsInterface, cursorOptionsInterface, TCharacter, TImageCharacter, TElementCharacter } from "./typesManual/types"
 import { animate, init } from "./pointer/index.js"
 import { isDeviceMobileOrTablet } from "./detectMobileTablet.js"
 
-const objects: (TCharacter | TImageCharacter)[] = []
+const objects: (TCharacter | TImageCharacter | TElementCharacter)[] = []
 
 /**
  * Class representing a Cursor object.
@@ -123,7 +123,7 @@ class Pointer implements PointerObject {
      * Internal function used by the pointer to initialize itself on the canvas
      * @remarks This function calls the init function from the canvas drawing, a user should rarely have to call this function or the init function manually
      */
-    startPointer: (canvas: HTMLCanvasElement) => void;
+    startPointer: (canvas?: HTMLCanvasElement) => void;
 
     /**
      * Creates a pointer object
@@ -163,17 +163,19 @@ class Pointer implements PointerObject {
         if (this.pointerOptions.pointerShape[0] === 'string') {
             this.startPointer = (canvas) => {
                 const context = canvas.getContext('2d')
-                init(canvas, context, objects, this)
+                init(objects, this, canvas, context)
             }
         } else if (this.pointerOptions.pointerShape[0] === 'image') {
             const src = this.pointerOptions.pointerShape[1]
             this.startPointer = (canvas) => {
                 const context = canvas.getContext('2d')
-                init(canvas, context, objects, this)
+                init(objects, this, canvas, context)
             }
-        } else { // canvas drawing pointer 
-
-            // TODO: implement the drawing pointer here
+        } else { // element pointer 
+            const element = this.pointerOptions.pointerShape[1]
+            this.startPointer = () => {
+                init(objects, this, element)
+            }
 
         }
     }
