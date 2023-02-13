@@ -55,9 +55,6 @@ class Character {
         };
     }
 }
-/**
- * Image Character Object
- */
 class ImageCharacter {
     x;
     y;
@@ -102,6 +99,17 @@ class ImageCharacter {
         };
     }
 }
+/**
+ * @param {number} x - x coordinate
+ * @param {number} y - y coordinate
+ * @param {number} dx - x velocity
+ * @param {number} dy - y velocity
+ * @param {number} rotation - rotation of element
+ * @param {HTMLElement} element - element to be displayed
+ * @param {number} drag - drag of element
+ * @param {focusPoint} focusPoint - focus point of element
+ * @param {PointerObject} pointer - pointer object
+ */
 class ElementCharacter {
     x;
     y;
@@ -124,13 +132,14 @@ class ElementCharacter {
         this.drag = drag;
         this.focusPoint = focusPoint;
         this.pointer = pointer;
+        element.classList.add('element-pointer');
         element.style.cssText =
             `
                 position: fixed; 
                 left: ${this.x + pointer.pointerOptions.xOffset}px; 
                 top: ${this.y + pointer.pointerOptions.yOffset}px; 
                 transform: rotate(${this.rotation}deg);
-                transition: 0s;
+                transition: opactiy 0s ease-in-out;
                 pointer-events: none;
             `;
         this.draw = () => {
