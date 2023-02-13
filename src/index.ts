@@ -267,12 +267,44 @@ function initializeCanvas(cursor: CursorObject) { //creates a canvas if one is n
             cursorCanvas.style.transform = "translate(30px, 30px)"
             cursorCanvasSecondary.style.opacity = "1"
             cursorCanvasSecondary.style.transform = "translate(0px, 0px)"
+
+            cursor.pointers.forEach(pointer => {
+                if (pointer.pointerOptions.pointerShape[0] === "element") {
+                    const element = pointer.pointerOptions.pointerShape[1]
+                    element.style.opacity = "0"
+                    element.style.transform = `translate(30px, 30px) rotate(${pointer.pointerOptions.rotation}deg))`
+                    element.style.transition = `opacity ${cursor.transition * 1000}ms, transform ${cursor.transition * 1000}ms`
+                }
+            })
+            cursor.secondaryPointers.forEach(pointer => {
+                if (pointer.pointerOptions.pointerShape[0] === "element") {
+                    const element = pointer.pointerOptions.pointerShape[1]
+                    element.style.opacity = "1"
+                    element.style.transform = `translate(0px, 0px) rotate(${pointer.pointerOptions.rotation}deg))`
+                    element.style.transition = `opacity ${cursor.transition * 1000}ms, transform ${cursor.transition * 1000}ms`
+                }
+            })
         }
         else {
             cursorCanvas.style.opacity = "1"
             cursorCanvas.style.transform = "translate(0, 0)"
             cursorCanvasSecondary.style.opacity = "0"
             cursorCanvasSecondary.style.transform = "translate(30px, 30px)"
+
+            cursor.pointers.forEach(pointer => {
+                if (pointer.pointerOptions.pointerShape[0] === "element") {
+                    const element = pointer.pointerOptions.pointerShape[1]
+                    element.style.opacity = "1"
+                    element.style.transform = `translate(0px, 0px) rotate(${pointer.pointerOptions.rotation}deg))`
+                }
+            })
+            cursor.secondaryPointers.forEach(pointer => {
+                if (pointer.pointerOptions.pointerShape[0] === "element") {
+                    const element = pointer.pointerOptions.pointerShape[1]
+                    element.style.opacity = "0"
+                    element.style.transform = `translate(30px, 30px) rotate(${pointer.pointerOptions.rotation}deg))`
+                }
+            })
         }
     });
 
