@@ -1,4 +1,4 @@
-import { Cursor, Pointer, initializeCanvas } from "../../dist/index.js";
+import { Cursor, Pointer, initializeCanvas } from "custom-curses";
 
 const pointer1 = new Pointer({
   pointerShape: ["string", "👆"],
@@ -25,4 +25,4 @@ const cursor1 = new Cursor({
   hideMouse: true,
 });
 
-let canvasLol = initializeCanvas(cursor1);
+let cleanup = initializeCanvas(cursor1);

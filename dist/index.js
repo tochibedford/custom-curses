@@ -191,7 +191,7 @@ function initializeCanvas(cursor) {
                 element.style.display = 'none';
             }
         });
-        return undefined;
+        return undefined; // prevents initialization of canvas if device is mobile or a tablet
     }
     let cursorCanvas = document.querySelector('.curses-cursor-canvas');
     let cursorCanvasSecondary = document.querySelector('.curses-cursor-canvas-secondary');
