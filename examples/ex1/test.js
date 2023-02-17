@@ -25,4 +25,4 @@ const cursor1 = new Cursor({
   hideMouse: true,
 });
 
-let canvasLol = initializeCanvas(cursor1);
+let cleanup = initializeCanvas(cursor1);
