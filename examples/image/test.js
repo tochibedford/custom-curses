@@ -1,7 +1,7 @@
 import { Cursor, Pointer, initializeCanvas } from "custom-curses";
 
-const img1 = new Image();
-img1.src = "./assets/mouse_icon.png";
+const img1 = document.querySelector("#img1");
+
 const pointer1 = new Pointer({
   pointerShape: ["image", img1],
   size: 50,
