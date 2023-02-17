@@ -1,4 +1,4 @@
-import { Cursor, Pointer, initializeCanvas } from "../../dist/index.js";
+import { Cursor, Pointer, initializeCanvas } from "custom-curses";
 
 const pointer1 = new Pointer({
   pointerShape: ["string", "👆"],

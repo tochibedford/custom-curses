@@ -31,5 +31,8 @@
   "devDependencies": {
     "typedoc": "^0.23.23",
     "typedoc-theme-hierarchy": "^3.0.2"
+  },
+  "targets": {
+    "main": false
   }
 }

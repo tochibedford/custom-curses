@@ -1,4 +1,4 @@
-import { Cursor, Pointer, initializeCanvas } from "../../dist/index.js";
+import { Cursor, Pointer, initializeCanvas } from "custom-curses";
 
 const img1 = new Image();
 img1.src = "./assets/mouse_icon.png";
