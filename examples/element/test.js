@@ -1,4 +1,4 @@
-import { Cursor, Pointer, initializeCanvas } from "../../dist/index.js";
+import { Cursor, Pointer, initializeCanvas } from "custom-curses";
 
 // this example shows how to use a custom element as a pointer shape
 const circle = document.querySelector("#circle");

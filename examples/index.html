@@ -11,6 +11,8 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
+    <!-- import other html files -->
+
     <title>Custom Curses | Examples</title>
   </head>
   <body>
@@ -25,35 +27,50 @@
       ></iframe>
       <div class="exampleRow">
         <div class="exampleList" role="list">
-          <a data-example="buttons" class="exampleItem" role="button"
-            ><img src="./assets/buttons.webp"
-          /></a>
-          <a data-example="circles" class="exampleItem" role="button"
-            ><img src="./assets/circles.webp"
-          /></a>
-          <a data-example="element" class="exampleItem" role="button"
-            ><img src="./assets/element.webp"
-          /></a>
-          <a data-example="ex1" class="exampleItem" role="button"
-            ><img src="./assets/ex1.webp"
-          /></a>
-          <a data-example="heads" class="exampleItem" role="button"
-            ><img src="./assets/heads.webp"
-          /></a>
-          <a data-example="hover" class="exampleItem" role="button"
-            ><img src="./assets/hover.webp"
-          /></a>
-          <a data-example="image" class="exampleItem" role="button"
-            ><img src="./assets/image.webp"
-          /></a>
-          <a data-example="intervalChange" class="exampleItem" role="button"
-            ><img src="./assets/intervalChange.webp"
-          /></a>
+          <a data-example="buttons" class="exampleItem" role="button">
+            <!-- data-example has to be the name of the folder that contains this example  -->
+            <img src="./assets/buttons.webp" />
+            <link rel="import" href="./buttons/index.html" />
+          </a>
+          <a data-example="circles" class="exampleItem" role="button">
+            <link rel="import" href="./circles/index.html" />
+            <img src="./assets/circles.webp" />
+          </a>
+          <a data-example="element" class="exampleItem" role="button">
+            <link rel="import" href="./element/index.html" />
+            <img src="./assets/element.webp" />
+          </a>
+          <a data-example="ex1" class="exampleItem" role="button">
+            <link rel="import" href="./ex1/index.html" />
+            <img src="./assets/ex1.webp" />
+          </a>
+          <a data-example="heads" class="exampleItem" role="button">
+            <link rel="import" href="./heads/index.html" />
+            <img src="./assets/heads.webp" />
+          </a>
+          <a data-example="hover" class="exampleItem" role="button">
+            <link rel="import" href="./hover/index.html" />
+            <img src="./assets/hover.webp" />
+          </a>
+          <a data-example="image" class="exampleItem" role="button">
+            <link rel="import" href="./image/index.html" />
+            <img src="./assets/image.webp" />
+          </a>
+          <a data-example="intervalChange" class="exampleItem" role="button">
+            <link rel="import" href="./intervalChange/index.html" />
+            <img src="./assets/intervalChange.webp" />
+          </a>
         </div>
-        <button role="button" class="seeExample">
+        <a
+          role="button"
+          class="seeExample"
+          role="link"
+          target="_blank"
+          href="https://github.com/tochibedford/custom-curses/tree/master/examples/ex1"
+        >
           See Source
           <img src="./assets/share.webp" />
-        </button>
+        </a>
       </div>
     </div>
 

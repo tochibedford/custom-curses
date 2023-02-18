@@ -209,7 +209,7 @@ function initializeCanvas(cursor: CursorObject) { //creates a canvas if one is n
                 element.style.display = 'none'
             }
         })
-        return undefined
+        return undefined // prevents initialization of canvas if device is mobile or a tablet
     }
     let cursorCanvas: HTMLCanvasElement = document.querySelector('.curses-cursor-canvas');
     let cursorCanvasSecondary: HTMLCanvasElement = document.querySelector('.curses-cursor-canvas-secondary');
