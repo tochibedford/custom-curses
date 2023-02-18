@@ -76,6 +76,7 @@ body {
 }
 
 .seeExample {
+  all: unset;
   width: 20%;
   border: 1.5px solid #333;
   transition: 0.2s;
@@ -84,13 +85,13 @@ body {
   justify-content: center;
   align-items: center;
   gap: 0.5em;
+  cursor: pointer;
 }
 
 .seeExample img {
   object-fit: contain;
   width: 2rem;
   height: 2rem;
-  /* width: ; */
 }
 
 .seeExample:hover {
@@ -116,9 +117,13 @@ body {
 
 .exampleFrame {
   opacity: 1;
-  transition: opacity 0.1s;
+  transition: opacity 0.8s;
 }
 
 .fade {
   opacity: 0;
+}
+
+.unfade {
+  opacity: 1;
 }
