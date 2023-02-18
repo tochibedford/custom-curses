@@ -7,6 +7,8 @@
 A simple Library to add custom cursors to your Webpage in Javascript.
 It utilizes the HTMLCanvasElement .
 
+Examples: [https://custom-curses.vercel.app/](https://custom-curses.vercel.app/)
+
 Preview:
 
 ```javascript
@@ -45,7 +47,7 @@ let cleanup = initializeCanvas(cursor1); // this function returns a cleanup func
 
 You only need to wrap the `initializeCanvas` function in a `useEffect` hook
 
-More example usages in `./examples/`
+More example usages in `./examples/` or [https://custom-curses.vercel.app/](https://custom-curses.vercel.app/)
 
 ## Features
 
