@@ -62,7 +62,7 @@ class Cursor {
         }
         const cursorOptionsDefaults = {
             pointers: null,
-            secondaryPointers: [...cursorOptions.pointers],
+            secondaryPointers: [],
             transition: 0,
             hideMouse: true,
             drag: 0,
